@@ -10,7 +10,6 @@ function App() {
         <Route path='/meus-projetos' element={<MeusProjetos/>}/>
       </Routes>
     </BrowserRouter>
-    
   )
 }
 
