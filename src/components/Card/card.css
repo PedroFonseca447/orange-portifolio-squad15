@@ -1,0 +1,102 @@
+.card{
+    display: inline-flex;
+    padding: var(--none);
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--1);
+    border-radius: var(--none);
+}
+
+.card .card__info-tags{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 98px;
+}
+
+
+.card .card__info-tags .card__info {
+    display: flex;
+    padding: var(--none);
+    
+    align-items: center;
+    gap: var(--1);
+    font-family: var(--roboto);
+}
+
+.card__info-tags .card__info > p{
+    margin: 0;
+}
+
+.card__info-tags .card__tags{
+    display: flex;
+    align-items: center;
+    gap: var(--1);
+}
+
+.card img {
+    width: 389px;
+    height: 258px;
+    border-radius: var(--borderRadius);
+}
+
+.card .user{
+    height: var(--3);
+    width: var(--3);
+    border-radius: var(--none);
+    clip-path: circle();
+}
+
+.card__edit{
+    position: relative;
+    top: 44px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.card__edit-icon{
+    margin-right: var(--3);
+    margin-top: var(--2);
+    background-color: var(--Color-Brand-Secundria-Secondary-70);
+    color: var(--Neutral-Colors-Neutral-120);
+    display: flex;
+    padding: 2px;
+    justify-content: center;
+    align-items: center;
+    clip-path: circle();
+    cursor: pointer;
+}
+.card__menu{
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: var(--2);
+    width: 208px;
+}
+.card__menu .triangulo{
+    display: block;
+    width: 15px;
+    height: 15px;
+    transform: rotate(315deg);
+    position: absolute;
+    right: 14px;
+    top: -5px;
+    /* top: 0.002px; */
+    stroke-width: 3px;
+    stroke: #FCFDFF;
+    background-color: #FCFDFF;
+}
+.card__menu-list{
+    width: 100%;
+}
+
+#card__menu-open{
+    display: none;
+}
+
+#card__menu-open:checked ~ .card__menu{
+    display: flex;
+}

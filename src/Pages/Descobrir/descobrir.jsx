@@ -1,5 +1,7 @@
 import './descobrir.css';
 import TextField from '@mui/material/TextField';
+import Card from '../../components/Card/Card';
+import { useState } from 'react';
 
 export default function Descobrir() {
 
@@ -16,28 +18,28 @@ export default function Descobrir() {
                 {/* Estático */}
                 <div className='card'>
                     <img src="src/assets/card1.png" alt=""/>
-                    <span>
+                    <span className='card__info'>
                         <img src="src/assets/Bianca.png" className='user' alt="" />
                         <p>Bianca Martin • 02/24</p>
                     </span>
                 </div>
                 <div className='card'>
                     <img src="src/assets/card2.png" alt=""/>
-                    <span>
+                    <span className='card__info'>
                         <img src="src/assets/Enzo.png" className='user' alt="" />
                         <p>Enzo Gabriel • 12/23</p>
                     </span>
                 </div>
                 <div className='card'>
                     <img src="src/assets/card3.png" alt=""/>
-                    <span>
+                    <span className='card__info'>
                         <img src="src/assets/Alice.png" className='user' alt="" />
                         <p>Alice Alexandra • 12/23</p>
                     </span>
                 </div>
                 <div className='card'>
                     <img src="src/assets/card4.png" alt=""/>
-                    <span>
+                    <span className='card__info'>
                         <img src="src/assets/Carolina.png" className='user' alt="" />
                         <p>Carolina Valentim • 12/23</p>
                     </span>

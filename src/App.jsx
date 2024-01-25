@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import MeusProjetos from './pages/MeusProjetos/MeusProjetos'
+import Descobrir from './pages/Descobrir/descobrir'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<MeusProjetos/>}/>
         <Route path='/meus-projetos' element={<MeusProjetos/>}/>
+        <Route path='/descobrir' element={<Descobrir/>}/>
       </Routes>
     </BrowserRouter>
   )
