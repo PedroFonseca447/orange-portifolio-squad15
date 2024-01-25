@@ -34,6 +34,8 @@
     display: flex;
     align-items: center;
     gap: var(--1);
+    width: 100px;
+    justify-content: flex-end;
 }
 
 .card img {
@@ -70,7 +72,7 @@
     cursor: pointer;
 }
 .card__menu{
-    display: none;
+    display: flex;
     position: absolute;
     top: 55px;
     right: var(--2);
@@ -93,10 +95,39 @@
     width: 100%;
 }
 
-#card__menu-open{
-    display: none;
+
+
+/** RESPONSIVIDADE **/
+
+@media screen and (max-width: 430px) {
+    .card img {
+        width: 312px;
+        height: 258px;
+    }
+
+    .card .card__info-tags{
+        gap: 68px;
+    }
+
+    .card__info-tags .card__tags{
+        width: 50px;
+    }
 }
 
-#card__menu-open:checked ~ .card__menu{
-    display: flex;
+@media screen and (max-width: 360px) {
+    .card img {
+        width: 100%;
+    }
+
+    .card .card__info-tags{
+        gap: var(--2);
+    }
+
+    .card__info-tags .card__tags{
+        width: 20%;
+    }
+
+    .card .card__info-tags .card__info {
+        width: 60%;
+    }
 }

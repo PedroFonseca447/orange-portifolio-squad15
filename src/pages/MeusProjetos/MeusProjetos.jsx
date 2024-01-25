@@ -27,9 +27,27 @@ const MeusProjetos = () => {
       idUser: 1,
       id: 1,
     },
+    {
+      nome: "Camila",
+      sobrenome: "Soares",
+      titulo: "Landing page orange",
+      data: "11/23",
+      fotoUser: "src/assets/card2.png",
+      imagem: "src/assets/Bianca.png",
+      tags: ["Web", "Mobile"],
+      descricao:
+        "Temos o prazer de compartilhar com vocês uma variação da nosso primeiro recurso gratuito, Monoceros. É um modelo de uma página para mostrar seus produtos. Tentamos redesenhar uma versão mais B2C e minimalista do nosso primeiro template de e-commerce.",
+      link: "https://gumroad.com/products/wxCSL",
+      idUser: 1,
+      id: 2,
+    },
   ]);
+
+  const [modal, setModal] = useState(null)
   const [tags, setTags] = useState("")
-  const onEditCard = (card) => {};
+  const onEditCard = (card) => {
+
+  };
 
   const onDeleteCard = (card) => {
     const deleteProjeto = projetos.filter((projeto) => card?.id !== projeto?.id)
@@ -39,6 +57,7 @@ const MeusProjetos = () => {
   return (
     <>
       <Menu />
+      {modal}
       <section className="card-perfil">
         <img
           src="/imgs/Image.png"

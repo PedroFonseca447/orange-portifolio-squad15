@@ -15,7 +15,7 @@ h1{
 
 /* CARD */
 
-.card{
+/* .card{
     display: inline-flex;
     padding: var(--none, 0px);
     margin: 10px;
@@ -45,4 +45,4 @@ h1{
     height: var(--3, 24px);;
     width: var(--3, 24px);
     border-radius: var(--none, 24px);
-}
+} */

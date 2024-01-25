@@ -5,6 +5,8 @@
     margin-top: 112px;
     margin-bottom: 24px;
     gap: 42px;
+    flex-wrap: wrap;
+    padding: var(--none) var(--2);
 }
 
 .card-perfil__img{
@@ -148,4 +150,59 @@
     width: 270px;
     height: 122px;
     flex-shrink: 0;
+}
+
+.meus-projetos .cards{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 24px;
+}
+
+
+/** RESPONSIVIDADE **/
+@media screen and (max-width: 600px) {
+    .meus-projetos{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin: 24px;
+    }
+
+    .meus-projetos h6{
+        align-self: flex-start;
+    }
+
+    .meus-projetos__input-tags{
+        width: 100%;
+    }
+
+    .card-perfil{
+        margin-top: 56px;
+        margin-bottom: 40px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .card-perfil__info{
+        gap: var(--1);
+    }
+    
+    .card-perfil__info-user{
+        gap: var(--1);
+    }
+
+    .meus-projetos__add-projetos{
+        width: 312px;
+        height: 258px;
+    }
+
+    .meus-projetos .cards{
+        justify-content: center;
+    }
+        
 }
