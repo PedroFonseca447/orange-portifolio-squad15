@@ -1,6 +1,6 @@
 .conteudo{
-    padding: 10px;
-    margin: 10px;
+    padding: 8px;
+    margin: 8px;
 }
 
 h1{
@@ -15,34 +15,42 @@ h1{
 
 /* CARD */
 
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .card{
     display: inline-flex;
     padding: var(--none, 0px);
-    margin: 10px;
+    margin: 10px 10px 10px 0;
 
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--1, 8px);
+    gap: var(--1, 4px);
     border-radius: var(--none, 0px);
 }
 
 .card span {
     display: flex;
-    padding: var(--none, 0px);
-    
-    align-items: center;
+    padding: var(--none, 5px);
     gap: var(--1, 8px);
+}
 
+.card p{
+    display: flex;
+    margin: auto;
 }
 
 .card img {
     width: 389px;
     height: 258px;
     border-radius: var(--borderRadius, 4px);
+    cursor: pointer;
 }
 
 .card .user{
-    height: var(--3, 24px);;
-    width: var(--3, 24px);
-    border-radius: var(--none, 24px);
+    height: 38px;
+    width: 38px;
+    border-radius: 50px;
 }

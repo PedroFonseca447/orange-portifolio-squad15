@@ -1,8 +1,25 @@
-import Menu from '../../components/Menu/Menu';
 import './descobrir.css';
+import Menu from '../../components/Menu/Menu'; 
+import { cardsData } from '../../components/cardsData';
+
+import { Button, Modal, Backdrop, Fade } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { Link } from 'react-router-dom';
+import React,{ useState } from 'react';
+
+import ModalProjeto from './modal';
 
 export default function Descobrir() {
+
+    const [openModal, setOpenModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
+    const handleClose = () => {
+        setOpenModal(false);
+    };
 
     return(
         <>
@@ -14,41 +31,30 @@ export default function Descobrir() {
                 <TextField
                     id="outlined"
                     label="Buscar tags"
+                    style={{ width: '30%' }} 
                 />
+                <br />
 
-                <div>
-                    {/* Estático */}
-                    <div className='card'>
-                        <img src="src/assets/card1.png" alt=""/>
-                        <span>
-                            <img src="src/assets/Bianca.png" className='user' alt="" />
-                            <p>Bianca Martin • 02/24</p>
-                        </span>
-                    </div>
-                    <div className='card'>
-                        <img src="src/assets/card2.png" alt=""/>
-                        <span>
-                            <img src="src/assets/Enzo.png" className='user' alt="" />
-                            <p>Enzo Gabriel • 12/23</p>
-                        </span>
-                    </div>
-                    <div className='card'>
-                        <img src="src/assets/card3.png" alt=""/>
-                        <span>
-                            <img src="src/assets/Alice.png" className='user' alt="" />
-                            <p>Alice Alexandra • 12/23</p>
-                        </span>
-                    </div>
-                    <div className='card'>
-                        <img src="src/assets/card4.png" alt=""/>
-                        <span>
-                            <img src="src/assets/Carolina.png" className='user' alt="" />
-                            <p>Carolina Valentim • 12/23</p>
-                        </span>
-                    </div>
+                <div className='cards'>
+                    {cardsData.map((card, index) => (
+                        <div key={card.id}>
+                            
+                                <div className='card' onClick={handleOpenModal}>
+                                    <img src={card.cardImagem} alt="" />
+                                    <span>
+                                        <img src={card.usuario} className='user' alt="" />
+                                        <p>{`${card.nome} • ${card.data}`}</p>
+                                    </span>
+                                </div>
+                           
+                        </div>  
+                    ))}
                 </div>
 
             </div>
+
+           <ModalProjeto open={openModal} handleClose={handleClose} />
+
         </>
     )
 }
