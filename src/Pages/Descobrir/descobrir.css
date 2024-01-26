@@ -15,7 +15,7 @@ h1{
 
 /* CARD */
 
-.cards{
+.cardList{
     display: flex;
     flex-wrap: wrap;
 }
@@ -33,7 +33,7 @@ h1{
 
 .card span {
     display: flex;
-    padding: var(--none, 5px);
+    padding: 5px;
     gap: var(--1, 8px);
 }
 
@@ -53,4 +53,46 @@ h1{
     height: 38px;
     width: 38px;
     border-radius: 50px;
+}
+
+.input{
+    width: 50%;
+}
+
+
+.tags-mobile{
+    display: none;
+}
+
+@media(max-width: 500px){
+    .input,
+    .card,
+    .cardList {
+        width: 100%;
+    }
+
+    .card img {
+        width: 100%;
+    }
+
+    .tags-mobile{
+        display: flex;
+    }
+
+    .tag{
+        margin-right: 8px; 
+        padding: 10px;
+        background-color: #CCCCCC; 
+        border-radius: 8px; 
+        height: 20px;
+        font-size: 15px;
+    }
+
+    .info-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
 }

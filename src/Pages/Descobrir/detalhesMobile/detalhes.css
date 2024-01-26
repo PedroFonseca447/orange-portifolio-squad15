@@ -1,0 +1,29 @@
+
+.container{
+    padding: 30px;
+}
+.foto-usuario{
+    width: var(--5, 40px);
+    height: var(--5, 40px);
+    border-radius: 40px;
+    margin-top: 11px;
+}
+
+.infos{
+    display:flex;
+    gap: 24px;
+    align-items: center;
+    height: 50px;
+}
+
+.tag{
+    margin-right: 8px; 
+    padding: 5px;
+    background-color: #CCCCCC; 
+    border-radius: 11px; 
+    font-size: 15px;
+}
+
+.container .imgProjeto{
+    width: 99%;
+}
