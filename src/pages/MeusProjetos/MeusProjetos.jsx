@@ -5,6 +5,7 @@ import Card from "../../components/Card/Card";
 import ModalProjetoManager from "../../components/ModalProjetoManager/ModalProjetoManager";
 import { Autocomplete, TextField } from "@mui/material";
 import CollectionsIcon from "@mui/icons-material/Collections";
+import ModalStatus from "../../components/ModalStatus/ModalStatus";
 
 const MeusProjetos = () => {
   const user = {
@@ -81,7 +82,6 @@ const MeusProjetos = () => {
   };
 
   const onSaveCard = (card) => {
-    setModal(null);
     if (projetos.some((projeto) => projeto?.id === card?.id)) {
       const updateProjeto = projetos?.map((projeto) => {
         if (projeto?.id === card?.id) {
@@ -90,6 +90,7 @@ const MeusProjetos = () => {
         return projeto;
       });
       setProjetos(updateProjeto);
+      setModal(<ModalStatus message={"Edição concluída com sucesso!"} messageButton={'Voltar para projetos'} sucess={true} action={() => setModal(null)}/>);
     } else {
       const newCard = {
         ...card,
@@ -101,6 +102,7 @@ const MeusProjetos = () => {
         id: projetos.length + 1,
       };
       setProjetos([...projetos, newCard]);
+      setModal(<ModalStatus message={"Projeto adicionado com sucesso!"} messageButton={'Voltar para projetos'} sucess={true} action={() => setModal(null)}/>);
     }
   };
 

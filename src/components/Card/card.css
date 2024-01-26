@@ -102,6 +102,11 @@
 /** RESPONSIVIDADE **/
 
 @media screen and (max-width: 430px) {
+    .card{
+        width: 312px;
+        height: 312px;
+    }
+
     .card img {
         width: 312px;
         height: 258px;

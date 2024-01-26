@@ -1,0 +1,83 @@
+.modal-status{
+    display: inline-flex;
+    padding: 32px 48px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--3);
+    border-radius: var(--none);
+    background: var(--Neutral-Colors-Neutral-60);
+    flex-direction: column;
+    animation: openModal 0.8s cubic-bezier(0.51, -0.28, 0.49, 1.31);
+}
+
+.modal-status h2{
+    color: var(--Neutral-Colors-Neutral-110);
+    text-align: center;
+
+    font-family: var(--roboto);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    width: 255px;
+}
+
+.icon-status-true{
+    background-color: #118822;
+    color: var(--white);
+    width: 40px;
+    height: 40px;
+    clip-path: circle();
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-status-false{
+    background-color: #881111;
+    color: var(--white);
+    width: 40px;
+    height: 40px;
+    clip-path: circle();
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-status__button{
+    display: flex;
+    padding: 8px 22px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: var(--borderRadius);
+    background: var(--Color-Brand-Secundria-Secondary-100);
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.20), 
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    text-transform: uppercase;
+    border: none;
+
+    color: var(--Neutral-Colors-Neutral-60);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: var(--roboto);
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    letter-spacing: 0.46px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+@keyframes openModal{
+    0%{
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
