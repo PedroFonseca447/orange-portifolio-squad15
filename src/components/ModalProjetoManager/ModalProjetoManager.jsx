@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
 import "./modalprojetomanager.css";
-import { TextField, Chip, Stack, Autocomplete } from "@mui/material";
+import { TextField, Autocomplete } from "@mui/material";
 import CollectionsIcon from "@mui/icons-material/Collections";
+import Alert from "../Alert/Alert";
 
 const ModalProjetoManager = ({ projeto, onCloseModal, onSaveCard }) => {
   const [data, setData] = useState(projeto);
   const [tag, setTag] = useState("");
+  const [alert, setAlert] = useState(null)
 
   const saveCard = () => {
     if (
-      Object.keys(data).every(
+      data && Object.keys(data)?.every(
         (value) =>
           data[value] !== "" && data[value] !== null && data[value].lenght !== 0
       )
     ) {
       onSaveCard(data);
+    }else{
+      setAlert(<Alert message={'Preencha todos os campos'} sucess={false}/>)
+      setTimeout(() =>{
+        setAlert(null)
+      }, 2000)
     }
   };
 
   return (
     <main className="background-modal">
+      {alert}
       <section className="modal-projeto">
         <h5>Adicionar projeto</h5>
         <section className="modal-projeto__form">
