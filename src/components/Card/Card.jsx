@@ -19,21 +19,21 @@ const Card = ({data, onEditCard, onDeleteCard, user}) => {
                     <div className="triangulo">
                     </div>
                     <MenuList className='card__menu-list'>
-                        <MenuItem onClick={() => onEditCard(data)}>Editar</MenuItem>
-                        <MenuItem onClick={() => onDeleteCard(data)}>Excluir</MenuItem>
+                        <MenuItem onClick={() => {onEditCard(data); setEdit(false)}}>Editar</MenuItem>
+                        <MenuItem onClick={() => {onDeleteCard(data); setEdit(false)}}>Excluir</MenuItem>
                     </MenuList>
                 </Paper>}
             </div>}
-            <img src={data?.fotoUser} alt={`Foto de perfil da ${data?.nome}`} />
+            <img src={typeof data?.imagem === 'object' ? URL.createObjectURL(data?.imagem) : data?.imagem} alt={data?.titulo} />
         </div>
         <div className="card__info-tags">
             <span className='card__info'>
-                <img src={data?.imagem} className='user' alt={data?.titulo} />
+                <img src={data?.fotoUser} className='user' alt={`Foto de perfil da ${data?.nome}`} />
                 <p>{data?.nome} {data?.sobrenome} • {data?.data}</p>
             </span>
             {!page && <div className="card__tags">
                 {data?.tags?.map(tag => (
-                    <Chip label={tag}/>
+                    <Chip label={tag} key={tag}/>
                 ))}
             </div>}
         </div>

@@ -82,6 +82,7 @@
 
 .meus-projetos{
     margin: 32px;
+    margin-bottom: 100px;
 }
 
 .meus-projetos h6{
@@ -112,6 +113,7 @@
     border-radius: var(--borderRadius);
     background-color: var(--Neutral-Colors-Neutral-70);
     margin-top: 40px;
+    cursor: pointer;
 }
 
 .add-projetos__container p{
@@ -121,11 +123,11 @@
     font-weight: 400;
     opacity: 0.6;
     margin: var(--none);
-    text-align: left;
+    align-self: flex-start;
 }
 .add-projetos__container p:first-child{
-    line-height: 14px;
-    font-size: 14px;
+    line-height: 16px;
+    font-size: 16px;
     letter-spacing: 0.5px;
 }
 .add-projetos__container p:last-child{
@@ -134,9 +136,9 @@
     letter-spacing: 0.25px;
 }
 
-.add-projeto__icon{
-    width: 46px;
-    height: 46px;
+.add-projetos__icon{
+    width: 46px !important;
+    height: 46px !important;
     flex-shrink: 0;
     color: #323232;
 }

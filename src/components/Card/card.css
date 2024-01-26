@@ -6,6 +6,8 @@
     align-items: flex-start;
     gap: var(--1);
     border-radius: var(--none);
+    width: 389px;
+    height: 298px;
 }
 
 .card .card__info-tags{

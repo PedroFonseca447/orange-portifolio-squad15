@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./meusprojetos.css";
 import Menu from "../../components/Menu/Menu";
-import TextField from "@mui/material/TextField";
-import CollectionsIcon from "@mui/icons-material/Collections";
 import Card from "../../components/Card/Card";
+import ModalProjetoManager from "../../components/ModalProjetoManager/ModalProjetoManager";
+import { Autocomplete, TextField } from "@mui/material";
+import CollectionsIcon from "@mui/icons-material/Collections";
 
 const MeusProjetos = () => {
   const user = {
@@ -11,6 +12,7 @@ const MeusProjetos = () => {
     sobrenome: "Soares",
     country: "Brasil",
     id: 1,
+    fotoUser: "src/assets/Bianca.png",
   };
   const [projetos, setProjetos] = useState([
     {
@@ -18,8 +20,8 @@ const MeusProjetos = () => {
       sobrenome: "Soares",
       titulo: "Ecommerce One Page",
       data: "12/23",
-      fotoUser: "src/assets/card1.png",
-      imagem: "src/assets/Bianca.png",
+      imagem: "src/assets/card1.png",
+      fotoUser: "src/assets/Bianca.png",
       tags: ["UX", "Web"],
       descricao:
         "Temos o prazer de compartilhar com vocês uma variação da nosso primeiro recurso gratuito, Monoceros. É um modelo de uma página para mostrar seus produtos. Tentamos redesenhar uma versão mais B2C e minimalista do nosso primeiro template de e-commerce.",
@@ -32,8 +34,8 @@ const MeusProjetos = () => {
       sobrenome: "Soares",
       titulo: "Landing page orange",
       data: "11/23",
-      fotoUser: "src/assets/card2.png",
-      imagem: "src/assets/Bianca.png",
+      imagem: "src/assets/card2.png",
+      fotoUser: "src/assets/Bianca.png",
       tags: ["Web", "Mobile"],
       descricao:
         "Temos o prazer de compartilhar com vocês uma variação da nosso primeiro recurso gratuito, Monoceros. É um modelo de uma página para mostrar seus produtos. Tentamos redesenhar uma versão mais B2C e minimalista do nosso primeiro template de e-commerce.",
@@ -43,15 +45,63 @@ const MeusProjetos = () => {
     },
   ]);
 
-  const [modal, setModal] = useState(null)
-  const [tags, setTags] = useState("")
-  const onEditCard = (card) => {
+  const [modal, setModal] = useState(null);
+  const [tags, setTags] = useState([]);
+  const [tag, setTag] = useState("");
 
+  const onCloseModal = () => {
+    setModal(null);
+  };
+
+  const onCreateCard = () => {
+    setModal(
+      <ModalProjetoManager
+        projeto={null}
+        onCloseModal={onCloseModal}
+        onSaveCard={onSaveCard}
+      />
+    );
+  };
+
+  const onEditCard = (card) => {
+    setModal(
+      <ModalProjetoManager
+        projeto={card}
+        onCloseModal={onCloseModal}
+        onSaveCard={onSaveCard}
+      />
+    );
   };
 
   const onDeleteCard = (card) => {
-    const deleteProjeto = projetos.filter((projeto) => card?.id !== projeto?.id)
-    setProjetos(deleteProjeto)
+    const deleteProjeto = projetos.filter(
+      (projeto) => card?.id !== projeto?.id
+    );
+    setProjetos(deleteProjeto);
+  };
+
+  const onSaveCard = (card) => {
+    setModal(null);
+    if (projetos.some((projeto) => projeto?.id === card?.id)) {
+      const updateProjeto = projetos?.map((projeto) => {
+        if (projeto?.id === card?.id) {
+          return card;
+        }
+        return projeto;
+      });
+      setProjetos(updateProjeto);
+    } else {
+      const newCard = {
+        ...card,
+        nome: user?.nome,
+        sobrenome: user?.sobrenome,
+        idUser: user?.id,
+        fotoUser: user?.fotoUser,
+        data: `${new Date().getDate()}/${new Date().getMonth() + 1}`,
+        id: projetos.length + 1,
+      };
+      setProjetos([...projetos, newCard]);
+    }
   };
 
   return (
@@ -71,18 +121,32 @@ const MeusProjetos = () => {
             </h3>
             <span>{user?.country}</span>
           </div>
-          <button>Adicionar projeto</button>
+          <button onClick={onCreateCard}>Adicionar projeto</button>
         </div>
       </section>
       <main className="meus-projetos">
         <h6>Meus projetos</h6>
-        <TextField
-          id="outlined"
-          label="Buscar tags"
+        <Autocomplete
+          multiple
           className="meus-projetos__input-tags"
+          id="tags-outline"
+          options={tags ? [...tags, tag] : [tag]}
+          getOptionLabel={(option) => option}
+          isOptionEqualToValue={(option, value) => option === value}
+          defaultValue={tags || []}
+          onChange={(e, newValue) => setTags(newValue)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              id="outline"
+              label="Buscar tags"
+              placeholder="Buscar tags"
+              onChange={(e) => setTag(e.target.value)}
+            />
+          )}
         />
         {projetos.length === 0 ? (
-          <div className="meus-projetos__add-projetos">
+          <div className="meus-projetos__add-projetos" onClick={onCreateCard}>
             <div className="add-projetos__container">
               <CollectionsIcon className="add-projetos__icon" />
               <p>Adicione seu primeiro projeto</p>
@@ -91,14 +155,17 @@ const MeusProjetos = () => {
           </div>
         ) : (
           <div className="cards">
-            {projetos?.map((projeto) => (
-              <Card
-                data={projeto}
-                onEditCard={onEditCard}
-                onDeleteCard={onDeleteCard}
-                user={user}
-              />
-            ))}
+            {projetos
+              ?.filter((projeto) => tags.length === 0 || projeto.tags.some(tagProjeto => tags.some(tagSearch => tagSearch === tagProjeto)))
+              ?.map((projeto) => (
+                <Card
+                  key={projeto?.id}
+                  data={projeto}
+                  onEditCard={onEditCard}
+                  onDeleteCard={onDeleteCard}
+                  user={user}
+                />
+              ))}
           </div>
         )}
       </main>
