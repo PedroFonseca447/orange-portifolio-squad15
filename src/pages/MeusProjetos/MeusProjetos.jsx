@@ -6,6 +6,7 @@ import ModalProjetoManager from "../../components/ModalProjetoManager/ModalProje
 import { Autocomplete, TextField } from "@mui/material";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import ModalStatus from "../../components/ModalStatus/ModalStatus";
+import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
 
 const MeusProjetos = () => {
   const user = {
@@ -74,11 +75,16 @@ const MeusProjetos = () => {
     );
   };
 
+  const confirmDeleteCard = (card) => {
+    setModal(<ModalConfirmation title={'Deseja Excluir?'} message={'Se você prosseguir irá excluir o projeto do seu portfólio'} action={() => onDeleteCard(card)} cancel={() => setModal(null)} textConfirm={'Excluir'}/>)
+  }
+
   const onDeleteCard = (card) => {
     const deleteProjeto = projetos.filter(
       (projeto) => card?.id !== projeto?.id
     );
     setProjetos(deleteProjeto);
+    setModal(<ModalStatus message={"Projeto deletado com sucesso!"} messageButton={'Voltar para projetos'} sucess={true} action={() => setModal(null)}/>);
   };
 
   const onSaveCard = (card) => {
@@ -164,7 +170,7 @@ const MeusProjetos = () => {
                   key={projeto?.id}
                   data={projeto}
                   onEditCard={onEditCard}
-                  onDeleteCard={onDeleteCard}
+                  onDeleteCard={confirmDeleteCard}
                   user={user}
                 />
               ))}
