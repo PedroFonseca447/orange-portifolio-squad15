@@ -1,0 +1,121 @@
+import React, { useState, useEffect } from "react";
+import "./modalprojetomanager.css";
+import { TextField, Autocomplete } from "@mui/material";
+import CollectionsIcon from "@mui/icons-material/Collections";
+import Alert from "../Alert/Alert";
+
+const ModalProjetoManager = ({ projeto, onCloseModal, onSaveCard }) => {
+  const [data, setData] = useState(projeto || {
+    title: "",
+    projectImage: "",
+    tags: [],
+    description:"",
+    urlGithub: "",
+  });
+  const [tag, setTag] = useState("");
+  const [alert, setAlert] = useState(null)
+
+  const saveCard = () => {
+    if (
+      data && Object.keys(data)?.every(
+        (value) =>
+          data[value] !== "" && data[value] !== null && data[value].lenght !== 0
+      )
+    ) {
+      onSaveCard(data);
+    }else{
+      setAlert(<Alert message={'Preencha todos os campos'} sucess={false}/>)
+      setTimeout(() =>{
+        setAlert(null)
+      }, 2000)
+    }
+  };
+
+  return (
+    <main className="background-modal">
+      {alert}
+      <section className="modal-projeto">
+        <h5>Adicionar projeto</h5>
+        <section className="modal-projeto__form">
+          <div className="form__upload">
+            <p>Selecione o conteúdo que você deseja fazer upload</p>
+            {!data?.projectImage ? (
+              <label htmlFor="form__upload-img" className="form__upload-img">
+                <div className="upload-img__container">
+                  <CollectionsIcon className="upload-img__icon" />
+                  <p>Compartilhe seu talento com milhares de pessoas</p>
+                </div>
+              </label>
+            ) : (
+              <label htmlFor="form__upload-img" className="form__img">
+                <img src={typeof data?.projectImage === 'object' ? URL.createObjectURL(data?.projectImage) : data?.projectImage} alt="" />
+              </label>
+            )}
+            <input
+              type="file"
+              name="form__upload-img"
+              id="form__upload-img"
+              onChange={(e) => setData({ ...data, projectImage: e.target.files[0] })}
+            />
+          </div>
+          <div className="form__inputs">
+            <TextField
+              id="outline"
+              label="Titulo"
+              defaultValue={data?.title}
+              onChange={(e) => setData({ ...data, title: e.target.value })}
+            />
+            <Autocomplete
+              multiple
+              id="tags-outline"
+              options={data?.tags ? [...data?.tags, tag] : [tag]}
+              getOptionLabel={(option) => option}
+              isOptionEqualToValue={(option, value) => option === value}
+              defaultValue={data?.tags || []}
+              onChange={(e, newValue) => setData({ ...data, tags: newValue })}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  id="outline"
+                  label="Tags"
+                  placeholder="Tags"
+                  onChange={(e) => setTag(e.target.value)}
+                />
+              )}
+            />
+            <TextField
+              id="outline"
+              label="Link"
+              defaultValue={data?.urlGithub}
+              onChange={(e) => setData({ ...data, urlGithub: e.target.value })}
+            />
+            <TextField
+              id="outline"
+              label="Descrição"
+              multiline
+              rows={4}
+              defaultValue={data?.description}
+              onChange={(e) => setData({ ...data, description: e.target.value })}
+            />
+          </div>
+        </section>
+        <div className="modal-projeto__actions">
+          <p>Visualizar publicação</p>
+          <div className="modal-projeto__actions-buttons">
+            <button className="actions__salvar-projeto" onClick={saveCard}>
+              Salvar
+            </button>
+            <button
+              className="actions__cancelar-projeto"
+              onClick={onCloseModal}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default ModalProjetoManager;
