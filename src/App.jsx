@@ -2,6 +2,7 @@ import { useState } from 'react'
 import MeusProjetos from './pages/MeusProjetos/MeusProjetos'
 import Descobrir from './pages/Descobrir/descobrir'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import PerfilUsuario from './Pages/PerfilUsuario/PerfilUsuario'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route exact path='/' element={<MeusProjetos/>}/>
         <Route path='/meus-projetos' element={<MeusProjetos/>}/>
         <Route path='/descobrir' element={<Descobrir/>}/>
+        <Route path='/perfil' element={<PerfilUsuario/>}/>
       </Routes>
     </BrowserRouter>
   )

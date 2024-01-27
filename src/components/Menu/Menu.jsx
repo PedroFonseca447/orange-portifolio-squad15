@@ -61,7 +61,9 @@ const Menu = () => {
             </ul>
         </div>
         <div className="menu__profile-notifications">
-            <img src='/imgs/Image.png' alt='Sua foto de perfil' className='menu__profile'/>
+            <Link to={'/perfil'}>
+                <img src='/imgs/Image.png' alt='Sua foto de perfil' className='menu__profile'/>
+            </Link>
             <Badge badgeContent={notification ? 1 : null} onClick={() => setShowNotification(!showNotification)}>
                 <NotificationsIcon className='menu__notifications'/>
             </Badge>
@@ -72,7 +74,7 @@ const Menu = () => {
                     <div className="close-notification">
                         <CloseIcon onClick={() => setNotification(false)}/>
                     </div>
-                    <Link to={'/'} onClick={() => setShowNotification(false)}>
+                    <Link to={'/perfil'} onClick={() => setShowNotification(false)}>
                         <h3>Complete seu cadastro</h3>
                         <div className="container-progress">
                             <div className="progress" style={{width: ((100 / 6) * progress)+'%'}}></div>
