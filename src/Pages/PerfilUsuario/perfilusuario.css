@@ -1,0 +1,147 @@
+.perfil{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin: 50px auto;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.perfil__info{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--2);
+    margin-bottom: var(--3);
+}
+
+.perfil__info .perfil__info-img{
+    cursor: pointer;
+}
+
+.perfil__info .perfil__info-img img{
+    width: 105px;
+    clip-path: circle();
+}
+
+.perfil__info-img #perfil__img{
+    display: none;
+}
+
+.perfil__img{
+    width: 105px;
+    height: 105px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 50%;
+    background-color: rgba(65, 65, 65, 0.863);
+    position: absolute;
+    z-index: 999;
+    top: 136px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.perfil__img .perfil__img-icon{
+    color: var(--white);
+}
+
+.perfil__img .perfil__img-text{
+    color: var(--white);
+    font-family: var(--roboto);
+    margin: 0%;
+}
+
+.perfil__info .perfil__info-text{
+    font-family: var(--roboto);
+    display: flex;
+    flex-direction: column;
+    gap: var(--1);
+}
+
+.perfil__info .perfil__info-text h1{
+    font-family: var(--roboto);
+    margin: 0;
+    color: var(--Neutral-Colors-Neutral-120, #303133);
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+    text-align: left;
+}
+
+.perfil__info .perfil__info-text p{
+    font-family: var(--roboto);
+    margin: 0;
+    color: var(--Neutral-Colors-Neutral-130);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.15px;
+    opacity: 0.5;
+    text-align: left;
+}
+
+.perfil__form{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--2);
+}
+
+.perfil__form .perfil__form-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--2);
+}
+
+.perfil__form .perfil__form-container .perfil__form-input{
+    width: 100%;
+}
+
+.perfil__form .perfil__form-button{
+    display: flex;
+    padding: 8px 22px;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: var(--borderRadius);
+    background: var(--Color-Brand-Secundria-Secondary-100);
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.20), 
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    text-transform: uppercase;
+    border: none;
+
+    color: var(--Neutral-Colors-Neutral-60);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: var(--roboto);
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    letter-spacing: 0.46px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+/** RESPONSIVIDADE **/
+
+@media screen and (max-width:900px) {
+    .perfil{
+        width: 90vw;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .perfil__form .perfil__form-container{
+        flex-direction: column;
+    }
+}

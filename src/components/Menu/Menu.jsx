@@ -62,7 +62,7 @@ const Menu = () => {
         </div>
         <div className="menu__profile-notifications">
             <Link to={'/perfil'}>
-                <img src='/imgs/Image.png' alt='Sua foto de perfil' className='menu__profile'/>
+                <img src={user?.avatar} alt='Sua foto de perfil' className='menu__profile'/>
             </Link>
             <Badge badgeContent={notification ? 1 : null} onClick={() => setShowNotification(!showNotification)}>
                 <NotificationsIcon className='menu__notifications'/>

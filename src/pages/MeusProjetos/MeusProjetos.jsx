@@ -13,6 +13,7 @@ const MeusProjetos = () => {
     name: "Camila",
     lastName: "Soares",
     country: "Brasil",
+    email: "camilaso@gmail.com",
     _id: 1,
     avatar: "src/assets/Bianca.png",
   };
@@ -119,7 +120,7 @@ const MeusProjetos = () => {
       {modal}
       <section className="card-perfil">
         <img
-          src="/imgs/Image.png"
+          src={user?.avatar}
           alt="Sua foto de perfil"
           className="card-perfil__img"
         />

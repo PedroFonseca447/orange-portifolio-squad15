@@ -142,7 +142,8 @@
 
 .menu-notification__content h3{
     font-family: var(--roboto);
-    color: var(--Neutral-Colors-Neutral-120);
+    color: var(--Neutral-Colors-Neutral-110);
+    font-weight: 400;
 }
 
 .menu-notification__content ul{
