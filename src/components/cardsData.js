@@ -6,7 +6,7 @@ export const cardsData = [
         usuario: '/src/assets/Bianca.png',
         nome: 'Bianca Martin',
         data: '02/24',
-        titulo: ' Ecommerce One Page',
+        titulo: 'Ecommerce One Page',
         tags: ['UX', 'Web'],
         descricao: 'Temos o prazer de compartilhar com vocês uma variação do nosso primeiro recurso gratuito. É um modelo de IA. Tentamos redesenhar uma versão mais minimalista do nosso primeiro projeto.',
         link: 'https://gumroad.com/products/wxCSL'
@@ -17,10 +17,10 @@ export const cardsData = [
         usuario: '/src/assets/Enzo.png',
         nome: 'Enzo Gabriel',
         data: '12/23',
-        titulo: ' ',
-        tags: [],
+        titulo: 'Ecommerce ',
+        tags: ['UX', 'Web'],
         descricao: '',
-        link: ''
+        link: 'https://gumroad.com/products/wxCSL'
     },
     {
         id: 3,
@@ -28,10 +28,10 @@ export const cardsData = [
         usuario: '/src/assets/Alice.png',
         nome: 'Alice Alexandra',
         data: '12/23',
-        titulo: ' ',
-        tags: [],
+        titulo: 'Landing Page',
+        tags: ['UX', 'Web'],
         descricao: '',
-        link: ''
+        link: 'https://gumroad.com/products/wxCSL'
     },
     {
         id: 4,
@@ -39,9 +39,9 @@ export const cardsData = [
         usuario: '/src/assets/Carolina.png',
         nome: 'Carolina Valentim',
         data: '12/23',
-        titulo: ' ',
-        tags: [],
+        titulo: 'Chat bot',
+        tags: ['UX', 'Web'],
         descricao: '',
-        link: ''
+        link: 'https://gumroad.com/products/wxCSL'
     },
 ];
