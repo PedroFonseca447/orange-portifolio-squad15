@@ -11,15 +11,18 @@ import DetalhesMobile from './detalhesMobile/detalhesMobile';
 
 export default function Descobrir() {
 
-    const [openModal, setOpenModal] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedCardId, setSelectedCardId] = useState(null);
     const navigate = useNavigate();
 
     const handleOpenModal = (cardId) => {
-        setOpenModal(cardId);
+        setSelectedCardId(cardId);
+        setOpenModal(true);
     };
 
     const handleClose = () => {
-        setOpenModal(null);
+        setSelectedCardId(null);
+        setOpenModal(false);
     };
 
     const handleImageClick = (cardId) => {
@@ -72,7 +75,7 @@ export default function Descobrir() {
                     ))}
                 </div>
             </div>
-                <ModalProjeto open={openModal} handleClose={handleClose} cardId={openModal} />
+                <ModalProjeto open={openModal} handleClose={handleClose} cardId={selectedCardId} />
         </>
     )
 }
