@@ -2,8 +2,7 @@ import { useState } from 'react'
 import MeusProjetos from './pages/MeusProjetos/MeusProjetos'
 import Descobrir from './pages/Descobrir/descobrir'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Descobrir from './Pages/Descobrir/Descobrir'
-import DetalhesMobile from './Pages/Descobrir/detalhesMobile/detalhesMobile'
+import DetalhesMobile from './pages/Descobrir/detalhesMobile/detalhesMobile'
 
 function App() {
   return (
