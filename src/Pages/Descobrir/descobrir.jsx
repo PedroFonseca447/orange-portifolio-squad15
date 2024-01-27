@@ -1,51 +1,81 @@
 import './descobrir.css';
+
+import React,{ useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import TextField from '@mui/material/TextField';
-import Card from '../../components/Card/Card';
-import { useState } from 'react';
+
+import { cardsData } from '../../components/cardsData';
+import Menu from '../../components/Menu/Menu'; 
+import ModalProjeto from './ModalProjeto/modal';
+import DetalhesMobile from './detalhesMobile/detalhesMobile';
 
 export default function Descobrir() {
 
-    return(
-        <div className='conteudo'>
-            <h1>Junte-se à comunidade de inovação, inspiração e descobertas, transformando experiências em conexões inesquecíveis</h1>
-            <br />
-            <TextField
-                id="outlined"
-                label="Buscar tags"
-            />
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedCardId, setSelectedCardId] = useState(null);
+    const navigate = useNavigate();
 
-            <div>
-                {/* Estático */}
-                <div className='card'>
-                    <img src="src/assets/card1.png" alt=""/>
-                    <span className='card__info'>
-                        <img src="src/assets/Bianca.png" className='user' alt="" />
-                        <p>Bianca Martin • 02/24</p>
-                    </span>
+    const handleOpenModal = (cardId) => {
+        setSelectedCardId(cardId);
+        setOpenModal(true);
+    };
+
+    const handleClose = () => {
+        setSelectedCardId(null);
+        setOpenModal(false);
+    };
+
+    const handleImageClick = (cardId) => {
+        if (window.innerWidth <= 500) {
+          navigate(`/descobrir/${cardId}`);
+        } else {
+          handleOpenModal(cardId);
+        }
+      };
+
+    return(
+        <>
+            <Menu />
+
+            <div className='conteudo'>
+                <h1>Junte-se à comunidade de inovação, inspiração e descobertas, transformando experiências em conexões inesquecíveis</h1>
+                <br />
+                <div className='input'>
+                    <TextField
+                        id="outlined"
+                        label="Buscar tags"
+                        style={{ width: '100%' }} 
+                        />
                 </div>
-                <div className='card'>
-                    <img src="src/assets/card2.png" alt=""/>
-                    <span className='card__info'>
-                        <img src="src/assets/Enzo.png" className='user' alt="" />
-                        <p>Enzo Gabriel • 12/23</p>
-                    </span>
-                </div>
-                <div className='card'>
-                    <img src="src/assets/card3.png" alt=""/>
-                    <span className='card__info'>
-                        <img src="src/assets/Alice.png" className='user' alt="" />
-                        <p>Alice Alexandra • 12/23</p>
-                    </span>
-                </div>
-                <div className='card'>
-                    <img src="src/assets/card4.png" alt=""/>
-                    <span className='card__info'>
-                        <img src="src/assets/Carolina.png" className='user' alt="" />
-                        <p>Carolina Valentim • 12/23</p>
-                    </span>
+                <br />
+                <div className='cardList'>
+                    {cardsData.map((card) => (
+                        <div  key={card.id} onClick={() => handleImageClick(card.id)}>
+                            
+                            <div className='card' >
+                                <img src={card.cardImagem} alt=""/>
+                                    <div className='info-container'>
+                                        <span>
+                                            <img src={card.usuario} className='user' alt="" />
+                                            <p>{`${card.nome} • ${card.data}`}</p>
+                                        </span>
+    
+                                        {/* mobile */}
+                                        <div className='tags-mobile'>
+                                            {card.tags.map((tag, index) => (
+                                                <React.Fragment key={index}>
+                                                    <span className='tag'>{tag}</span>
+                                                </React.Fragment>
+                                            ))}
+                                        </div>
+                                        {/* ===== */}
+                                    </div>
+                            </div>
+                        </div>  
+                    ))}
                 </div>
             </div>
-
-        </div>
+                <ModalProjeto open={openModal} handleClose={handleClose} cardId={selectedCardId} />
+        </>
     )
 }
