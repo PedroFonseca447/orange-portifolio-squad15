@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal, Box } from '@mui/material';
+import { Modal, Box, IconButton  } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import './modal.css';
@@ -15,13 +15,20 @@ const style = {
     width: '70%',
     height: window.innerWidth <= 400 ? '100vh' : '70vh',
     bgcolor: 'background.paper',
+    overflowY: 'auto',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
     padding: 10,
     margin: 0,
-
   };
+
+  const styleBtn = {
+    position: 'absolute', 
+    top: 10, 
+    right: 15, 
+    color: 'black' 
+  }
 
 const ModalProjeto = ({ open, handleClose, cardId }) => {
 
@@ -39,6 +46,16 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                     
                     {cardSelecionado && (
                         <Box sx={style}>
+
+                        <IconButton
+                            edge="end"
+                            color="inherit"
+                            onClick={handleClose}
+                            aria-label="close"
+                            sx={styleBtn}
+                        >
+                            <CloseIcon />
+                        </IconButton>
                             <div className='modal-content'>
                                 <div className='Horizontal-container'>
                                     <div className='informacoes'>
