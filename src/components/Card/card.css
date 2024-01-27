@@ -8,6 +8,7 @@
     border-radius: var(--none);
     width: 389px;
     height: 298px;
+    justify-content: flex-end;
 }
 
 .card .card__info-tags{
@@ -38,6 +39,7 @@
     gap: var(--1);
     width: 100px;
     justify-content: flex-end;
+    overflow: auto;
 }
 
 .card img {
@@ -79,6 +81,7 @@
     top: 55px;
     right: var(--2);
     width: 208px;
+    animation: openMenu 0.8s cubic-bezier(0.51, -0.28, 0.49, 1.31);
 }
 .card__menu .triangulo{
     display: block;
@@ -136,5 +139,16 @@
 
     .card .card__info-tags .card__info {
         width: 60%;
+    }
+}
+
+@keyframes openMenu{
+    0%{
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
     }
 }

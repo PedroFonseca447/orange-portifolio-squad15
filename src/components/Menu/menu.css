@@ -23,6 +23,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 #button-icon{
     display: none;
@@ -77,6 +78,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0;
+    cursor: pointer;
 }
 
 .responsive-menu{
@@ -84,6 +87,86 @@
     position: absolute;
     top: 75px;
     z-index: 999;
+}
+
+.MuiBadge-badge{
+    background-color: #FF5522;
+    color: var(--white);
+}
+
+.menu-notification{
+    display: flex;
+    position: absolute;
+    z-index: 999;
+    top: 75px;
+    right: 20px;
+    animation: openMenu 0.8s cubic-bezier(0.51, -0.28, 0.49, 1.31);
+}
+.menu-notification .triangulo{
+    display: block;
+    width: 15px;
+    height: 15px;
+    transform: rotate(315deg);
+    position: absolute;
+    right: 14px;
+    top: -5px;
+    /* top: 0.002px; */
+    stroke-width: 3px;
+    stroke: #FCFDFF;
+    background-color: #FCFDFF;
+}
+.menu-notification__content{
+    width: 100%;
+}
+
+.menu-notification__content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.close-notification{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.close-notification svg{
+    display: flex;
+    color: #A2A2A2;
+    cursor: pointer;
+}
+
+.menu-notification__content h3{
+    font-family: var(--roboto);
+    color: var(--Neutral-Colors-Neutral-120);
+}
+
+.menu-notification__content ul{
+    padding-left: 20px;
+}
+
+.menu-notification__content li{
+    font-family: var(--roboto);
+    color: #A2A2A2;
+}
+
+.container-progress{
+    width: 95%;
+    background-color: #f0f0f0;
+    height: 12px;
+    display: flex;
+    align-items: flex-start;
+    border-radius: 20px;
+}
+
+.progress{
+    height: 12px;
+    background-color: #FF5522;
+    border-radius: 20px;
 }
 
 /** Responsividade **/
@@ -109,5 +192,16 @@
     }
     #button-icon:checked ~ .responsive-menu{
         display: flex;
+    }
+}
+
+@keyframes openMenu{
+    0%{
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
     }
 }

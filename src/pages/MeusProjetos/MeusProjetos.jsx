@@ -10,40 +10,40 @@ import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmat
 
 const MeusProjetos = () => {
   const user = {
-    nome: "Camila",
-    sobrenome: "Soares",
+    name: "Camila",
+    lastName: "Soares",
     country: "Brasil",
-    id: 1,
-    fotoUser: "src/assets/Bianca.png",
+    _id: 1,
+    avatar: "src/assets/Bianca.png",
   };
   const [projetos, setProjetos] = useState([
     {
-      nome: "Camila",
-      sobrenome: "Soares",
-      titulo: "Ecommerce One Page",
+      name: "Camila",
+      lastName: "Soares",
+      title: "Ecommerce One Page",
       data: "12/23",
-      imagem: "src/assets/card1.png",
-      fotoUser: "src/assets/Bianca.png",
+      projectImage: "src/assets/card1.png",
+      avatar: "src/assets/Bianca.png",
       tags: ["UX", "Web"],
-      descricao:
+      description:
         "Temos o prazer de compartilhar com vocês uma variação da nosso primeiro recurso gratuito, Monoceros. É um modelo de uma página para mostrar seus produtos. Tentamos redesenhar uma versão mais B2C e minimalista do nosso primeiro template de e-commerce.",
-      link: "https://gumroad.com/products/wxCSL",
+      urlGithub: "https://gumroad.com/products/wxCSL",
       idUser: 1,
-      id: 1,
+      _id: 1,
     },
     {
-      nome: "Camila",
-      sobrenome: "Soares",
-      titulo: "Landing page orange",
+      name: "Camila",
+      lastName: "Soares",
+      title: "Landing page orange",
       data: "11/23",
-      imagem: "src/assets/card2.png",
-      fotoUser: "src/assets/Bianca.png",
+      projectImage: "src/assets/card2.png",
+      avatar: "src/assets/Bianca.png",
       tags: ["Web", "Mobile"],
-      descricao:
+      description:
         "Temos o prazer de compartilhar com vocês uma variação da nosso primeiro recurso gratuito, Monoceros. É um modelo de uma página para mostrar seus produtos. Tentamos redesenhar uma versão mais B2C e minimalista do nosso primeiro template de e-commerce.",
-      link: "https://gumroad.com/products/wxCSL",
+      urlGithub: "https://gumroad.com/products/wxCSL",
       idUser: 1,
-      id: 2,
+      _id: 2,
     },
   ]);
 
@@ -81,16 +81,16 @@ const MeusProjetos = () => {
 
   const onDeleteCard = (card) => {
     const deleteProjeto = projetos.filter(
-      (projeto) => card?.id !== projeto?.id
+      (projeto) => card?._id !== projeto?._id
     );
     setProjetos(deleteProjeto);
     setModal(<ModalStatus message={"Projeto deletado com sucesso!"} messageButton={'Voltar para projetos'} sucess={true} action={() => setModal(null)}/>);
   };
 
   const onSaveCard = (card) => {
-    if (projetos.some((projeto) => projeto?.id === card?.id)) {
+    if (projetos.some((projeto) => projeto?._id === card?._id)) {
       const updateProjeto = projetos?.map((projeto) => {
-        if (projeto?.id === card?.id) {
+        if (projeto?._id === card?._id) {
           return card;
         }
         return projeto;
@@ -100,17 +100,18 @@ const MeusProjetos = () => {
     } else {
       const newCard = {
         ...card,
-        nome: user?.nome,
-        sobrenome: user?.sobrenome,
-        idUser: user?.id,
-        fotoUser: user?.fotoUser,
+        name: user?.name,
+        lastName: user?.lastName,
+        idUser: user?._id,
+        avatar: user?.avatar,
         data: `${new Date().getDate()}/${new Date().getMonth() + 1}`,
-        id: projetos.length + 1,
+        _id: projetos.length + 1,
       };
       setProjetos([...projetos, newCard]);
       setModal(<ModalStatus message={"Projeto adicionado com sucesso!"} messageButton={'Voltar para projetos'} sucess={true} action={() => setModal(null)}/>);
     }
   };
+  console.log(projetos);
 
   return (
     <>
@@ -125,7 +126,7 @@ const MeusProjetos = () => {
         <div className="card-perfil__info">
           <div className="card-perfil__info-user">
             <h3>
-              {user?.nome} {user?.sobrenome}
+              {user?.name} {user?.lastName}
             </h3>
             <span>{user?.country}</span>
           </div>
@@ -167,7 +168,7 @@ const MeusProjetos = () => {
               ?.filter((projeto) => tags.length === 0 || projeto.tags.some(tagProjeto => tags.some(tagSearch => tagSearch === tagProjeto)))
               ?.map((projeto) => (
                 <Card
-                  key={projeto?.id}
+                  key={projeto?._id}
                   data={projeto}
                   onEditCard={onEditCard}
                   onDeleteCard={confirmDeleteCard}

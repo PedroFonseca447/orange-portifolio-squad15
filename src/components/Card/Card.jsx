@@ -10,7 +10,7 @@ const Card = ({data, onEditCard, onDeleteCard, user}) => {
   return (
     <div className='card'>
         <div className="card__img">
-            {data?.idUser === user?.id && 
+            {data?.idUser === user?._id && 
             <div className="card__edit">
                 <label htmlFor="card__menu-open" onClick={() => setEdit(!edit)}>
                     <EditIcon className='card__edit-icon'/>
@@ -24,12 +24,12 @@ const Card = ({data, onEditCard, onDeleteCard, user}) => {
                     </MenuList>
                 </Paper>}
             </div>}
-            <img src={typeof data?.imagem === 'object' ? URL.createObjectURL(data?.imagem) : data?.imagem} alt={data?.titulo} />
+            <img src={typeof data?.projectImage === 'object' ? URL.createObjectURL(data?.projectImage) : data?.projectImage} alt={data?.title} />
         </div>
         <div className="card__info-tags">
             <span className='card__info'>
-                <img src={data?.fotoUser} className='user' alt={`Foto de perfil da ${data?.nome}`} />
-                <p>{data?.nome} {data?.sobrenome} • {data?.data}</p>
+                <img src={data?.avatar} className='user' alt={`Foto de perfil da ${data?.name}`} />
+                <p>{data?.name} {data?.lastName} • {data?.data}</p>
             </span>
             {!page && <div className="card__tags">
                 {data?.tags?.map(tag => (

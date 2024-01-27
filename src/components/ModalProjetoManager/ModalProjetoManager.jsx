@@ -5,7 +5,13 @@ import CollectionsIcon from "@mui/icons-material/Collections";
 import Alert from "../Alert/Alert";
 
 const ModalProjetoManager = ({ projeto, onCloseModal, onSaveCard }) => {
-  const [data, setData] = useState(projeto);
+  const [data, setData] = useState(projeto || {
+    title: "",
+    projectImage: "",
+    tags: [],
+    description:"",
+    urlGithub: "",
+  });
   const [tag, setTag] = useState("");
   const [alert, setAlert] = useState(null)
 
@@ -33,7 +39,7 @@ const ModalProjetoManager = ({ projeto, onCloseModal, onSaveCard }) => {
         <section className="modal-projeto__form">
           <div className="form__upload">
             <p>Selecione o conteúdo que você deseja fazer upload</p>
-            {!data?.imagem ? (
+            {!data?.projectImage ? (
               <label htmlFor="form__upload-img" className="form__upload-img">
                 <div className="upload-img__container">
                   <CollectionsIcon className="upload-img__icon" />
@@ -42,22 +48,22 @@ const ModalProjetoManager = ({ projeto, onCloseModal, onSaveCard }) => {
               </label>
             ) : (
               <label htmlFor="form__upload-img" className="form__img">
-                <img src={typeof data?.imagem === 'object' ? URL.createObjectURL(data?.imagem) : data?.imagem} alt="" />
+                <img src={typeof data?.projectImage === 'object' ? URL.createObjectURL(data?.projectImage) : data?.projectImage} alt="" />
               </label>
             )}
             <input
               type="file"
               name="form__upload-img"
               id="form__upload-img"
-              onChange={(e) => setData({ ...data, imagem: e.target.files[0] })}
+              onChange={(e) => setData({ ...data, projectImage: e.target.files[0] })}
             />
           </div>
           <div className="form__inputs">
             <TextField
               id="outline"
               label="Titulo"
-              defaultValue={data?.titulo}
-              onChange={(e) => setData({ ...data, titulo: e.target.value })}
+              defaultValue={data?.title}
+              onChange={(e) => setData({ ...data, title: e.target.value })}
             />
             <Autocomplete
               multiple
@@ -80,16 +86,16 @@ const ModalProjetoManager = ({ projeto, onCloseModal, onSaveCard }) => {
             <TextField
               id="outline"
               label="Link"
-              defaultValue={data?.link}
-              onChange={(e) => setData({ ...data, link: e.target.value })}
+              defaultValue={data?.urlGithub}
+              onChange={(e) => setData({ ...data, urlGithub: e.target.value })}
             />
             <TextField
               id="outline"
               label="Descrição"
               multiline
               rows={4}
-              defaultValue={data?.descricao}
-              onChange={(e) => setData({ ...data, descricao: e.target.value })}
+              defaultValue={data?.description}
+              onChange={(e) => setData({ ...data, description: e.target.value })}
             />
           </div>
         </section>
