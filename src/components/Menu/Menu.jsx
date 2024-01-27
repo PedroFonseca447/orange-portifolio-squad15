@@ -4,6 +4,7 @@ import { Badge, Divider, MenuItem, MenuList, Paper } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
+import LogoutIcon from '@mui/icons-material/Logout';
 import './menu.css'
 
 const Menu = () => {
@@ -46,11 +47,23 @@ const Menu = () => {
                 </label>
                 <input type="checkbox" id='button-icon'/>
                 <Paper className='responsive-menu'>
-                    <MenuList>
-                        <MenuItem>Meus projetos</MenuItem>
-                        <MenuItem>Descobrir</MenuItem>
+                <MenuList>
+                        <MenuItem>
+                            <Link to={'/meus-projetos'} className='menu__link'>
+                                Meus projetos
+                            </Link>
+                        </MenuItem>
+                        <MenuItem>
+                            <Link to={'/descobrir'} className='menu__link'>
+                                Descobrir
+                            </Link>
+                        </MenuItem>
                         <Divider/>
-                        <MenuItem>Configurações</MenuItem>
+                        <MenuItem>
+                            <LogoutIcon /> 
+                            <span>&nbsp;</span>
+                            Sair
+                        </MenuItem>
                     </MenuList>
                 </Paper>
             </div>
