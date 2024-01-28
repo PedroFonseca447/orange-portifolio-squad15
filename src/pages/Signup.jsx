@@ -5,6 +5,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Alert from "@mui/material/Alert";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import TextField from "@mui/material/TextField";
 import imgCadastro from "/Users/macbook/Desktop/projeto-squad15/orange-portifolio-squad15/src/assets/img_cadastro.png";
 
@@ -14,6 +16,7 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [userCreatedAlert, setUserCreatedAlert] = useState(false);
 
   const resetForm = () => {
     setEmail("");
@@ -59,9 +62,13 @@ const Signup = () => {
         JSON.stringify(existingUserProfiles)
       );
 
-      alert("Usuario Criado!");
-
+      setUserCreatedAlert(true);
       resetForm();
+
+      // Fechar o alerta após 6 segundos
+      setTimeout(() => {
+        setUserCreatedAlert(false);
+      }, 6000);
     } catch (error) {
       console.error(error);
     }
@@ -101,7 +108,30 @@ const Signup = () => {
           margin: "0",
         }}
       >
-        <Typography variant="h4" gutterBottom>
+        {userCreatedAlert && (
+          <Alert
+            variant="filled"
+            severity="success"
+            iconMapping={{
+              success: <CheckCircleOutlineIcon />,
+            }}
+            onClose={() => setUserCreatedAlert(false)}
+            style={{ position: "absolute", top: "52px" }}
+          >
+            Cadastro feito com sucesso
+          </Alert>
+        )}
+
+        <Typography
+          variant="h4"
+          gutterBottom
+          style={{
+            color: "#222244",
+            fontSize: "48px",
+            fontFamily: "Roboto, sans-serif",
+            fontWeight: "400",
+          }}
+        >
           Cadastre-se
         </Typography>
         <form
@@ -120,6 +150,7 @@ const Signup = () => {
               display: "flex",
               flexDirection: "row",
               width: "100%",
+              marginBottom: "8px",
             }}
           >
             <TextField
@@ -130,7 +161,7 @@ const Signup = () => {
               required
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              style={{ width: "50%", marginRight: "8px", marginTop: "0px" }}
+              style={{ width: "50%", marginRight: "16px" }}
             />
             <TextField
               label="Sobrenome"
@@ -140,7 +171,7 @@ const Signup = () => {
               required
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              style={{ width: "50%", marginTop: "0px" }}
+              style={{ width: "50%" }}
             />
           </div>
 
@@ -160,7 +191,7 @@ const Signup = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{ marginBottom: "8px", marginTop: "0px" }}
+              style={{ marginBottom: "16px", marginTop: "0px" }}
             />
             <TextField
               label="Password"
@@ -179,17 +210,47 @@ const Signup = () => {
                   </InputAdornment>
                 ),
               }}
-              style={{ marginTop: "0px" }}
+              style={{ marginBottom: "16px", marginTop: "0px" }}
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{
+                marginBottom: "8px",
+                backgroundColor: "#ff5522",
+                color: "#fcfdff",
+                height: "42px",
+                fontFamily: "Roboto, sans-serif",
+                fontWeight: "500",
+              }}
+            >
               Cadastrar
             </Button>
+            <Typography
+              style={{
+                color: "#d3d3d3",
+                fontFamily: "Roboto, sans-serif",
+                fontWeight: "400",
+                fontSize: "16px",
+                marginTop: "8px",
+              }}
+            >
+              Já possui cadastro?{" "}
+              <Link
+                style={{
+                  color: "grey",
+                  fontFamily: "Roboto, sans-serif",
+                  fontWeight: "400",
+                  fontSize: "16px",
+                }}
+                to="/login"
+              >
+                Login
+              </Link>
+            </Typography>
           </div>
         </form>
-
-        <Typography>
-          Já possui cadastro? <Link to="/login">Login</Link>
-        </Typography>
       </div>
     </div>
   );

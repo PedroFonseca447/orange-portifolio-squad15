@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { auth } from "../services/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { Typography, Button, InputAdornment, IconButton } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import TextField from "@mui/material/TextField";
+import imgLogin from "/Users/macbook/Desktop/projeto-squad15/orange-portifolio-squad15/src/assets/img_login.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -70,31 +75,144 @@ const Login = () => {
     }
   };
 
+  const handleTooglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
-    <div>
-      <h1>Login Page</h1>
-      <form onSubmit={handleSubmit} className="login-form">
-        <input
-          type="email"
-          placeholder="Your Email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+    <div
+      style={{
+        display: "flex",
+        height: "100vh",
+        overflow: "hidden",
+        margin: "0",
+        padding: "0",
+      }}
+    >
+      <div style={{ flex: "0 0 auto", width: "40%", height: "100%" }}>
+        <img
+          src={imgLogin}
+          alt="Imagem de Cadastro"
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
-        <input
-          type="password"
-          placeholder="Your Password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit" className="login-button">
-          Login
-        </button>
-      </form>
-      <p>
-        Need to Signup? <Link to="/signup">Create Account</Link>
-      </p>
+      </div>
+
+      <div
+        style={{
+          flex: "1",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "20px",
+          overflow: "hidden",
+          margin: "0",
+        }}
+      >
+        <Typography
+          gutterBottom
+          style={{
+            color: "#222244",
+            fontSize: "48px",
+            fontFamily: "Roboto, sans-serif",
+            fontWeight: "400",
+          }}
+        >
+          Entre no Orange Portfólio
+        </Typography>
+        <form
+          onSubmit={handleSubmit}
+          className="signup-form"
+          style={{
+            width: "60%",
+            maxWidth: "517px",
+            height: "auto",
+            overflow: "hidden",
+            margin: "0",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              marginBottom: "8px",
+              marginTop: "8px",
+            }}
+          >
+            <Typography
+              variant="h4"
+              gutterBottom
+              style={{
+                color: "#222244",
+                fontSize: "24px",
+                fontFamily: "Roboto, sans-serif",
+                fontWeight: "400",
+              }}
+            >
+              Faça login com email
+            </Typography>
+            <TextField
+              label="Email address"
+              type="email"
+              variant="outlined"
+              margin="normal"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              style={{ marginBottom: "16px", marginTop: "0px" }}
+            />
+            <TextField
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              variant="outlined"
+              margin="normal"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleTooglePassword} edge="end">
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              style={{ marginBottom: "16px", marginTop: "0px" }}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{
+                marginBottom: "8px",
+                backgroundColor: "#ff5522",
+                height: "42px",
+                color: "#fcfdff",
+                fontSize: "15px",
+                fontFamily: "Roboto, sans-serif",
+                fontWeight: "500",
+              }}
+            >
+              Entrar
+            </Button>
+          </div>{" "}
+          <Typography>
+            <Link
+              to="/signup"
+              style={{
+                color: "grey",
+                fontFamily: "Roboto, sans-serif",
+                fontWeight: "400",
+                fontSize: "16px",
+              }}
+            >
+              Cadastre-se
+            </Link>
+          </Typography>
+        </form>
+      </div>
     </div>
   );
 };
