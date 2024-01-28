@@ -47,10 +47,10 @@ const Menu = () => {
                 <input type="checkbox" id='button-icon'/>
                 <Paper className='responsive-menu'>
                     <MenuList>
-                        <MenuItem>Meus projetos</MenuItem>
-                        <MenuItem>Descobrir</MenuItem>
+                        <MenuItem><Link to={'/meus-projetos'} className='menu__link'>Meus projetos</Link></MenuItem>
+                        <MenuItem><Link to={'/descobrir'} className='menu__link'>Descobrir</Link></MenuItem>
                         <Divider/>
-                        <MenuItem>Configurações</MenuItem>
+                        <MenuItem><Link to={'/descobrir'} className='menu__link'>Configurações</Link></MenuItem>
                     </MenuList>
                 </Paper>
             </div>
