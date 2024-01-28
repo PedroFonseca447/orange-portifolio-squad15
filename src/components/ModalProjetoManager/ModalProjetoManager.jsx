@@ -4,7 +4,7 @@ import { TextField, Autocomplete } from "@mui/material";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import Alert from "../Alert/Alert";
 
-const ModalProjetoManager = ({ projeto, onCloseModal, onSaveCard }) => {
+const ModalProjetoManager = ({ projeto, onCloseModal, onSaveCard, showPreviewCard }) => {
   const [data, setData] = useState(projeto || {
     title: "",
     projectImage: "",
@@ -100,7 +100,7 @@ const ModalProjetoManager = ({ projeto, onCloseModal, onSaveCard }) => {
           </div>
         </section>
         <div className="modal-projeto__actions">
-          <p>Visualizar publicação</p>
+          <p className="modal-projeto__visualizar" onClick={() => showPreviewCard(data)}>Visualizar publicação</p>
           <div className="modal-projeto__actions-buttons">
             <button className="actions__salvar-projeto" onClick={saveCard}>
               Salvar

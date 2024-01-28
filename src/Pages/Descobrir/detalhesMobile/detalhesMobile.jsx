@@ -10,19 +10,19 @@ export default function DetalhesMobile() {
 
     const { id } = useParams();
     const cardId = parseInt(id, 10);
-    const cardSelecionado = cardsData.find((card) => card.id === cardId);
+    const cardSelecionado = cardsData.find((card) => card._id === cardId);
 
     return (
         <div>
             <Menu />
                 {cardSelecionado && (
                     <div className='container'>
-                        <h1>{cardSelecionado.titulo}</h1>
-                        <img src={cardSelecionado.cardImagem} alt="" className='imgProjeto'/>
+                        <h1>{cardSelecionado.title}</h1>
+                        <img src={cardSelecionado.projectImage} alt="" className='imgProjeto'/>
 
                         <div className='infos'>
-                            <img src={cardSelecionado.usuario} alt="avatar do usuario" className='foto-usuario' sizes='100'/>
-                            <p>{`${cardSelecionado.nome} • ${cardSelecionado.data}`}</p>
+                            <img src={cardSelecionado.avatar} alt="avatar do avatar" className='foto-usuario' sizes='100'/>
+                            <p>{`${cardSelecionado.name} ${cardSelecionado.lastName} • ${cardSelecionado.createdAt}`}</p>
                             <div>
                                 {cardSelecionado.tags.map((tag, index) => (
                                     <span key={index} className='tag'>{tag}</span>
@@ -30,9 +30,9 @@ export default function DetalhesMobile() {
                             </div>
                         </div>
 
-                        <p>{cardSelecionado.descricao}</p>
+                        <p>{cardSelecionado.description}</p>
                         <p>Download</p>
-                        <a href={cardSelecionado.link}>{cardSelecionado.link}</a>
+                        <a href={cardSelecionado.urlGithub}>{cardSelecionado.urlGithub}</a>
                     </div>
 
                 )}

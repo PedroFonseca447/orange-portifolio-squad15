@@ -1,0 +1,93 @@
+.modal-content{
+    margin: 0;
+    padding: 0;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Horizontal-container{
+    display: flex;
+    padding: var(--none, 0px);
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+}
+
+.informacoes{
+        display: inline-flex;
+        gap: 18px;
+    }
+
+.informacoes img{
+    width: var(--5, 40px);
+    height: var(--5, 40px);
+    border-radius: 40px;
+    margin-top: 11px;
+}
+
+.modal-content .tags {
+    display:inline-flex;
+    gap: 5px;
+}
+
+.projeto{
+    display: flex;
+    flex-direction: column;
+    padding: var(--none, 0px);
+    justify-content: center;
+}
+
+.projeto img {
+    height: 300px;
+    object-fit: cover;
+    justify-content: center;
+    align-content: center;
+}
+
+.informacoes-responsive{
+    display: none;
+}
+
+
+@media (max-width: 450px) {
+
+    .Horizontal-container{
+        gap: 100px;
+
+    }
+    .informacoes, .tags {
+        display: none;
+    }
+
+    .informacoes-responsive{
+        display: flex;
+        gap: 8px;
+    }
+
+    .informacoes-responsive img{
+        width: var(--5, 40px);
+        height: var(--5, 40px);
+        border-radius: 40px;
+        margin-top: 11px;
+    }
+
+    .tags-responsive{
+        display: flex;
+        padding: 10px;
+        border-radius: 8px; 
+    }
+
+}
+
+@keyframes openModal{
+    0%{
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}

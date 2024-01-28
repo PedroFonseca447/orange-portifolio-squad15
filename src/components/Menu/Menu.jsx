@@ -14,17 +14,19 @@ const Menu = () => {
     const [steps, setSteps] = useState([])
     
     const user = {
-        name: "Camila",
-        lastName: "Soares",
-        email: "camilaso@gmail.com",
+        name: "Alice",
+        lastName: "Alexandra",
         country: "",
-        _id: 1,
-        avatar: "src/assets/Bianca.png",
+        email: "alicealx@gmail.com",
+        _id: 3,
+        avatar: "/src/assets/Alice.png",
     };
 
     useEffect(() =>{
         if(user.avatar !== "" && user.country !== ""){
+            setSteps([])
             setProgress(6)
+            setNotification(false)
         }else if(user.avatar === ""){
             setSteps(["Foto de perfil"])
             setProgress(5)

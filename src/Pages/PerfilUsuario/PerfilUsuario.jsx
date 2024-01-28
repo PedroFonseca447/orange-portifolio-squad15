@@ -8,12 +8,12 @@ import './perfilusuario.css'
 
 const PerfilUsuario = () => {
   const [user, setUser] = useState({
-    name: "Camila",
-    lastName: "Soares",
+    name: "Alice",
+    lastName: "Alexandra",
     country: "Brasil",
-    email: "camilaso@gmail.com",
-    _id: 1,
-    avatar: "src/assets/Bianca.png",
+    email: "alicealx@gmail.com",
+    _id: 3,
+    avatar: "/src/assets/Alice.png",
   });
   const [modal, setModal] = useState(null)
   const [imgHover, setImgHover] = useState(false)
@@ -93,6 +93,7 @@ const PerfilUsuario = () => {
             options={countries}
             disableCloseOnSelect
             getOptionLabel={(option) => option.nome}
+            defaultValue={{nome: user?.country}}
             renderInput={(params) => (
               <TextField
                 {...params}

@@ -37,7 +37,7 @@
     display: flex;
     align-items: center;
     gap: var(--1);
-    width: 100px;
+    width: 20%;
     justify-content: flex-end;
     overflow: auto;
 }
@@ -100,7 +100,19 @@
     width: 100%;
 }
 
+.card__menu-list li{
+    color: var(--Neutral-Colors-Neutral-110);
+    font-family: var(--roboto);
+    font-size: var(--2);
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.15px;
+    transition: 0.5s all;
+}
 
+.card__menu-list li:hover{
+    background-color: var(--Color-Brand-Secundria-Secondary-60);
+}
 
 /** RESPONSIVIDADE **/
 
@@ -126,7 +138,8 @@
 
 @media screen and (max-width: 360px) {
     .card img {
-        width: 100%;
+        width: 312px;
+        height: 258px;        
     }
 
     .card .card__info-tags{
