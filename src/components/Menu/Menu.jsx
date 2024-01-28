@@ -4,6 +4,7 @@ import { Badge, Divider, MenuItem, MenuList, Paper } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CloseIcon from '@mui/icons-material/Close';
 import MenuIcon from '@mui/icons-material/Menu';
+import LogoutIcon from '@mui/icons-material/Logout';
 import './menu.css'
 
 const Menu = () => {
@@ -13,17 +14,19 @@ const Menu = () => {
     const [steps, setSteps] = useState([])
     
     const user = {
-        name: "Camila",
-        lastName: "Soares",
-        email: "camilaso@gmail.com",
+        name: "Alice",
+        lastName: "Alexandra",
         country: "",
-        _id: 1,
-        avatar: "src/assets/Bianca.png",
+        email: "alicealx@gmail.com",
+        _id: 3,
+        avatar: "/src/assets/Alice.png",
     };
 
     useEffect(() =>{
         if(user.avatar !== "" && user.country !== ""){
+            setSteps([])
             setProgress(6)
+            setNotification(false)
         }else if(user.avatar === ""){
             setSteps(["Foto de perfil"])
             setProgress(5)
@@ -46,11 +49,23 @@ const Menu = () => {
                 </label>
                 <input type="checkbox" id='button-icon'/>
                 <Paper className='responsive-menu'>
-                    <MenuList>
-                        <MenuItem>Meus projetos</MenuItem>
-                        <MenuItem>Descobrir</MenuItem>
+                <MenuList>
+                        <MenuItem>
+                            <Link to={'/meus-projetos'} className='menu__link'>
+                                Meus projetos
+                            </Link>
+                        </MenuItem>
+                        <MenuItem>
+                            <Link to={'/descobrir'} className='menu__link'>
+                                Descobrir
+                            </Link>
+                        </MenuItem>
                         <Divider/>
-                        <MenuItem>Configurações</MenuItem>
+                        <MenuItem>
+                            <LogoutIcon /> 
+                            <span>&nbsp;</span>
+                            Sair
+                        </MenuItem>
                     </MenuList>
                 </Paper>
             </div>
@@ -61,7 +76,9 @@ const Menu = () => {
             </ul>
         </div>
         <div className="menu__profile-notifications">
-            <img src='/imgs/Image.png' alt='Sua foto de perfil' className='menu__profile'/>
+            <Link to={'/perfil'}>
+                <img src={user?.avatar} alt='Sua foto de perfil' className='menu__profile'/>
+            </Link>
             <Badge badgeContent={notification ? 1 : null} onClick={() => setShowNotification(!showNotification)}>
                 <NotificationsIcon className='menu__notifications'/>
             </Badge>
@@ -72,7 +89,7 @@ const Menu = () => {
                     <div className="close-notification">
                         <CloseIcon onClick={() => setNotification(false)}/>
                     </div>
-                    <Link to={'/'} onClick={() => setShowNotification(false)}>
+                    <Link to={'/perfil'} onClick={() => setShowNotification(false)}>
                         <h3>Complete seu cadastro</h3>
                         <div className="container-progress">
                             <div className="progress" style={{width: ((100 / 6) * progress)+'%'}}></div>

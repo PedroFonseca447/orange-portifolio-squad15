@@ -32,7 +32,7 @@ const style = {
 
 const ModalProjeto = ({ open, handleClose, cardId }) => {
 
-    const cardSelecionado = cardsData.find(card => card.id === cardId);
+    const cardSelecionado = cardsData.find(card => card._id === cardId);
 
     return(
         <>
@@ -59,11 +59,11 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                             <div className='modal-content'>
                                 <div className='Horizontal-container'>
                                     <div className='informacoes'>
-                                        <img src={cardSelecionado.usuario} alt="" />
-                                        <p>{cardSelecionado.nome} <br /> {cardSelecionado.data}</p>
+                                        <img src={cardSelecionado.avatar} alt="" />
+                                        <p>{cardSelecionado.name} {cardSelecionado.lastName}<br /> {cardSelecionado.createdAt}</p>
                                     </div>
 
-                                        <h3>{cardSelecionado.titulo}</h3>
+                                        <h3>{cardSelecionado.title}</h3>
     
                                     <div className='tags'>
                                         {cardSelecionado.tags.map((tag, index) => (
@@ -74,12 +74,12 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                                     </div>
                                 </div>
                                 <div className='projeto'>
-                                    <img src={cardSelecionado.cardImagem} alt="" sizes='100'/>
+                                    <img src={cardSelecionado.projectImage} alt="" sizes='100'/>
 
                                     {/* mobile */}
                                     <div className='informacoes-responsive'>
-                                        <img src={cardSelecionado.usuario} alt="" />
-                                        <p>{`${cardSelecionado.nome} • ${cardSelecionado.data}`}</p>
+                                        <img src={cardSelecionado.avatar} alt="" />
+                                        <p>{`${cardSelecionado.name} ${cardSelecionado.lastName} • ${cardSelecionado.createdAt}`}</p>
 
                                         <div className='tags-responsive'>
                                         {cardSelecionado.tags.map((tag, index) => (
@@ -91,9 +91,9 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                                     </div>
                                     {/* ====== */}
 
-                                    <p>{cardSelecionado.descricao}</p>
+                                    <p>{cardSelecionado.description}</p>
                                     <p>Download</p>
-                                    <a href={cardSelecionado.link}>{cardSelecionado.link}</a>
+                                    <a href={cardSelecionado.urlGithub}>{cardSelecionado.urlGithub}</a>
                                 </div>
                             </div>    
                         </Box>

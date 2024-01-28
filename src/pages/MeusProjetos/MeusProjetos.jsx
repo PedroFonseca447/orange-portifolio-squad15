@@ -3,49 +3,23 @@ import "./meusprojetos.css";
 import Menu from "../../components/Menu/Menu";
 import Card from "../../components/Card/Card";
 import ModalProjetoManager from "../../components/ModalProjetoManager/ModalProjetoManager";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, Skeleton, TextField } from "@mui/material";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import ModalStatus from "../../components/ModalStatus/ModalStatus";
 import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
+import ModalPreview from '../../components/ModalPreview/ModalPreview'
+import { cardsData } from "../../components/cardsData";
 
 const MeusProjetos = () => {
   const user = {
-    name: "Camila",
-    lastName: "Soares",
+    name: "Alice",
+    lastName: "Alexandra",
     country: "Brasil",
-    _id: 1,
-    avatar: "src/assets/Bianca.png",
+    email: "alicealx@gmail.com",
+    _id: 3,
+    avatar: "/src/assets/Alice.png",
   };
-  const [projetos, setProjetos] = useState([
-    {
-      name: "Camila",
-      lastName: "Soares",
-      title: "Ecommerce One Page",
-      data: "12/23",
-      projectImage: "src/assets/card1.png",
-      avatar: "src/assets/Bianca.png",
-      tags: ["UX", "Web"],
-      description:
-        "Temos o prazer de compartilhar com vocês uma variação da nosso primeiro recurso gratuito, Monoceros. É um modelo de uma página para mostrar seus produtos. Tentamos redesenhar uma versão mais B2C e minimalista do nosso primeiro template de e-commerce.",
-      urlGithub: "https://gumroad.com/products/wxCSL",
-      idUser: 1,
-      _id: 1,
-    },
-    {
-      name: "Camila",
-      lastName: "Soares",
-      title: "Landing page orange",
-      data: "11/23",
-      projectImage: "src/assets/card2.png",
-      avatar: "src/assets/Bianca.png",
-      tags: ["Web", "Mobile"],
-      description:
-        "Temos o prazer de compartilhar com vocês uma variação da nosso primeiro recurso gratuito, Monoceros. É um modelo de uma página para mostrar seus produtos. Tentamos redesenhar uma versão mais B2C e minimalista do nosso primeiro template de e-commerce.",
-      urlGithub: "https://gumroad.com/products/wxCSL",
-      idUser: 1,
-      _id: 2,
-    },
-  ]);
+  const [projetos, setProjetos] = useState(cardsData);
 
   const [modal, setModal] = useState(null);
   const [tags, setTags] = useState([]);
@@ -61,6 +35,7 @@ const MeusProjetos = () => {
         projeto={null}
         onCloseModal={onCloseModal}
         onSaveCard={onSaveCard}
+        showPreviewCard={showPreviewCard}
       />
     );
   };
@@ -71,9 +46,27 @@ const MeusProjetos = () => {
         projeto={card}
         onCloseModal={onCloseModal}
         onSaveCard={onSaveCard}
+        showPreviewCard={showPreviewCard}
       />
     );
   };
+
+  const showPreviewCard = (card) =>{
+    setModal(
+      <ModalPreview handleClose={() => setModal(<ModalProjetoManager
+        projeto={card}
+        onCloseModal={onCloseModal}
+        onSaveCard={onSaveCard}
+        showPreviewCard={showPreviewCard}
+      />)} card={card}/>
+    )
+  }
+
+  const showCard = (card) =>{
+    setModal(
+      <ModalPreview handleClose={() => setModal(null)} card={card}/>
+    )
+  }
 
   const confirmDeleteCard = (card) => {
     setModal(<ModalConfirmation title={'Deseja Excluir?'} message={'Se você prosseguir irá excluir o projeto do seu portfólio'} action={() => onDeleteCard(card)} cancel={() => setModal(null)} textConfirm={'Excluir'}/>)
@@ -102,9 +95,9 @@ const MeusProjetos = () => {
         ...card,
         name: user?.name,
         lastName: user?.lastName,
-        idUser: user?._id,
+        user: user?._id,
         avatar: user?.avatar,
-        data: `${new Date().getDate()}/${new Date().getMonth() + 1}`,
+        createdAt: `${new Date().getDate()}/${new Date().getMonth() + 1}`,
         _id: projetos.length + 1,
       };
       setProjetos([...projetos, newCard]);
@@ -119,7 +112,7 @@ const MeusProjetos = () => {
       {modal}
       <section className="card-perfil">
         <img
-          src="/imgs/Image.png"
+          src={user?.avatar}
           alt="Sua foto de perfil"
           className="card-perfil__img"
         />
@@ -154,25 +147,32 @@ const MeusProjetos = () => {
             />
           )}
         />
-        {projetos.length === 0 ? (
-          <div className="meus-projetos__add-projetos" onClick={onCreateCard}>
-            <div className="add-projetos__container">
-              <CollectionsIcon className="add-projetos__icon" />
-              <p>Adicione seu primeiro projeto</p>
-              <p>Compartilhe seu talento com milhares de pessoas</p>
+        {projetos
+        ?.filter((projeto) => projeto?.user === user?._id && (tags.length === 0 || projeto.tags.some(tagProjeto => tags.some(tagSearch => tagSearch.toLowerCase() === tagProjeto.toLowerCase()))))
+          ?.length === 0 ? (
+            <div className="cards"style={{alignItems: 'flex-end'}} >
+              <div className="meus-projetos__add-projetos" onClick={onCreateCard}>
+                <div className="add-projetos__container">
+                  <CollectionsIcon className="add-projetos__icon" />
+                  <p>Adicione seu primeiro projeto</p>
+                  <p>Compartilhe seu talento com milhares de pessoas</p>
+                </div>
+              </div>
+              <Skeleton variant="rectangular" width={389} height={258} />
+              <Skeleton variant="rectangular" width={389} height={258} />
             </div>
-          </div>
         ) : (
           <div className="cards">
             {projetos
-              ?.filter((projeto) => tags.length === 0 || projeto.tags.some(tagProjeto => tags.some(tagSearch => tagSearch === tagProjeto)))
-              ?.map((projeto) => (
+              ?.filter((projeto) => projeto?.user === user?._id && (tags.length === 0 || projeto.tags.some(tagProjeto => tags.some(tagSearch => tagSearch.toLowerCase() === tagProjeto.toLowerCase()))))
+              ?.map((projeto, index) => (
                 <Card
                   key={projeto?._id}
                   data={projeto}
                   onEditCard={onEditCard}
                   onDeleteCard={confirmDeleteCard}
                   user={user}
+                  showCard={showCard}
                 />
               ))}
           </div>

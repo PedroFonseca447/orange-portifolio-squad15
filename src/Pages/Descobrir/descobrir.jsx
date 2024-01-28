@@ -50,14 +50,14 @@ export default function Descobrir() {
                 <br />
                 <div className='cardList'>
                     {cardsData.map((card) => (
-                        <div  key={card.id} onClick={() => handleImageClick(card.id)}>
+                        <div  key={card._id} onClick={() => handleImageClick(card._id)}>
                             
                             <div className='card' >
-                                <img src={card.cardImagem} alt=""/>
+                                <img src={card.projectImage} alt=""/>
                                     <div className='info-container'>
                                         <span>
-                                            <img src={card.usuario} className='user' alt="" />
-                                            <p>{`${card.nome} • ${card.data}`}</p>
+                                            <img src={card.avatar} className='user' alt="" />
+                                            <p>{`${card.name} ${card.lastName} • ${card.createdAt}`}</p>
                                         </span>
     
                                         {/* mobile */}

@@ -3,14 +3,15 @@ import './card.css'
 import { Chip, Paper, MenuItem, MenuList } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 
-const Card = ({data, onEditCard, onDeleteCard, user}) => {
+const Card = ({data, onEditCard, onDeleteCard, user, showCard}) => {
     const page = window.location.pathname === "/descobrir"
     const [edit, setEdit] = useState(false)
+    console.log(data);
 
   return (
     <div className='card'>
         <div className="card__img">
-            {data?.idUser === user?._id && 
+            {data?.user === user?._id && 
             <div className="card__edit">
                 <label htmlFor="card__menu-open" onClick={() => setEdit(!edit)}>
                     <EditIcon className='card__edit-icon'/>
@@ -24,12 +25,12 @@ const Card = ({data, onEditCard, onDeleteCard, user}) => {
                     </MenuList>
                 </Paper>}
             </div>}
-            <img src={typeof data?.projectImage === 'object' ? URL.createObjectURL(data?.projectImage) : data?.projectImage} alt={data?.title} />
+            <img src={typeof data?.projectImage === 'object' ? URL.createObjectURL(data?.projectImage) : data?.projectImage} alt={data?.title}  onClick={() => showCard(data)}/>
         </div>
         <div className="card__info-tags">
             <span className='card__info'>
                 <img src={data?.avatar} className='user' alt={`Foto de perfil da ${data?.name}`} />
-                <p>{data?.name} {data?.lastName} • {data?.data}</p>
+                <p>{data?.name} {data?.lastName} • {data?.createdAt}</p>
             </span>
             {!page && <div className="card__tags">
                 {data?.tags?.map(tag => (

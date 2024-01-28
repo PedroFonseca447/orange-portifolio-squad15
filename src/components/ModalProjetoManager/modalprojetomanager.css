@@ -156,6 +156,12 @@
     font-weight: 400;
     line-height: var(--2);
     letter-spacing: 0.15px;
+    cursor: pointer;
+    transition: 0.5s all;
+}
+
+.modal-projeto__actions p:hover{
+    opacity: 0.6;
 }
 
 .modal-projeto__actions-buttons{
