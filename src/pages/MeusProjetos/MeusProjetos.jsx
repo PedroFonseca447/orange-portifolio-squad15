@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./meusprojetos.css";
+import styles from "./meusprojetos.module.css";
 import Menu from "../../components/Menu/Menu";
 import Card from "../../components/Card/Card";
 import ModalProjetoManager from "../../components/ModalProjetoManager/ModalProjetoManager";
@@ -7,7 +7,7 @@ import { Autocomplete, Skeleton, TextField } from "@mui/material";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import ModalStatus from "../../components/ModalStatus/ModalStatus";
 import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
-import ModalPreview from '../../components/ModalPreview/ModalPreview'
+import ModalPreview from "../../components/ModalPreview/ModalPreview";
 import { cardsData } from "../../components/cardsData";
 
 const MeusProjetos = () => {
@@ -51,33 +51,53 @@ const MeusProjetos = () => {
     );
   };
 
-  const showPreviewCard = (card) =>{
+  const showPreviewCard = (card) => {
     setModal(
-      <ModalPreview handleClose={() => setModal(<ModalProjetoManager
-        projeto={card}
-        onCloseModal={onCloseModal}
-        onSaveCard={onSaveCard}
-        showPreviewCard={showPreviewCard}
-      />)} card={card}/>
-    )
-  }
+      <ModalPreview
+        handleClose={() =>
+          setModal(
+            <ModalProjetoManager
+              projeto={card}
+              onCloseModal={onCloseModal}
+              onSaveCard={onSaveCard}
+              showPreviewCard={showPreviewCard}
+            />
+          )
+        }
+        card={card}
+      />
+    );
+  };
 
-  const showCard = (card) =>{
-    setModal(
-      <ModalPreview handleClose={() => setModal(null)} card={card}/>
-    )
-  }
+  const showCard = (card) => {
+    setModal(<ModalPreview handleClose={() => setModal(null)} card={card} />);
+  };
 
   const confirmDeleteCard = (card) => {
-    setModal(<ModalConfirmation title={'Deseja Excluir?'} message={'Se você prosseguir irá excluir o projeto do seu portfólio'} action={() => onDeleteCard(card)} cancel={() => setModal(null)} textConfirm={'Excluir'}/>)
-  }
+    setModal(
+      <ModalConfirmation
+        title={"Deseja Excluir?"}
+        message={"Se você prosseguir irá excluir o projeto do seu portfólio"}
+        action={() => onDeleteCard(card)}
+        cancel={() => setModal(null)}
+        textConfirm={"Excluir"}
+      />
+    );
+  };
 
   const onDeleteCard = (card) => {
     const deleteProjeto = projetos.filter(
       (projeto) => card?._id !== projeto?._id
     );
     setProjetos(deleteProjeto);
-    setModal(<ModalStatus message={"Projeto deletado com sucesso!"} messageButton={'Voltar para projetos'} sucess={true} action={() => setModal(null)}/>);
+    setModal(
+      <ModalStatus
+        message={"Projeto deletado com sucesso!"}
+        messageButton={"Voltar para projetos"}
+        sucess={true}
+        action={() => setModal(null)}
+      />
+    );
   };
 
   const onSaveCard = (card) => {
@@ -89,7 +109,14 @@ const MeusProjetos = () => {
         return projeto;
       });
       setProjetos(updateProjeto);
-      setModal(<ModalStatus message={"Edição concluída com sucesso!"} messageButton={'Voltar para projetos'} sucess={true} action={() => setModal(null)}/>);
+      setModal(
+        <ModalStatus
+          message={"Edição concluída com sucesso!"}
+          messageButton={"Voltar para projetos"}
+          sucess={true}
+          action={() => setModal(null)}
+        />
+      );
     } else {
       const newCard = {
         ...card,
@@ -101,23 +128,29 @@ const MeusProjetos = () => {
         _id: projetos.length + 1,
       };
       setProjetos([...projetos, newCard]);
-      setModal(<ModalStatus message={"Projeto adicionado com sucesso!"} messageButton={'Voltar para projetos'} sucess={true} action={() => setModal(null)}/>);
+      setModal(
+        <ModalStatus
+          message={"Projeto adicionado com sucesso!"}
+          messageButton={"Voltar para projetos"}
+          sucess={true}
+          action={() => setModal(null)}
+        />
+      );
     }
   };
-  console.log(projetos);
 
   return (
     <>
       <Menu />
       {modal}
-      <section className="card-perfil">
+      <section className={styles.cardPerfil}>
         <img
           src={user?.avatar}
           alt="Sua foto de perfil"
-          className="card-perfil__img"
+          className={styles.cardPerfil__img}
         />
-        <div className="card-perfil__info">
-          <div className="card-perfil__info-user">
+        <div className={styles.cardPerfil__info}>
+          <div className={styles.cardPerfil__infoUser}>
             <h3>
               {user?.name} {user?.lastName}
             </h3>
@@ -126,11 +159,11 @@ const MeusProjetos = () => {
           <button onClick={onCreateCard}>Adicionar projeto</button>
         </div>
       </section>
-      <main className="meus-projetos">
+      <main className={styles.meusProjetos}>
         <h6>Meus projetos</h6>
         <Autocomplete
           multiple
-          className="meus-projetos__input-tags"
+          className={styles.meusProjetos__inputTags}
           id="tags-outline"
           options={tags ? [...tags, tag] : [tag]}
           getOptionLabel={(option) => option}
@@ -147,24 +180,52 @@ const MeusProjetos = () => {
             />
           )}
         />
-        {projetos
-        ?.filter((projeto) => projeto?.user === user?._id && (tags.length === 0 || projeto.tags.some(tagProjeto => tags.some(tagSearch => tagSearch.toLowerCase() === tagProjeto.toLowerCase()))))
-          ?.length === 0 ? (
-            <div className="cards"style={{alignItems: 'flex-end'}} >
-              <div className="meus-projetos__add-projetos" onClick={onCreateCard}>
-                <div className="add-projetos__container">
-                  <CollectionsIcon className="add-projetos__icon" />
-                  <p>Adicione seu primeiro projeto</p>
-                  <p>Compartilhe seu talento com milhares de pessoas</p>
-                </div>
+        {projetos?.filter(
+          (projeto) =>
+            projeto?.user === user?._id &&
+            (tags.length === 0 ||
+              projeto.tags.some((tagProjeto) =>
+                tags.some(
+                  (tagSearch) =>
+                    tagSearch.toLowerCase() === tagProjeto.toLowerCase()
+                )
+              ))
+        )?.length === 0 ? (
+          <div className={styles.cards} style={{ alignItems: "flex-end" }}>
+            <div
+              className={styles.meusProjetos__addProjetos}
+              onClick={onCreateCard}
+            >
+              <div className={styles.addProjetos__container}>
+                <CollectionsIcon
+                  sx={{
+                    width: "46px",
+                    height: "46px",
+                    flexShrink: 0,
+                    color: "#323232",
+                  }}
+                />
+                <p>Adicione seu primeiro projeto</p>
+                <p>Compartilhe seu talento com milhares de pessoas</p>
               </div>
-              <Skeleton variant="rectangular" width={389} height={258} />
-              <Skeleton variant="rectangular" width={389} height={258} />
             </div>
+            <Skeleton variant="rectangular" width={389} height={258} />
+            <Skeleton variant="rectangular" width={389} height={258} />
+          </div>
         ) : (
-          <div className="cards">
+          <div className={styles.cards}>
             {projetos
-              ?.filter((projeto) => projeto?.user === user?._id && (tags.length === 0 || projeto.tags.some(tagProjeto => tags.some(tagSearch => tagSearch.toLowerCase() === tagProjeto.toLowerCase()))))
+              ?.filter(
+                (projeto) =>
+                  projeto?.user === user?._id &&
+                  (tags.length === 0 ||
+                    projeto.tags.some((tagProjeto) =>
+                      tags.some(
+                        (tagSearch) =>
+                          tagSearch.toLowerCase() === tagProjeto.toLowerCase()
+                      )
+                    ))
+              )
               ?.map((projeto, index) => (
                 <Card
                   key={projeto?._id}

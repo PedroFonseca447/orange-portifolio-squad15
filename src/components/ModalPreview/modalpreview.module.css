@@ -1,13 +1,25 @@
-.modal-content{
+.modalPreview{
+    width: 70%;
+    height: 70vh;
+    background-color: var(--white);
+    overflow-y: auto;
+    box-shadow: 24;
+    padding: 20px;
+    margin: 0;
+    animation: openModal 0.8s cubic-bezier(0.51, -0.28, 0.49, 1.31);
+}
+
+.modalContent{
     margin: 0;
     padding: 0;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: var(--roboto);
 }
 
-.Horizontal-container{
+.HorizontalContainer{
     display: flex;
     padding: var(--none, 0px);
     justify-content: space-between;
@@ -27,7 +39,7 @@
     margin-top: 11px;
 }
 
-.modal-content .tags {
+.modalContent .tags {
     display:inline-flex;
     gap: 5px;
 }
@@ -46,14 +58,16 @@
     align-content: center;
 }
 
-.informacoes-responsive{
+.informacoesResponsive{
     display: none;
 }
+
+/** RESPONSIVIDADE **/
 
 
 @media (max-width: 450px) {
 
-    .Horizontal-container{
+    .HorizontalContainer{
         gap: 100px;
 
     }
@@ -61,24 +75,27 @@
         display: none;
     }
 
-    .informacoes-responsive{
+    .informacoesResponsive{
         display: flex;
         gap: 8px;
     }
 
-    .informacoes-responsive img{
+    .informacoesResponsive img{
         width: var(--5, 40px);
         height: var(--5, 40px);
         border-radius: 40px;
         margin-top: 11px;
     }
 
-    .tags-responsive{
+    .tagsResponsive{
         display: flex;
         padding: 10px;
         border-radius: 8px; 
     }
 
+    .modalPreview{
+        height: 100vh;
+    }
 }
 
 @keyframes openModal{

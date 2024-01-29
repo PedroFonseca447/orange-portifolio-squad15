@@ -3,52 +3,40 @@ import React from "react";
 import { Modal, Box, IconButton, Chip } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-import "./modalpreview.css";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "fit-content",
-  height: window.innerWidth <= 400 ? "100vh" : "70vh",
-  bgcolor: "background.paper",
-  overflowY: "auto",
-  boxShadow: 24,
-  p: 4,
-  padding: 10,
-  margin: 0,
-};
-
-const styleBtn = {
-  position: "absolute",
-  top: 10,
-  right: 15,
-  color: "#323232",
-};
+import styles from "./modalpreview.module.css";
 
 const ModalPreview = ({ handleClose, card }) => {
   return (
     <>
       <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        open={true}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
-        <Box sx={style}>
-          <IconButton
-            edge="end"
-            color="inherit"
-            onClick={handleClose}
-            aria-label="close"
-            sx={styleBtn}
+        <section className={styles.modalPreview}>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
           >
-            <CloseIcon />
-          </IconButton>
-          <div className="modal-content">
-            <div className="Horizontal-container">
-              <div className="informacoes">
+            <IconButton
+              edge="end"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <CloseIcon sx={{ color: "#323232" }} />
+            </IconButton>
+          </Box>
+          <div className={styles.modalContent}>
+            <div className={styles.HorizontalContainer}>
+              <div className={styles.informacoes}>
                 <img
                   src={
                     typeof card?.avatar === "object"
@@ -65,13 +53,13 @@ const ModalPreview = ({ handleClose, card }) => {
 
               <h3>{card?.title}</h3>
 
-              <div className="tags">
+              <div className={styles.tags}>
                 {card?.tags.map((tag, index) => (
                   <Chip label={tag} key={index} />
                 ))}
               </div>
             </div>
-            <div className="projeto">
+            <div className={styles.projeto}>
               <img
                 src={
                   typeof card?.projectImage === "object"
@@ -83,11 +71,11 @@ const ModalPreview = ({ handleClose, card }) => {
               />
 
               {/* mobile */}
-              <div className="informacoes-responsive">
+              <div className={styles.informacoesResponsive}>
                 <img src={card?.avatar} alt="Foto de perfil" />
                 <p>{`${card?.name} ${card?.lastName} • ${card?.createdAt}`}</p>
 
-                <div className="tags-responsive">
+                <div className={styles.tagsResponsive}>
                   {card?.tags.map((tag, index) => (
                     <Chip label={tag} key={index} />
                   ))}
@@ -100,7 +88,7 @@ const ModalPreview = ({ handleClose, card }) => {
               <a href={card?.urlGithub}>{card?.urlGithub}</a>
             </div>
           </div>
-        </Box>
+        </section>
       </Modal>
     </>
   );

@@ -1,17 +1,4 @@
-.background-modal{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    background-color: var(--components-backdrop-fill);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 0;
-    left: 0;
-}
-
-.modal-projeto{
+.modalProjeto{
     width: 890px;
     height: 522px;
     flex-shrink: 0;
@@ -23,7 +10,7 @@
     animation: openModal 0.8s cubic-bezier(0.51, -0.28, 0.49, 1.31);
 }
 
-.modal-projeto h5{
+.modalProjeto h5{
     color: var(--Neutral-Colors-Neutral-110);
 
     width: 100%;
@@ -36,7 +23,7 @@
     margin-bottom: 24px;
 }
 
-.modal-projeto__form{
+.modalProjeto__form{
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -44,7 +31,7 @@
     flex-wrap: wrap;
 }
 
-.modal-projeto__form .form__upload{
+.modalProjeto__form .form__upload{
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -66,11 +53,11 @@
     letter-spacing: 0.15px;
 }
 
-#form__upload-img{
+.form__uploadImgInput{
     display: none;
 }
 
-.form__upload-img{
+.form__uploadImg{
     display: flex;
     width: 100%;
     height: 304px;
@@ -90,7 +77,7 @@
     cursor: pointer;
 }
 
-.upload-img__container p{
+.uploadImg__container p{
     color: var(--Neutral-Colors-Neutral-120);
     font-family:var(--roboto);
     font-style: normal;
@@ -99,20 +86,13 @@
     margin: var(--none);
     text-align: left;
 }
-.upload-img__container p{
+.uploadImg__container p{
     line-height: 16px;
     font-size: 16px;
     letter-spacing: 0.5px;
 }
 
-.upload-img__icon{
-    width: 46px !important;
-    height: 46px !important;
-    flex-shrink: 0;
-    color: #323232;
-}
-
-.upload-img__container{
+.uploadImg__container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,7 +104,7 @@
     cursor: pointer;
 }
 
-.modal-projeto__form .form__inputs{
+.modalProjeto__form .form__inputs{
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -133,7 +113,7 @@
     justify-content: center;
 }
 
-.modal-projeto__actions{
+.modalProjeto__actions{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -143,7 +123,7 @@
     margin-top: var(--2);
 }
 
-.modal-projeto__actions p{
+.modalProjeto__actions p{
     width: 100%;
     flex-shrink: 0;
     align-self: stretch;
@@ -160,11 +140,11 @@
     transition: 0.5s all;
 }
 
-.modal-projeto__actions p:hover{
+.modalProjeto__actions p:hover{
     opacity: 0.6;
 }
 
-.modal-projeto__actions-buttons{
+.modalProjeto__actionsButtons{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -172,7 +152,7 @@
     flex-wrap: wrap;
 }
 
-.modal-projeto__actions-buttons .actions__salvar-projeto{
+.modalProjeto__actionsButtons .actions__salvarProjeto{
     display: flex;
     padding: 8px 22px;
     flex-direction: column;
@@ -199,7 +179,7 @@
     cursor: pointer;
 }
 
-.modal-projeto__actions-buttons .actions__cancelar-projeto{
+.modalProjeto__actionsButtons .actions__cancelarProjeto{
     display: flex;
     padding: 8px 22px;
     flex-direction: column;
@@ -226,35 +206,24 @@
 /** RESPONSIVIDADE **/
 
 @media screen and (max-width: 1000px){
-    .modal-projeto{
+    .modalProjeto{
         width: 85%;
-        height: auto;
+        height: 90vh;
+        overflow-y: auto;
     }
 
-    .modal-projeto__form{
+    .modalProjeto__form{
         flex-direction: column-reverse;
-    }
-
-    .background-modal{
-        position: absolute;
-        width: 100%;
-        height: 170%;
-        z-index: 999;
-        background-color: var(--components-backdrop-fill);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        top: 0;
-        left: 0;
     }
 }
 
 @media screen and (max-width: 550px){
-    .modal-projeto{
+    .modalProjeto{
         width: 70%;
-        height: auto;
+        height: 90vh;
+        overflow-y: auto;
     }
-    .upload-img__container{
+    .uploadImg__container{
         width: 70%;
     }
 }

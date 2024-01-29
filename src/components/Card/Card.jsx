@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
-import './card.css'
+import styles from './card.module.css'
 import { Chip, Paper, MenuItem, MenuList } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 
 const Card = ({data, onEditCard, onDeleteCard, user, showCard}) => {
     const page = window.location.pathname === "/descobrir"
     const [edit, setEdit] = useState(false)
-    console.log(data);
 
   return (
-    <div className='card'>
-        <div className="card__img">
+    <div className={styles.card}>
+        <div className={styles.card__img}>
             {data?.user === user?._id && 
-            <div className="card__edit">
+            <div className={styles.card__edit}>
                 <label htmlFor="card__menu-open" onClick={() => setEdit(!edit)}>
-                    <EditIcon className='card__edit-icon'/>
+                    <EditIcon className={styles.card__editIcon}/>
                 </label>
-                {edit && <Paper className='card__menu'>
-                    <div className="triangulo">
+                {edit && 
+                <Paper className={styles.card__menu}>
+                    <div className={styles.triangulo}>
                     </div>
-                    <MenuList className='card__menu-list'>
+                    <MenuList className={styles.card__menuList}>
                         <MenuItem onClick={() => {onEditCard(data); setEdit(false)}}>Editar</MenuItem>
                         <MenuItem onClick={() => {onDeleteCard(data); setEdit(false)}}>Excluir</MenuItem>
                     </MenuList>
@@ -27,12 +27,12 @@ const Card = ({data, onEditCard, onDeleteCard, user, showCard}) => {
             </div>}
             <img src={typeof data?.projectImage === 'object' ? URL.createObjectURL(data?.projectImage) : data?.projectImage} alt={data?.title}  onClick={() => showCard(data)}/>
         </div>
-        <div className="card__info-tags">
-            <span className='card__info'>
-                <img src={data?.avatar} className='user' alt={`Foto de perfil da ${data?.name}`} />
+        <div className={styles.card__infoTags}>
+            <span className={styles.card__info}>
+                <img src={data?.avatar} className={styles.user} alt={`Foto de perfil da ${data?.name}`} />
                 <p>{data?.name} {data?.lastName} • {data?.createdAt}</p>
             </span>
-            {!page && <div className="card__tags">
+            {!page && <div className={styles.card__tags}>
                 {data?.tags?.map(tag => (
                     <Chip label={tag} key={tag}/>
                 ))}
