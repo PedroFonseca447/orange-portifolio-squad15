@@ -1,22 +1,22 @@
 import React from 'react';
 
-import { Modal, Box, IconButton  } from '@mui/material';
+import { Modal, Box, IconButton, Chip  } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-import './modal.css';
+import styles from'./modal.module.css';
 
 import { cardsData } from '../../../components/cardsData';
 
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '70%',
-    height: window.innerWidth <= 400 ? '100vh' : '70vh',
-    bgcolor: 'background.paper',
-    overflowY: 'auto',
-    border: '2px solid #000',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "fit-content",
+    height: window.innerWidth <= 400 ? "100vh" : "70vh",
+    bgcolor: "background.paper",
+    overflowY: "auto",
+    overflowX: "auto",
     boxShadow: 24,
     p: 4,
     padding: 10,
@@ -25,8 +25,8 @@ const style = {
 
   const styleBtn = {
     position: 'absolute', 
-    top: 10, 
-    right: 15, 
+    top: 20, 
+    right: 25, 
     color: 'black' 
   }
 
@@ -56,16 +56,16 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                         >
                             <CloseIcon />
                         </IconButton>
-                            <div className='modal-content'>
-                                <div className='Horizontal-container'>
-                                    <div className='informacoes'>
+                            <div className={styles.modalContent}>
+                                <div className={styles.HorizontalContainer}>
+                                    <div className={styles.informacoes}>
                                         <img src={cardSelecionado.avatar} alt="" />
                                         <p>{cardSelecionado.name} {cardSelecionado.lastName}<br /> {cardSelecionado.createdAt}</p>
                                     </div>
 
                                         <h3>{cardSelecionado.title}</h3>
     
-                                    <div className='tags'>
+                                    <div className={styles.tag}>
                                         {cardSelecionado.tags.map((tag, index) => (
                                             <React.Fragment key={index}>
                                                 <span className='tag'>{tag}</span>
@@ -73,19 +73,17 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                                         ))}
                                     </div>
                                 </div>
-                                <div className='projeto'>
+                                <div className={styles.projeto}>
                                     <img src={cardSelecionado.projectImage} alt="" sizes='100'/>
 
                                     {/* mobile */}
-                                    <div className='informacoes-responsive'>
+                                    <div className={styles.informacoesResponsive}>
                                         <img src={cardSelecionado.avatar} alt="" />
                                         <p>{`${cardSelecionado.name} ${cardSelecionado.lastName} • ${cardSelecionado.createdAt}`}</p>
 
-                                        <div className='tags-responsive'>
+                                        <div className={styles.tagsResponsive}>
                                         {cardSelecionado.tags.map((tag, index) => (
-                                            <React.Fragment key={index}>
-                                                <span className='tag'>{tag}</span>
-                                            </React.Fragment>
+                                            <Chip label={tag} key={index} />
                                         ))}
                                     </div>
                                     </div>

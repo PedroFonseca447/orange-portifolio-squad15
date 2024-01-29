@@ -1,15 +1,17 @@
-import './descobrir.css';
+import style from './descobrir.module.css';
 
 import React,{ useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import TextField from '@mui/material/TextField';
+import { Autocomplete, TextField,Typography } from "@mui/material";
 
 import { cardsData } from '../../components/cardsData';
 import Menu from '../../components/Menu/Menu'; 
 import ModalProjeto from './ModalProjeto/modal';
-import DetalhesMobile from './detalhesMobile/detalhesMobile';
 
 export default function Descobrir() {
+
+    const [tags, setTags] = useState([]);
+    const [tag, setTag] = useState("");
 
     const [openModal, setOpenModal] = useState(false);
     const [selectedCardId, setSelectedCardId] = useState(null);
@@ -37,31 +39,50 @@ export default function Descobrir() {
         <>
             <Menu />
 
-            <div className='conteudo'>
-                <h1>Junte-se à comunidade de inovação, inspiração e descobertas, transformando experiências em conexões inesquecíveis</h1>
+            <div className={style.conteudo}>
+                <Typography variant='h4' align='center' padding={'20px'}>
+                Junte-se à comunidade de inovação, inspiração e descobertas, transformando experiências em conexões inesquecíveis
+                </Typography>
                 <br />
-                <div className='input'>
-                    <TextField
-                        id="outlined"
+
+                <Autocomplete
+                    multiple
+                    id="tags-outline"
+                    options={tags ? [...tags, tag] : [tag]}
+                    getOptionLabel={(option) => option}
+                    isOptionEqualToValue={(option, value) => option === value}
+                    defaultValue={tags || []}
+                    onChange={(e, newValue) => setTags(newValue)}
+                    sx={{width: '100%',
+                        maxWidth: '60%',}}
+                    renderInput={(params) => (
+                        <TextField
+                        {...params}
+                        id="outline"
                         label="Buscar tags"
-                        style={{ width: '100%' }} 
+                        placeholder="Buscar tags"
+                        onChange={(e) => setTag(e.target.value)}
+                        sx={{width: '100%'}}
                         />
-                </div>
+                )}
+                />
+                <br /><br />
+
                 <br />
-                <div className='cardList'>
+                <div className={style.cardList}>
                     {cardsData.map((card) => (
                         <div  key={card._id} onClick={() => handleImageClick(card._id)}>
                             
-                            <div className='card' >
+                            <div className={style.card} >
                                 <img src={card.projectImage} alt=""/>
-                                    <div className='info-container'>
+                                    <div className={style.infoContainer}>
                                         <span>
-                                            <img src={card.avatar} className='user' alt="" />
+                                            <img src={card.avatar} className={style.user} alt="" />
                                             <p>{`${card.name} ${card.lastName} • ${card.createdAt}`}</p>
                                         </span>
     
                                         {/* mobile */}
-                                        <div className='tags-mobile'>
+                                        <div className={style.tagsMobile}>
                                             {card.tags.map((tag, index) => (
                                                 <React.Fragment key={index}>
                                                     <span className='tag'>{tag}</span>
