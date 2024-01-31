@@ -1,4 +1,3 @@
-
 :root {
   margin: 0;
   padding: 0;
@@ -12,26 +11,26 @@
   --2: 16px;
   --3: 24px;
   --none: 0px;
-  --Neutral-Colors-Neutral-60: #FCFDFF;
+  --Neutral-Colors-Neutral-60: #fcfdff;
   --Neutral-Colors-Neutral-120: #303133;
-  --Neutral-Colors-Neutral-130: ##0B0C0D;
-  --Neutral-Colors-Neutral-70: #E6E9F2;
+  --Neutral-Colors-Neutral-130: ##0b0c0d;
+  --Neutral-Colors-Neutral-70: #e6e9f2;
   --Neutral-Colors-Neutral-110: #515255;
-  --Color-Brand-Secundria-Secondary-70: #FC9;
-  --Color-Brand-Secundria-Secondary-100: #F52;
+  --Color-Brand-Secundria-Secondary-70: #fc9;
+  --Color-Brand-Secundria-Secondary-100: #f52;
   --Color-Brand-Primria-Primary-100: #113;
-  --components-backdrop-fill: rgba(0, 0, 0, 0.50);
+  --components-backdrop-fill: rgba(0, 0, 0, 0.5);
   --white: #fff;
-  --roboto: 'Roboto';
+  --roboto: "Roboto";
   --action-disabledBackground: rgba(0, 0, 0, 0.12);
-  --action-disabledBackgroundHover: rgba(0, 0, 0, 0.170);
+  --action-disabledBackgroundHover: rgba(0, 0, 0, 0.17);
   --borderRadius: 4px;
   --action-disabled: rgba(0, 0, 0, 0.38);
 }
 
-a{
+a {
   text-decoration: none;
 }
 body {
-  margin: 0 ;
+  margin: 0;
 }
