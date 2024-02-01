@@ -7,6 +7,16 @@ const Card = ({data, onEditCard, onDeleteCard, user, showCard}) => {
     const page = window.location.pathname === "/descobrir"
     const [edit, setEdit] = useState(false)
 
+    const showImg = (img) =>{
+        if(typeof data?.projectImage === 'object'){
+            return URL.createObjectURL(img)
+        }else if(img.startsWith('src')){
+            return `htpp://localhost:3000/${img}`
+        }else{
+            return img;
+        }
+    }
+
   return (
     <div className={styles.card}>
         <div className={styles.card__img}>
@@ -25,11 +35,11 @@ const Card = ({data, onEditCard, onDeleteCard, user, showCard}) => {
                     </MenuList>
                 </Paper>}
             </div>}
-            <img src={typeof data?.projectImage === 'object' ? URL.createObjectURL(data?.projectImage) : data?.projectImage} alt={data?.title}  onClick={() => showCard(data)}/>
+            <img src={showImg(data?.projectImage)} alt={data?.title}  onClick={() => showCard(data)}/>
         </div>
         <div className={styles.card__infoTags}>
             <span className={styles.card__info}>
-                <img src={data?.avatar} className={styles.user} alt={`Foto de perfil da ${data?.name}`} />
+                <img src={showImg(data?.avatar)} className={styles.user} alt={`Foto de perfil da ${data?.name}`} />
                 <p>{data?.name} {data?.lastName} • {data?.createdAt}</p>
             </span>
             {!page && <div className={styles.card__tags}>

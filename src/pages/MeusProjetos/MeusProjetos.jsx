@@ -9,6 +9,8 @@ import ModalStatus from "../../components/ModalStatus/ModalStatus";
 import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
 import ModalPreview from "../../components/ModalPreview/ModalPreview";
 import { cardsData } from "../../components/cardsData";
+import { useEffect } from "react";
+import axios from "axios";
 
 const MeusProjetos = () => {
   const user = {
@@ -19,11 +21,22 @@ const MeusProjetos = () => {
     _id: 3,
     avatar: "/src/assets/Alice.png",
   };
-  const [projetos, setProjetos] = useState(cardsData);
+  const [projetos, setProjetos] = useState([]);
 
   const [modal, setModal] = useState(null);
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState("");
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/projects')
+    .then((response) => {
+      console.log(response.data);
+      setProjetos(response.data)
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }, [])
 
   const onCloseModal = () => {
     setModal(null);
@@ -138,6 +151,8 @@ const MeusProjetos = () => {
       );
     }
   };
+
+  console.log(projetos);
 
   return (
     <>
