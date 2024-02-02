@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import MeusProjetos from './pages/MeusProjetos/MeusProjetos'
 import Descobrir from './pages/Descobrir/descobrir'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -14,7 +14,7 @@ function App() {
         <Route path='/meus-projetos' element={<MeusProjetos/>}/>
         <Route path='/descobrir' element={<Descobrir/>}/>
         <Route path='/perfil' element={<PerfilUsuario/>}/>
-        <Route path='/perfilPublico' element={<PerfilPublico/>}/>
+        <Route path='/:id' element={<PerfilPublico/>}/>
         <Route path='/descobrir/:id' element={ <DetalhesMobile />}/>
       </Routes>
     </BrowserRouter>

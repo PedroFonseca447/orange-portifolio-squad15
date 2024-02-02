@@ -21,7 +21,7 @@ export const cardsData = [
         lastName: 'Gabriel',
         createdAt: '12/23',
         title: 'Ecommerce ',
-        tags: ['UX', 'Web'],
+        tags: ['Design', 'UI'],
         description: '',
         user: 2, 
         urlGithub: 'https://gumroad.com/products/wxCSL'

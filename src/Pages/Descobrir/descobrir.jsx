@@ -1,15 +1,17 @@
 import style from './descobrir.module.css';
 
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { Autocomplete, TextField,Typography } from "@mui/material";
 
 import { cardsData } from '../../components/cardsData';
 import Menu from '../../components/Menu/Menu'; 
 import ModalProjeto from './ModalProjeto/modal';
+import { api } from '../../services/api';
 
 export default function Descobrir() {
 
+    const [projeto, setProjeto] = useState([]);
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState("");
 
@@ -34,6 +36,19 @@ export default function Descobrir() {
           handleOpenModal(cardId);
         }
       };
+
+      useEffect(() => {
+        try {
+          api.get(`/projects`).then((response) => {
+              console.log("Response:", response.data);
+              setProjeto(response.data);
+          })
+        } catch (error) {
+          console.error('Erro ao buscar informações do usuário ou projetos:', error);
+        }
+  
+    }, []);
+
 
     return(
         <>
@@ -70,7 +85,7 @@ export default function Descobrir() {
 
                 <br />
                 <div className={style.cardList}>
-                    {cardsData.map((card) => (
+                    {projeto.map((card) => (
                         <div  key={card._id} onClick={() => handleImageClick(card._id)}>
                             
                             <div className={style.card} >
