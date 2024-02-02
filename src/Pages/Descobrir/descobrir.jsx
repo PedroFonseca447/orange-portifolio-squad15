@@ -29,6 +29,7 @@ export default function Descobrir() {
         setOpenModal(false);
     };
 
+// define qual tela abrir dependendo da resolução
     const handleImageClick = (cardId) => {
         if (window.innerWidth <= 500) {
           navigate(`/descobrir/${cardId}`);
@@ -60,6 +61,7 @@ export default function Descobrir() {
                 </Typography>
                 <br />
 
+                {/* input das tags */}
                 <Autocomplete
                     multiple
                     id="tags-outline"
@@ -82,12 +84,10 @@ export default function Descobrir() {
                 )}
                 />
                 <br /><br />
-
-                <br />
+                {/* ============ */}
                 <div className={style.cardList}>
                     {projeto.map((card) => (
                         <div  key={card._id} onClick={() => handleImageClick(card._id)}>
-                            
                             <div className={style.card} >
                                 <img src={card.projectImage} alt=""/>
                                     <div className={style.infoContainer}>

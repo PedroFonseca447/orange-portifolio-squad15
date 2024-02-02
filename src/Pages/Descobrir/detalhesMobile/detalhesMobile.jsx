@@ -15,6 +15,7 @@ export default function DetalhesMobile() {
     return (
         <div>
             <Menu />
+            {/* tela para visualização de informações do projeto para mobile */}
                 {cardSelecionado && (
                     <div className='container'>
                         <h1>{cardSelecionado.title}</h1>

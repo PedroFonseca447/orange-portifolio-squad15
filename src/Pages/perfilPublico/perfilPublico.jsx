@@ -41,6 +41,8 @@ export default function PerfilPublico() {
       }, [id]);
       
 
+    // tags apresentadas vinculadas ao perfil 
+    // falta filtro
     const userTags = projetos ? projetos.flatMap((projeto) => projeto.tags) : [];
     const uniqueUserTags = Array.from(new Set(userTags));
 
@@ -93,6 +95,8 @@ export default function PerfilPublico() {
                         )}
                 />
                 {/* ==== */}
+
+                {/* cards dos projetos */}
                 <div className="cards">
                     {projetos.length > 0 ? (
                         projetos.map((projeto) => (
