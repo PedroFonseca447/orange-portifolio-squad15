@@ -16,7 +16,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 98px;
 }
 
 
@@ -37,9 +36,7 @@
     display: flex;
     align-items: center;
     gap: var(--1);
-    width: 20%;
     justify-content: flex-end;
-    overflow: auto;
 }
 
 .card img {
@@ -128,10 +125,6 @@
         height: 258px;
     }
 
-    .card .card__infoTags{
-        gap: 68px;
-    }
-
     .card__infoTags .card__tags{
         width: 50px;
     }
@@ -145,10 +138,6 @@
 
     .card .card__infoTags{
         gap: var(--2);
-    }
-
-    .card__infoTags .card__tags{
-        width: 20%;
     }
 
     .card .card__infoTags .card__info {

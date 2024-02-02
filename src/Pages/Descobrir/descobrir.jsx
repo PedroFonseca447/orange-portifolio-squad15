@@ -53,10 +53,10 @@ export default function Descobrir() {
                         <div  key={card._id} onClick={() => handleImageClick(card._id)}>
                             
                             <div className='card' >
-                                <img src={card.projectImage} alt=""/>
+                                <img src={card.projectImage} alt={`Projeto ${card?.title}`}/>
                                     <div className='info-container'>
                                         <span>
-                                            <img src={card.avatar} className='user' alt="" />
+                                            <img src={card.avatar} className='user' alt={`Avatar do ${card?.name}`} />
                                             <p>{`${card.name} ${card.lastName} • ${card.createdAt}`}</p>
                                         </span>
     

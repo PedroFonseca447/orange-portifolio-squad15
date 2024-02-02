@@ -1,6 +1,6 @@
 .modalProjeto{
     width: 890px;
-    height: 522px;
+    height: auto;
     flex-shrink: 0;
 
     border-radius: var(--none);

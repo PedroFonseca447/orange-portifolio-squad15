@@ -2,20 +2,16 @@ import React, { useEffect, useState } from "react";
 import styles from "./perfilusuario.module.css";
 import Menu from "../../components/Menu/Menu";
 import ModalStatus from "../../components/ModalStatus/ModalStatus";
+import { showAvatar } from "../../components/functions";
+
 import { Autocomplete, TextField } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import LogoutIcon from '@mui/icons-material/Logout';
 import axios from "axios";
 
 const PerfilUsuario = () => {
-  const [user, setUser] = useState({
-    name: "Alice",
-    lastName: "Alexandra",
-    country: "Brasil",
-    email: "alicealx@gmail.com",
-    _id: 3,
-    avatar: "/src/assets/Alice.png",
-  });
+
+  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('user')));
   const [modal, setModal] = useState(null);
   const [imgHover, setImgHover] = useState(false);
   const [countries, setCountries] = useState([]);
@@ -41,16 +37,6 @@ const PerfilUsuario = () => {
         action={() => setModal(null)}
       />
     );
-  };
-
-  const showAvatar = (img) => {
-    if (!img || img === "") {
-      return "/imgs/default-avatar.png";
-    } else if (typeof img === "object") {
-      return URL.createObjectURL(img);
-    } else {
-      return img;
-    }
   };
 
   return (
@@ -87,7 +73,7 @@ const PerfilUsuario = () => {
           <div className={styles.perfil__infoText}>
             <p>Meu perfil</p>
             <h1>
-              {user?.name} {user?.lastName}
+              {user?.firstName} {user?.lastName}
             </h1>
           </div>
         </section>
@@ -99,8 +85,8 @@ const PerfilUsuario = () => {
                 width: '100%'
               }}
               label="Nome"
-              defaultValue={user?.name}
-              onChange={(e) => setUser({ ...user, name: e.target.value })}
+              defaultValue={user?.firstName}
+              onChange={(e) => setUser({ ...user, firstName: e.target.value })}
             />
             <TextField
               id="outline"

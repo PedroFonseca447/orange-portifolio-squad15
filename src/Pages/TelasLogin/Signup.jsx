@@ -8,7 +8,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Alert from "@mui/material/Alert";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import TextField from "@mui/material/TextField";
-import imgCadastro from "/Users/macbook/Desktop/projeto-squad15/orange-portifolio-squad15/src/assets/img_cadastro.png";
+import imgCadastro from "../../assets/img_cadastro.png";
 
 const Signup = () => {
   const [email, setEmail] = useState("");

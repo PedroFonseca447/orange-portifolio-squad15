@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styles from "./modalprojetomanager.module.css";
+import { showImg } from "../functions";
 import { TextField, Autocomplete, Modal } from "@mui/material";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import Alert from "../Alert/Alert";
+import { createFilterOptions } from "@mui/material";
+
+const filter = createFilterOptions();
+
 
 const ModalProjetoManager = ({
   projeto,
@@ -75,13 +80,8 @@ const ModalProjetoManager = ({
                 </label>
               ) : (
                 <label htmlFor="form__uploadImg" className={styles.form__img}>
-                  <img
-                    src={
-                      typeof data?.projectImage === "object"
-                        ? URL.createObjectURL(data?.projectImage)
-                        : data?.projectImage
-                    }
-                    alt=""
+                  <img src={showImg(data?.projectImage)}
+                    alt={`Projeto ${data?.title}`}
                   />
                 </label>
               )}
@@ -102,14 +102,16 @@ const ModalProjetoManager = ({
                 defaultValue={data?.title}
                 onChange={(e) => setData({ ...data, title: e.target.value })}
               />
-              <Autocomplete
+               <Autocomplete
                 multiple
+                limitTags={4}
                 id="tags-outline"
-                options={data?.tags ? [...data?.tags, tag] : [tag]}
+                options={[...new Set([...data?.tags, tag])] || []}
                 getOptionLabel={(option) => option}
                 isOptionEqualToValue={(option, value) => option === value}
-                defaultValue={data?.tags || []}
+                value={data?.tags || []}
                 onChange={(e, newValue) => setData({ ...data, tags: newValue })}
+                renderOption={(props, option) => <li {...props} key={option}>{option}</li>}
                 renderInput={(params) => (
                   <TextField
                     {...params}

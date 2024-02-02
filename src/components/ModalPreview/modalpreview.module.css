@@ -23,13 +23,14 @@
 }
 
 .modalContent{
-    margin: 0;
+    margin: auto;
     padding: 0;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: var(--roboto);
+    width: fit-content;
 }
 
 .modalContentInfoImg{
@@ -117,10 +118,8 @@
     justify-content: center;
     justify-content: center;
     align-items: stretch;
-    width: 90%;
+    width: 100%;
 }
-
-
 
 .informacoesResponsive{
     display: none;

@@ -1,21 +1,16 @@
 import React, { useState } from 'react'
 import styles from './card.module.css'
-import { Chip, Paper, MenuItem, MenuList } from '@mui/material'
+import { showAvatar, showImg } from '../functions';
+import { Chip, Paper, MenuItem, MenuList, Tooltip } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 
 const Card = ({data, onEditCard, onDeleteCard, user, showCard}) => {
     const page = window.location.pathname === "/descobrir"
     const [edit, setEdit] = useState(false)
+    
+    const newDate = new Date(data?.createdAt)
 
-    const showImg = (img) =>{
-        if(typeof data?.projectImage === 'object'){
-            return URL.createObjectURL(img)
-        }else if(img.startsWith('src')){
-            return `htpp://localhost:3000/${img}`
-        }else{
-            return img;
-        }
-    }
+    const date = `${(newDate.getMonth()+1).toString().padStart(2, '0')}/${newDate.getFullYear().toString().substr(2)}`
 
   return (
     <div className={styles.card}>
@@ -39,14 +34,17 @@ const Card = ({data, onEditCard, onDeleteCard, user, showCard}) => {
         </div>
         <div className={styles.card__infoTags}>
             <span className={styles.card__info}>
-                <img src={showImg(data?.avatar)} className={styles.user} alt={`Foto de perfil da ${data?.name}`} />
-                <p>{data?.name} {data?.lastName} • {data?.createdAt}</p>
+                <img src={showAvatar(data?.avatar)} className={styles.user} alt={`Foto de perfil da ${user?.name}`} />
+                <p>{user?.name} {user?.lastName} • {date}</p>
             </span>
-            {!page && <div className={styles.card__tags}>
-                {data?.tags?.map(tag => (
-                    <Chip label={tag} key={tag}/>
+            {!page && 
+            <Tooltip title={data?.tags?.join(', ')}>
+                <div className={styles.card__tags}>
+                {data?.tags.slice(0,2).map((tag, index) => (
+                    <Chip label={tag} key={index} />
                 ))}
-            </div>}
+                </div>
+            </Tooltip>}
         </div>
     </div>
   )

@@ -7,6 +7,7 @@ import Login from "../pages/TelasLogin/Login";
 import Descobrir from "../pages/Descobrir/descobrir";
 import MeusProjetos from "../Pages/MeusProjetos/MeusProjetos";
 import DetalhesMobile from "../pages/Descobrir/detalhesMobile/detalhesMobile";
+import PerfilUsuario from '../Pages/PerfilUsuario/PerfilUsuario'
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
@@ -16,6 +17,7 @@ const routes = createRoutesFromElements(
       <Route path="/" index element={<Descobrir />} />
       <Route path="meus-projetos" element={<MeusProjetos />} />
       <Route path="descobrir" element={<Descobrir />} />
+      <Route path="perfil" element={<PerfilUsuario />} />
       <Route path="descobrir/:id" element={<DetalhesMobile />} />
     </Route>
   </Route>

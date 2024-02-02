@@ -59,7 +59,7 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                             <div className='modal-content'>
                                 <div className='Horizontal-container'>
                                     <div className='informacoes'>
-                                        <img src={cardSelecionado.avatar} alt="" />
+                                        <img src={cardSelecionado.avatar} alt={`Avatar do ${cardSelecionado?.name}`} />
                                         <p>{cardSelecionado.name} {cardSelecionado.lastName}<br /> {cardSelecionado.createdAt}</p>
                                     </div>
 
@@ -74,11 +74,11 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                                     </div>
                                 </div>
                                 <div className='projeto'>
-                                    <img src={cardSelecionado.projectImage} alt="" sizes='100'/>
+                                    <img src={cardSelecionado.projectImage} alt={`Projeto ${cardSelecionado?.title}`} sizes='100'/>
 
                                     {/* mobile */}
                                     <div className='informacoes-responsive'>
-                                        <img src={cardSelecionado.avatar} alt="" />
+                                        <img src={cardSelecionado.avatar} alt={`Avatar do ${cardSelecionado?.name}`} />
                                         <p>{`${cardSelecionado.name} ${cardSelecionado.lastName} • ${cardSelecionado.createdAt}`}</p>
 
                                         <div className='tags-responsive'>

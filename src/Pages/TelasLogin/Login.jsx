@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
-import imgLogin from "/Users/macbook/Desktop/projeto-squad15/orange-portifolio-squad15/src/assets/img_login.png";
+import imgLogin from "../../assets/img_login.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");

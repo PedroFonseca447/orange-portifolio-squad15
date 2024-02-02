@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import styles from "./menu.module.css";
+import { showAvatar } from "../functions";
+
 import { Link } from "react-router-dom";
 import { Badge, Divider, MenuItem, MenuList, Paper } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
-import styles from "./menu.module.css";
+import axios from "axios";
 
 const Menu = () => {
   const [notification, setNotification] = useState(true);
@@ -13,14 +16,7 @@ const Menu = () => {
   const [progress, setProgress] = useState(0);
   const [steps, setSteps] = useState([]);
 
-  const user = {
-    name: "Alice",
-    lastName: "Alexandra",
-    country: "",
-    email: "alicealx@gmail.com",
-    _id: 3,
-    avatar: "/src/assets/Alice.png",
-  };
+  const user = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
     if (user.avatar !== "" && user.country !== "") {
@@ -89,7 +85,7 @@ const Menu = () => {
       <div className={styles.menu__profileNotifications}>
         <Link to={"/perfil"}>
           <img
-            src={user?.avatar}
+            src={showAvatar(user?.avatar)}
             alt="Sua foto de perfil"
             className={styles.menu__profile}
           />

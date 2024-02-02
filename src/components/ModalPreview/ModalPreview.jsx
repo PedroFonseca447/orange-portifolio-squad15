@@ -1,7 +1,8 @@
 import React from "react";
 
 import Menu from '../Menu/Menu'
-import { Modal, Box, IconButton, Chip } from "@mui/material";
+import { showAvatar, showImg } from "../functions";
+import { Modal, Box, IconButton, Chip, Tooltip } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -9,6 +10,11 @@ import styles from "./modalpreview.module.css";
 import { ArrowBack } from "@mui/icons-material";
 
 const ModalPreview = ({ handleClose, card }) => {
+  console.log('Total card',card);
+
+  const newDate = card?.createdAt ? new Date(card?.createdAt) : new Date()
+
+  const date = `${(newDate.getMonth()+1).toString().padStart(2, '0')}/${newDate.getFullYear().toString().substr(2)}`
   return (
     <>
       <main className={styles.backgroundModal}>
@@ -39,31 +45,29 @@ const ModalPreview = ({ handleClose, card }) => {
                 <div className={styles.informacoes}>
                   <img
                     src={
-                      typeof card?.avatar === "object"
-                        ? URL.createObjectURL(card?.avatar)
-                        : card?.avatar
+                      showAvatar(card?.avatar)
                     }
                     alt="Foto de perfil"
                   />
                   <p>
                     <b>{card?.name} {card?.lastName}</b>
-                    {card?.createdAt}
+                    {date}
                   </p>
                 </div>
 
                 <h3>{card?.title}</h3>
 
-                <div className={styles.tags}>
-                  {card?.tags.map((tag, index) => (
-                    <Chip label={tag} key={index} />
-                  ))}
-                </div>
+                <Tooltip title={card?.tags?.join(', ')}>
+                  <div className={styles.tags}>
+                    {card?.tags.slice(0,2).map((tag, index) => (
+                      <Chip label={tag} key={index} />
+                    ))}
+                  </div>
+                </Tooltip>
               </div>
                 <img
                   src={
-                    typeof card?.projectImage === "object"
-                      ? URL.createObjectURL(card?.projectImage)
-                      : card?.projectImage
+                    showImg(card?.projectImage)
                   }
                   alt={`Projeto ${card?.title}`}
                   sizes="100"

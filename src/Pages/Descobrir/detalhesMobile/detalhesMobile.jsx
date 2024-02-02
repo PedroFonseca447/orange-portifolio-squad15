@@ -18,10 +18,10 @@ export default function DetalhesMobile() {
                 {cardSelecionado && (
                     <div className='container'>
                         <h1>{cardSelecionado.title}</h1>
-                        <img src={cardSelecionado.projectImage} alt="" className='imgProjeto'/>
+                        <img src={cardSelecionado.projectImage} alt={`Projeto ${cardSelecionado?.title}`} className='imgProjeto'/>
 
                         <div className='infos'>
-                            <img src={cardSelecionado.avatar} alt="avatar do avatar" className='foto-usuario' sizes='100'/>
+                            <img src={cardSelecionado.avatar} alt={`Avatar do ${cardSelecionado?.name}`} className='foto-usuario' sizes='100'/>
                             <p>{`${cardSelecionado.name} ${cardSelecionado.lastName} • ${cardSelecionado.createdAt}`}</p>
                             <div>
                                 {cardSelecionado.tags.map((tag, index) => (
