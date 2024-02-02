@@ -141,8 +141,6 @@ const MeusProjetos = () => {
 
   const onSaveCard = (card) => {
     if (card._id) {
-      console.log("Update card", card);
-
       const formData = new FormData();
       formData.append("file", card?.projectImage);
       formData.append("urlGithub", card?.urlGithub);
