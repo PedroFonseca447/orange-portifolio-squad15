@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./modalprojetomanager.module.css";
 import { showImg } from "../functions";
-import { TextField, Autocomplete, Modal } from "@mui/material";
+import { TextField, Autocomplete, Modal, Alert, Box } from "@mui/material";
 import CollectionsIcon from "@mui/icons-material/Collections";
-import Alert from "../Alert/Alert";
 import { createFilterOptions } from "@mui/material";
 
 const filter = createFilterOptions();
@@ -37,7 +36,20 @@ const ModalProjetoManager = ({
     ) {
       onSaveCard(data);
     } else {
-      setAlert(<Alert message={"Preencha todos os campos"} sucess={false} />);
+      setAlert(
+        <Box sx={{
+          position: 'absolute',
+          top: 20,
+          left: 0,
+          zIndex: 999,
+          width: '100vw',
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+          <Alert variant="filled" severity="error" >
+            Preencha todos os campos!
+          </Alert>
+        </Box>);
       setTimeout(() => {
         setAlert(null);
       }, 2000);
