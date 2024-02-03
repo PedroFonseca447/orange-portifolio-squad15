@@ -1,0 +1,254 @@
+.backgroundModal{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    background-color: var(--components-backdrop-fill);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+
+.modalPreview{
+    width: 70vw;
+    height: 90vh;
+    background-color: var(--white);
+    overflow-y: auto;
+    box-shadow: 24;
+    padding: 20px;
+    margin: 0;
+    animation: openModal 0.8s cubic-bezier(0.51, -0.28, 0.49, 1.31);
+}
+
+.modalContent{
+    margin: auto;
+    padding: 0;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--roboto);
+    width: fit-content;
+}
+
+.modalContentInfoImg{
+    display: flex;
+    flex-direction: column;
+}
+
+.modalContentInfoImg > img {
+    width: 100%;
+    height: 585px;
+    object-fit: cover;
+    justify-content: center;
+    align-content: center;
+}
+
+.modalContent > h3{
+    display: none;
+    color: var(--Neutral-Colors-Neutral-120);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.HorizontalContainer{
+    display: flex;
+    padding: var(--none, 0px);
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+    margin-top: 10px;
+}
+
+.HorizontalContainer h3{
+    color: var(--Neutral-Colors-Neutral-120);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.informacoes{
+        display: inline-flex;
+        gap: 18px;
+    }
+
+.informacoes img{
+    width: var(--5, 40px);
+    height: var(--5, 40px);
+    border-radius: 40px;
+}
+
+.informacoes p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.informacoes p, .informacoes p b{
+    color: var(--Neutral-Colors-Neutral-110);
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: 0.15px;
+    margin: 0;
+}
+
+.informacoes p b::after{
+    content: ' • ';
+    margin-right: 4px;
+}
+
+.modalContent .tags {
+    display:inline-flex;
+    gap: 5px;
+}
+
+.projeto{
+    display: flex;
+    flex-direction: column;
+    padding: var(--none, 0px);
+    justify-content: center;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+}
+
+.informacoesResponsive{
+    display: none;
+}
+
+#modalPreview__menu{
+    display: none;
+}
+
+/** RESPONSIVIDADE **/
+
+@media screen and (max-width: 850px) {
+    .modalPreview{
+        width: 100vw;
+        height: 100%;
+        padding: var(--none);
+    }
+
+    .modalContent{
+        padding: 30px;
+    }
+
+    .HorizontalContainer h3{
+        display: none;
+    }
+
+    .modalContentInfoImg{
+        flex-direction: column-reverse;
+    }
+
+    .modalContentInfoImg > img{
+        height: 258px;    
+    }
+
+    .modalContent > h3{
+        display: flex;
+    }
+
+    #modalPreview__menu{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .informacoes p{
+        display: flex;
+        gap: 5px;
+        align-items: flex-end;
+    }
+
+    .informacoes{
+        align-items: center;
+    }
+
+    .backgroundModal{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 998;
+        background-color: var(--white);
+        top: 74px;
+    }
+
+    .projeto{
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+
+    .informacoes p{
+        display: flex;
+        gap: 5px;
+        align-items: flex-start;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .informacoes b{
+        display: flex;
+        gap: 5px;
+        align-items: flex-start;
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .informacoes p b{
+        font-style: normal;
+        font-weight: bold;
+    }
+
+    .informacoes p b::after{
+        content: '';
+    }
+/*     .HorizontalContainer{
+        gap: 100px;
+
+    }
+    .informacoes, .tags {
+        display: none;
+    }
+
+    .informacoesResponsive{
+        display: flex;
+        gap: 8px;
+    }
+
+    .informacoesResponsive img{
+        width: var(--5, 40px);
+        height: var(--5, 40px);
+        border-radius: 40px;
+        margin-top: 11px;
+    }
+
+    .tagsResponsive{
+        display: flex;
+        padding: 10px;
+        border-radius: 8px; 
+    } */
+}
+
+@keyframes openModal{
+    0%{
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}

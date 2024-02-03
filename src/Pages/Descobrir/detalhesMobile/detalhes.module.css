@@ -2,7 +2,7 @@
 .container{
     padding: 30px;
 }
-.foto-usuario{
+.foto_usuario{
     width: var(--5, 40px);
     height: var(--5, 40px);
     border-radius: 40px;

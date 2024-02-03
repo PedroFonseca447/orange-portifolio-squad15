@@ -1,107 +1,86 @@
 import React from "react";
 
-import { Modal, Box, IconButton, Chip } from "@mui/material";
+import Menu from '../Menu/Menu'
+import { showAvatar, showImg } from "../functions";
+import { Modal, Box, IconButton, Chip, Tooltip } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import "./modalpreview.css";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "fit-content",
-  height: window.innerWidth <= 400 ? "100vh" : "70vh",
-  bgcolor: "background.paper",
-  overflowY: "auto",
-  boxShadow: 24,
-  p: 4,
-  padding: 10,
-  margin: 0,
-};
-
-const styleBtn = {
-  position: "absolute",
-  top: 10,
-  right: 15,
-  color: "#323232",
-};
+import styles from "./modalpreview.module.css";
+import { ArrowBack } from "@mui/icons-material";
 
 const ModalPreview = ({ handleClose, card }) => {
+  console.log('Total card',card);
+
+  const newDate = card?.createdAt ? new Date(card?.createdAt) : new Date()
+
+  const date = `${(newDate.getMonth()+1).toString().padStart(2, '0')}/${newDate.getFullYear().toString().substr(2)}`
   return (
     <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <IconButton
-            edge="end"
-            color="inherit"
-            onClick={handleClose}
-            aria-label="close"
-            sx={styleBtn}
+      <main className={styles.backgroundModal}>
+        <section className={styles.modalPreview}>
+          <Box
+            sx={{
+              width: "90%",
+              display: "flex",
+              justifyContent: window.innerWidth > 850 ? "flex-end" : "flex-start",
+              alignItems: "flex-end",
+              marginLeft: window.innerWidth > 850 ? 0 : '20px'
+            }}
           >
-            <CloseIcon />
-          </IconButton>
-          <div className="modal-content">
-            <div className="Horizontal-container">
-              <div className="informacoes">
+            <IconButton
+              edge="end"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              {window.innerWidth > 850 ? <CloseIcon sx={{ color: "#323232" }} /> :
+              <ArrowBack sx={{ color: "#323232" }} />}
+            </IconButton>
+          </Box>
+          <div className={styles.modalContent}>
+            <h3>{card?.title}</h3>
+            <div className={styles.modalContentInfoImg}>
+              <div className={styles.HorizontalContainer}>
+                <div className={styles.informacoes}>
+                  <img
+                    src={
+                      showAvatar(card?.avatar)
+                    }
+                    alt="Foto de perfil"
+                  />
+                  <p>
+                    <b>{card?.name} {card?.lastName}</b>
+                    {date}
+                  </p>
+                </div>
+
+                <h3>{card?.title}</h3>
+
+                <Tooltip title={card?.tags?.join(', ')}>
+                  <div className={styles.tags}>
+                    {card?.tags.slice(0,2).map((tag, index) => (
+                      <Chip label={tag} key={index} />
+                    ))}
+                  </div>
+                </Tooltip>
+              </div>
                 <img
                   src={
-                    typeof card?.avatar === "object"
-                      ? URL.createObjectURL(card?.avatar)
-                      : card?.avatar
+                    showImg(card?.projectImage)
                   }
-                  alt="Foto de perfil"
+                  alt={`Projeto ${card?.title}`}
+                  sizes="100"
                 />
-                <p>
-                  {card?.name} {card?.lastName}
-                  <br /> {card?.createdAt}
-                </p>
-              </div>
-
-              <h3>{card?.title}</h3>
-
-              <div className="tags">
-                {card?.tags.map((tag, index) => (
-                  <Chip label={tag} key={index} />
-                ))}
-              </div>
             </div>
-            <div className="projeto">
-              <img
-                src={
-                  typeof card?.projectImage === "object"
-                    ? URL.createObjectURL(card?.projectImage)
-                    : card?.projectImage
-                }
-                alt={`Projeto ${card?.title}`}
-                sizes="100"
-              />
-
-              {/* mobile */}
-              <div className="informacoes-responsive">
-                <img src={card?.avatar} alt="Foto de perfil" />
-                <p>{`${card?.name} ${card?.lastName} • ${card?.createdAt}`}</p>
-
-                <div className="tags-responsive">
-                  {card?.tags.map((tag, index) => (
-                    <Chip label={tag} key={index} />
-                  ))}
-                </div>
-              </div>
-              {/* ====== */}
-
+            <div className={styles.projeto}>
               <p>{card?.description}</p>
               <p>Download</p>
               <a href={card?.urlGithub}>{card?.urlGithub}</a>
             </div>
           </div>
-        </Box>
-      </Modal>
+        </section>
+      </main>
     </>
   );
 };
