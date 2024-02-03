@@ -4,8 +4,7 @@ import { Modal, Box, IconButton, Chip  } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import styles from'./modal.module.css';
-
-import { cardsData } from '../../../components/cardsData';
+import { showAvatar, showImg } from '../../../components/functions';
 
 const style = {
     position: "absolute",
@@ -30,9 +29,13 @@ const style = {
     color: 'black' 
   }
 
-const ModalProjeto = ({ open, handleClose, cardId }) => {
+const ModalProjeto = ({ open, handleClose, card }) => {
 
-    const cardSelecionado = cardsData.find(card => card._id === cardId);
+    const formatDate = (fullDate) => {
+        const date = new Date(fullDate);
+        const options = { year: 'numeric', month: '2-digit' };
+        return date.toLocaleDateString('pt-BR', options);
+    }
 
     return(
         <>
@@ -44,7 +47,7 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                 aria-describedby="modal-modal-description"
                 >
                     
-                    {cardSelecionado && (
+                    {card && (
                         <Box sx={style}>
 
                         <IconButton
@@ -59,14 +62,14 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                             <div className={styles.modalContent}>
                                 <div className={styles.HorizontalContainer}>
                                     <div className={styles.informacoes}>
-                                        <img src={cardSelecionado.avatar} alt="" />
-                                        <p>{cardSelecionado.name} {cardSelecionado.lastName}<br /> {cardSelecionado.createdAt}</p>
+                                        <img src={showAvatar(card.avatar)} alt="" />
+                                        <p>{card.name} {card.lastName}<br /> {formatDate(card.createdAt)}</p>
                                     </div>
 
-                                        <h3>{cardSelecionado.title}</h3>
+                                        <h3>{card.title}</h3>
     
                                     <div className={styles.tag}>
-                                        {cardSelecionado.tags.map((tag, index) => (
+                                        {card.tags.map((tag, index) => (
                                             <React.Fragment key={index}>
                                                 <span className='tag'>{tag}</span>
                                             </React.Fragment>
@@ -74,24 +77,24 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                                     </div>
                                 </div>
                                 <div className={styles.projeto}>
-                                    <img src={cardSelecionado.projectImage} alt="" sizes='100'/>
+                                    <img src={showImg(card.projectImage)} alt="" sizes='100'/>
 
                                     {/* mobile */}
                                     <div className={styles.informacoesResponsive}>
-                                        <img src={cardSelecionado.avatar} alt="" />
-                                        <p>{`${cardSelecionado.name} ${cardSelecionado.lastName} • ${cardSelecionado.createdAt}`}</p>
+                                        <img src={showAvatar(card.avatar)} alt="" />
+                                        <p>{`${card.name} ${card.lastName} • ${formatDate(card.createdAt)}`}</p>
 
                                         <div className={styles.tagsResponsive}>
-                                        {cardSelecionado.tags.map((tag, index) => (
+                                        {card.tags.map((tag, index) => (
                                             <Chip label={tag} key={index} />
                                         ))}
                                     </div>
                                     </div>
                                     {/* ====== */}
 
-                                    <p>{cardSelecionado.description}</p>
+                                    <p>{card.description}</p>
                                     <p>Download</p>
-                                    <a href={cardSelecionado.urlGithub}>{cardSelecionado.urlGithub}</a>
+                                    <a href={card.urlGithub}>{card.urlGithub}</a>
                                 </div>
                             </div>    
                         </Box>
