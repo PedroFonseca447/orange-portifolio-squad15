@@ -1,6 +1,6 @@
 import style from './descobrir.module.css';
 
-import React,{ useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'; 
 import { Autocomplete, TextField, Typography, Chip, Tooltip } from "@mui/material";
 
@@ -12,14 +12,13 @@ import { api } from '../../services/api';
 
 export default function Descobrir() {
 
+    // const [user, setUser] = useState([]);
     const [projeto, setProjeto] = useState([]);
-    const [user, setUser] = useState([]);
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState("");
 
     const [openModal, setOpenModal] = useState(false);
     const [selectedCardId, setSelectedCardId] = useState(null);
-    const { id } = useParams();
     const navigate = useNavigate();
 
     const handleOpenModal = (cardId) => {
@@ -34,7 +33,7 @@ export default function Descobrir() {
 
 // define qual tela abrir dependendo da resolução
     const handleImageClick = (cardId) => {
-        console.log("Card ID: (handleclick)", cardId);
+
         if (window.innerWidth <= 500) {
           navigate(`/descobrir/${cardId}`);
         } else {
@@ -45,22 +44,19 @@ export default function Descobrir() {
 
       useEffect(() => {
         try {
-          api.get(`/users/`).then((response) => {
-              setUser(response.data);
-          })
-          api.get(`/projects/`).then((response) => {
-              setProjeto(response.data);
-          })
+            api.get(`/projects/`).then((response) => {
+                setProjeto(response.data);
+            })
 
-          api.get(`/projects/${id}`).then((response) => {
-            setProjeto(response.data);
-          })
+        //   api.get(`/users/`).then((response) => {
+        //       setUser(response.data);
+        //   })
 
         } catch (error) {
           console.error('Erro ao buscar informações do usuário ou projetos:', error);
         }
   
-    }, [id]);
+    }, []);
 
     // função para filtrar as tags de acordo com o que o input receber
     const filtro = 
@@ -95,7 +91,7 @@ export default function Descobrir() {
                     isOptionEqualToValue={(option, value) => option === value}
                     value={tags || []}
                     onChange={(e, newValue) => setTags(newValue)}
-                    sx={{maxWidth: '60%', marginBottom: 1}}
+                    sx={{maxWidth: '513px', marginBottom: 1}}
                     renderOption={(props, option) => (
                         <li {...props} key={option}>
                         {option}
@@ -130,7 +126,7 @@ export default function Descobrir() {
                                                 <Chip label={tag} key={index} />
                                                 ))}
                                             </div>
-                                            </Tooltip>
+                                        </Tooltip>
                                         {/* ===== */}
                                     </div>
                             </div>
@@ -138,7 +134,7 @@ export default function Descobrir() {
                     ))}
                 </div>
             </div>
-            {console.log("selectedCardId:", selectedCardId)}
+
                 <ModalProjeto open={openModal} handleClose={handleClose} card={projeto.find(card => card._id === selectedCardId)} />
         </>
     )

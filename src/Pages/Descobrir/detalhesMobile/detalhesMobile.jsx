@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Chip  } from '@mui/material';
+import { Chip, Typography, Tooltip } from '@mui/material';
 
 import styles from './detalhes.module.css'
 
@@ -38,16 +38,21 @@ export default function DetalhesMobile() {
             {/* tela para visualização de informações do projeto para mobile */}
                 {cardSelecionado && (
                     <div className={styles.container}>
-                        <h1>{cardSelecionado.title}</h1>
+                        <Typography variant='h4' align='center' padding={'20px'}>
+                            {cardSelecionado.title}
+                        </Typography>
+
                         <img src={showImg(cardSelecionado.projectImage)} alt="" className={styles.imgProjeto}/>
 
-                        <div className='infos'>
+                        <div className={styles.infos}>
                             <img src={showAvatar(cardSelecionado.avatar)} alt="avatar" className={styles.foto_usuario} sizes='100'/>
                             <p>{`${cardSelecionado.name} ${cardSelecionado.lastName} • ${formatDate(cardSelecionado.createdAt)}`}</p>
                             <div>
-                            {cardSelecionado.tags.map((tag, index) => (
-                                <Chip label={tag} key={index} />
-                            ))}
+                            <Tooltip title={cardSelecionado?.tags?.join(' ')}>
+                                {cardSelecionado.tags.slice(0,2).map((tag, index) => (
+                                    <Chip label={tag} key={index} />
+                                ))}
+                            </Tooltip>
                             </div>
                         </div>
 

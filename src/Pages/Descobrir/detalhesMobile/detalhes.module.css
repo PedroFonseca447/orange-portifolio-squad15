@@ -22,6 +22,7 @@
     background-color: #EEEEEE; 
     border-radius: 11px; 
     font-size: 15px;
+    float: right;
 }
 
 .container .imgProjeto{

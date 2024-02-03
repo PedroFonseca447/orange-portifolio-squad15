@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal, Box, IconButton, Chip  } from '@mui/material';
+import { Modal, Box, IconButton, Chip, Tooltip  } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import styles from'./modal.module.css';
@@ -69,11 +69,11 @@ const ModalProjeto = ({ open, handleClose, card }) => {
                                         <h3>{card.title}</h3>
     
                                     <div className={styles.tag}>
-                                        {card.tags.map((tag, index) => (
-                                            <React.Fragment key={index}>
-                                                <span className='tag'>{tag}</span>
-                                            </React.Fragment>
+                                        <Tooltip title={card?.tags?.join(' ')}>
+                                        {card.tags.slice(0,3).map((tag, index) => (
+                                            <Chip label={tag} key={index} />
                                         ))}
+                                        </Tooltip>
                                     </div>
                                 </div>
                                 <div className={styles.projeto}>
