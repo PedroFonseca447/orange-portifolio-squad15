@@ -15,24 +15,33 @@ const Menu = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [progress, setProgress] = useState(0);
   const [steps, setSteps] = useState([]);
+  const [user, setUser] = useState({})
 
-  const user = JSON.parse(window.localStorage.getItem("user"));
+  const id = JSON.parse(window.localStorage.getItem("user"))?.uid
 
   useEffect(() => {
-    if (user.avatar !== "" && user.country !== "") {
-      setSteps([]);
-      setProgress(6);
-      setNotification(false);
-    } else if (user.avatar === "") {
-      setSteps(["Foto de perfil"]);
-      setProgress(5);
-    } else if (user.country === "") {
-      setSteps(["País"]);
-      setProgress(5);
-    } else {
-      setSteps(["País", "Foto de perfil"]);
-      setProgress(4);
-    }
+    axios.get(`http://localhost:3000/users/${id}`)
+    .then((response) => {
+      console.log(response.data);
+      setUser(response.data)
+      if ((!response.data.avatar || response.data.avatar === "") && (!response.data.country || response.data.country === "")) {
+        setSteps(["País", "Foto de perfil"]);
+        setProgress(4);
+      } else if (response.data.avatar === "" || !response.data.avatar) {
+        setSteps(["Foto de perfil"]);
+        setProgress(5);
+      } else if (response.data.country === "" || !response.data.country) {
+        setSteps(["País"]);
+        setProgress(5);
+      } else{
+        setSteps([]);
+        setProgress(6);
+        setNotification(false);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }, []);
 
   return (

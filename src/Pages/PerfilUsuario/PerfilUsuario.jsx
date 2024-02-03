@@ -20,13 +20,12 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase";
 
 const PerfilUsuario = () => {
-  const [user, setUser] = useState(
-    JSON.parse(window.localStorage.getItem("user"))
-  );
+  const [user, setUser] = useState({});
   const [modal, setModal] = useState(null);
   const [imgHover, setImgHover] = useState(false);
   const [countries, setCountries] = useState([]);
-  const navigate = useNavigate()
+  const id = JSON.parse(window.localStorage.getItem("user"))?.uid;
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -41,6 +40,22 @@ const PerfilUsuario = () => {
 
   useEffect(() => {
     axios
+      .get(`http://localhost:3000/users/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        const updatedUser = {
+          ...response.data,
+          country:
+            response.data.country !== undefined ? response.data.country : null,
+        };
+
+        setUser(updatedUser);
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios
       .get("https://servicodados.ibge.gov.br/api/v1/localidades/paises")
       .then((response) => {
         setCountries(response.data);
@@ -51,15 +66,29 @@ const PerfilUsuario = () => {
   }, []);
 
   const saveUser = () => {
-    console.log("Dados atualizados", user);
-    setModal(
-      <ModalStatus
-        message={"Seu perfil foi atualizado!"}
-        sucess={true}
-        messageButton={"Voltar para perfil"}
-        action={() => setModal(null)}
-      />
-    );
+    const formData = new FormData();
+    formData.append("name", user?.name);
+    formData.append("lastName", user?.lastName);
+    formData.append("email", user?.email);
+    formData.append("password", user?.password);
+    //formData.append("avatar", user?.avatar);
+    formData.append("country", user?.country.nome);
+    axios
+      .patch(`http://localhost:3000/users/${user._id}`, {...user, country: user.country.nome})
+      .then((response) => {
+        console.log(response.data);
+        setModal(
+          <ModalStatus
+            message={"Seu perfil foi atualizado!"}
+            sucess={true}
+            messageButton={"Voltar para perfil"}
+            action={() => setModal(null)}
+          />
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -73,8 +102,8 @@ const PerfilUsuario = () => {
           justifyContent="space-between"
           alignItems="center"
           marginBottom={5}
-          flexWrap={'nowrap'}
-          width={window.innerWidth > 900 ? '50vw' : '90vw'}
+          flexWrap={"nowrap"}
+          width={window.innerWidth > 900 ? "50vw" : "90vw"}
         >
           <Grid
             container
@@ -121,10 +150,20 @@ const PerfilUsuario = () => {
               />
             </div>
 
-            <Grid item direction={"column"} justifyContent={"flex-start"} sx={{paddingTop: '0 !important'}}>
-              <Typography variant="body1" sx={{color: '#0B0C0D', opacity: '0.6'}}>Meu perfil</Typography>
+            <Grid
+              item
+              direction={"column"}
+              justifyContent={"flex-start"}
+              sx={{ paddingTop: "0 !important" }}
+            >
+              <Typography
+                variant="body1"
+                sx={{ color: "#0B0C0D", opacity: "0.6" }}
+              >
+                Meu perfil
+              </Typography>
               <Typography variant="h4">
-                {user?.firstName} {user?.lastName}
+                {user?.name} {user?.lastName}
               </Typography>
               <Typography variant="body1">{user?.email}</Typography>
             </Grid>
@@ -151,38 +190,39 @@ const PerfilUsuario = () => {
               sx={{
                 width: "100%",
               }}
-              label="Nome"
-              defaultValue={user?.firstName}
-              onChange={(e) => setUser({ ...user, firstName: e.target.value })}
+              placeholder="Nome"
+              value={user?.name}
+              onChange={(e) => setUser({ ...user, name: e.target.value })}
             />
             <TextField
               id="outline"
               sx={{
                 width: "100%",
               }}
-              label="Sobrenome"
-              defaultValue={user?.lastName}
+              placeholder="Sobrenome"
+              value={user?.lastName}
               onChange={(e) => setUser({ ...user, lastName: e.target.value })}
             />
           </div>
           <Autocomplete
+            value={user.country || null}
+            onChange={(event, newValue) =>
+              setUser({ ...user, country: newValue })
+            }
             options={countries}
-            disableCloseOnSelect
-            getOptionLabel={(option) => option.nome}
-            defaultValue={{ nome: user?.country === undefined ? '' : user?.country }}
+            isOptionEqualToValue={(option, value) => option.nome ? option.nome === value?.nome : option === value?.nome}
+            getOptionLabel={(option) => option.nome || option}
             renderInput={(params) => (
               <TextField
                 {...params}
-                id="outline"
+                label="País"
+                id="outlined"
                 sx={{
                   width: "100%",
                 }}
-                label="País"
-                defaultValue={user?.country === undefined ? '' : user?.country}
-                onChange={(e) => setUser({ ...user, country: e.target.value })}
               />
             )}
-          ></Autocomplete>
+          />
           <button className={styles.perfil__formButton} onClick={saveUser}>
             Salvar
           </button>

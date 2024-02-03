@@ -140,6 +140,15 @@
 
     .modalContent{
         padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        font-family: var(--roboto);
+        width: fit-content;
+        position: fixed;
+        background-color: var(--white);
+        height: 100%;
     }
 
     .HorizontalContainer h3{
