@@ -1,7 +1,16 @@
 .conteudo{
     padding: 8px;
     margin: 8px;
-    font-family: Roboto, Regular;
+}
+
+h1{
+    text-align: center;
+    font-family: Roboto;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 34px; 
+    letter-spacing: 0.25px;
 }
 
 /* CARD */
@@ -46,12 +55,16 @@
     border-radius: 50px;
 }
 
+.input{
+    width: 50%;
+}
 
-.tagsMobile{
+
+.tags-mobile{
     display: none;
 }
 
-@media(max-width: 600px){
+@media(max-width: 500px){
     .input,
     .card,
     .cardList {
@@ -62,20 +75,20 @@
         width: 100%;    
     }
 
-    .tagsMobile{
+    .tags-mobile{
         display: flex;
     }
 
     .tag{
         margin-right: 8px; 
         padding: 10px;
-        background-color: #F1F1F1; 
+        background-color: #CCCCCC; 
         border-radius: 8px; 
         height: 20px;
         font-size: 15px;
     }
 
-    .infoContainer {
+    .info-container {
         display: flex;
         justify-content: space-between;
         align-items: center;

@@ -2,6 +2,7 @@
 .container{
     padding: 30px;
     font-family: Roboto, Regular;
+
 }
 .foto_usuario{
     width: var(--5, 40px);

@@ -24,7 +24,7 @@
     clip-path: circle();
 }
 
-#perfil__img{
+.perfil__img_input{
     display: none;
 }
 
@@ -169,6 +169,9 @@
 @media screen and (max-width:900px) {
     .perfil{
         width: 90vw;
+    }
+    .perfil__img{
+        top: 124px;
     }
 }
 

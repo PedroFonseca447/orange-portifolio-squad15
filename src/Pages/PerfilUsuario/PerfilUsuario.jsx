@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import styles from "./perfilusuario.module.css";
 import Menu from "../../components/Menu/Menu";
 import ModalStatus from "../../components/ModalStatus/ModalStatus";
-import { showAvatar } from "../../components/functions";
+import { getId, showAvatar } from "../../components/functions";
 
 import {
   Autocomplete,
   Avatar,
   Button,
   Grid,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -24,7 +27,7 @@ const PerfilUsuario = () => {
   const [modal, setModal] = useState(null);
   const [imgHover, setImgHover] = useState(false);
   const [countries, setCountries] = useState([]);
-  const id = JSON.parse(window.localStorage.getItem("user"))?.uid;
+  const id = getId();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -40,22 +43,6 @@ const PerfilUsuario = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/users/${id}`)
-      .then((response) => {
-        console.log(response.data);
-        const updatedUser = {
-          ...response.data,
-          country:
-            response.data.country !== undefined ? response.data.country : null,
-        };
-
-        setUser(updatedUser);
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axios
       .get("https://servicodados.ibge.gov.br/api/v1/localidades/paises")
       .then((response) => {
         setCountries(response.data);
@@ -70,13 +57,16 @@ const PerfilUsuario = () => {
     formData.append("name", user?.name);
     formData.append("lastName", user?.lastName);
     formData.append("email", user?.email);
-    formData.append("password", user?.password);
-    //formData.append("avatar", user?.avatar);
-    formData.append("country", user?.country.nome);
+    formData.append("file", user?.avatar);
+    formData.append("country", user?.country);
+
     axios
-      .patch(`http://localhost:3000/users/${user._id}`, {...user, country: user.country.nome})
+      .patch(`http://localhost:3000/users/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
       .then((response) => {
-        console.log(response.data);
         setModal(
           <ModalStatus
             message={"Seu perfil foi atualizado!"}
@@ -135,7 +125,8 @@ const PerfilUsuario = () => {
               <input
                 type="file"
                 name="perfil__img"
-                id={styles.perfil__img}
+                id={"perfil__img"}
+                className={styles.perfil__img_input}
                 onChange={(e) =>
                   setUser({ ...user, avatar: e.target.files[0] })
                 }
@@ -204,25 +195,14 @@ const PerfilUsuario = () => {
               onChange={(e) => setUser({ ...user, lastName: e.target.value })}
             />
           </div>
-          <Autocomplete
-            value={user.country || null}
-            onChange={(event, newValue) =>
-              setUser({ ...user, country: newValue })
-            }
-            options={countries}
-            isOptionEqualToValue={(option, value) => option.nome ? option.nome === value?.nome : option === value?.nome}
-            getOptionLabel={(option) => option.nome || option}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="País"
-                id="outlined"
-                sx={{
-                  width: "100%",
-                }}
-              />
-            )}
-          />
+          <Select
+            value={user.country || ""}
+            id={'country-user'}
+            onChange={(event) =>
+              setUser({ ...user, country: event.target.value })
+            }>
+            {countries.map(country => <MenuItem value={country.nome} key={country.nome}>{country.nome}</MenuItem>)}
+          </Select>
           <button className={styles.perfil__formButton} onClick={saveUser}>
             Salvar
           </button>

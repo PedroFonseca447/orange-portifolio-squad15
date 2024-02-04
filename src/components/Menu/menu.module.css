@@ -72,7 +72,7 @@
 }
 
 .responsiveMenu{
-    display: none;
+    display: flex;
     position: absolute;
     top: 75px;
     z-index: 999;
@@ -139,7 +139,7 @@
     color: #A2A2A2;
 }
 
-.container-progress{
+.containerProgress{
     width: 95%;
     background-color: #f0f0f0;
     height: 12px;

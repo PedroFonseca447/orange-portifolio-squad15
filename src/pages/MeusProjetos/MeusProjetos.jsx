@@ -6,14 +6,14 @@ import ModalProjetoManager from "../../components/ModalProjetoManager/ModalProje
 import ModalStatus from "../../components/ModalStatus/ModalStatus";
 import ModalConfirmation from "../../components/ModalConfirmation/ModalConfirmation";
 import ModalPreview from "../../components/ModalPreview/ModalPreview";
-import { showAvatar } from "../../components/functions";
+import { getId, showAvatar } from "../../components/functions";
 
 import { Autocomplete, Skeleton, TextField } from "@mui/material";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import axios from "axios";
 
 const MeusProjetos = () => {
-  const id = JSON.parse(window.localStorage.getItem("user")).uid;
+  const id = getId()
   const [projetos, setProjetos] = useState([]);
   const [user, setUser] = useState([]);
 
@@ -35,6 +35,13 @@ const MeusProjetos = () => {
       .then((response) => {
         console.log(response.data);
         setUser(response.data)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      axios.get(`http://localhost:3000/users/`)
+      .then((response) => {
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -61,7 +68,7 @@ const MeusProjetos = () => {
       <ModalProjetoManager
         projeto={card}
         onCloseModal={onCloseModal}
-        onSaveCard={onSaveCard}
+        onSaveCard={editCard}
         showPreviewCard={showPreviewCard}
       />
     );
@@ -137,52 +144,6 @@ const MeusProjetos = () => {
   };
 
   const onSaveCard = (card) => {
-    if (card._id) {
-      const formData = new FormData();
-      formData.append("file", card?.projectImage);
-      formData.append("urlGithub", card?.urlGithub);
-      formData.append("title", card?.title);
-      formData.append("description", card?.description);
-      formData.append("tags", card?.tags);
-
-      axios
-        .patch(`http://localhost:3000/projects/${card._id}`, formData, {
-          headers:{
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then((response) => {
-          console.log(response.data);
-          const updateProjeto = projetos?.map((projeto) => {
-            if (projeto?._id === card?._id) {
-              return card;
-            }
-            return projeto;
-          });
-          setProjetos(updateProjeto);
-          setModal(
-            <ModalStatus
-              message={"Edição concluída com sucesso!"}
-              messageButton={"Voltar para projetos"}
-              sucess={true}
-              action={() => setModal(null)}
-            />
-          );
-        })
-        .catch((error) => {
-          console.log(error);
-          setModal(
-            <ModalStatus
-              message={"Edição não foi concluída!"}
-              messageButton={"Voltar para projetos"}
-              sucess={false}
-              action={() => setModal(null)}
-            />
-          );
-        });
-    } else {
-      console.log("New card", card);
-
       const formData = new FormData();
       formData.append("file", card?.projectImage);
       formData.append("urlGithub", card?.urlGithub);
@@ -196,7 +157,7 @@ const MeusProjetos = () => {
         title: card?.title,
         description: card?.description,
         tags: card?.tags,
-        user: user?._id,
+        user: id,
         projectImage: card?.projectImage,
         createdAt: new Date()
       };
@@ -209,7 +170,7 @@ const MeusProjetos = () => {
         })
         .then((response) => {
           console.log(response.data);
-          setProjetos([...projetos, newCard]);
+          setProjetos([...projetos, {...newCard, _id: response.data.project._id}]);
           setModal(
             <ModalStatus
               message={"Projeto adicionado com sucesso!"}
@@ -230,8 +191,52 @@ const MeusProjetos = () => {
             />
           );
         });
-    }
   };
+
+const editCard = (card) => {
+    const formData = new FormData();
+    formData.append("file", card?.projectImage);
+    formData.append("urlGithub", card?.urlGithub);
+    formData.append("title", card?.title);
+    formData.append("description", card?.description);
+    formData.append("tags", card?.tags);
+
+    axios
+      .patch(`http://localhost:3000/projects/${card._id}`, formData, {
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then((response) => {
+        console.log(response.data);
+        const updateProjeto = projetos?.map((projeto) => {
+          if (projeto?._id === card?._id) {
+            return card;
+          }
+          return projeto;
+        });
+        setProjetos(updateProjeto);
+        setModal(
+          <ModalStatus
+            message={"Edição concluída com sucesso!"}
+            messageButton={"Voltar para projetos"}
+            sucess={true}
+            action={() => setModal(null)}
+          />
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+        setModal(
+          <ModalStatus
+            message={"Edição não foi concluída!"}
+            messageButton={"Voltar para projetos"}
+            sucess={false}
+            action={() => setModal(null)}
+          />
+        );
+      });
+    }
 
   return (
     <>

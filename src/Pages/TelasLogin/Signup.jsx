@@ -9,6 +9,7 @@ import Alert from "@mui/material/Alert";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import TextField from "@mui/material/TextField";
 import imgCadastro from "../../assets/img_cadastro.png";
+import axios from "axios";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -43,14 +44,29 @@ const Signup = () => {
 
       // Cria array com info do user
       const userProfile = {
-        uid: user.uid,
+        _id: user.uid,
         email: user.email,
-        firstName,
+        name: firstName,
         lastName,
       };
 
       // Carrega o user no bd
-      const existingUserProfiles =
+      axios.post('http://localhost:3000/users/', userProfile)
+      .then((response) => {
+        console.log(response.data);
+        setUserCreatedAlert(true);
+        resetForm();
+  
+        // Fechar o alerta após 6 segundos
+        setTimeout(() => {
+          setUserCreatedAlert(false);
+        }, 6000);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+      /* const existingUserProfiles =
         JSON.parse(localStorage.getItem("userProfiles")) || [];
 
       // Se o array já estiver criado, só envia
@@ -60,15 +76,8 @@ const Signup = () => {
       localStorage.setItem(
         "userProfiles",
         JSON.stringify(existingUserProfiles)
-      );
+      ); */
 
-      setUserCreatedAlert(true);
-      resetForm();
-
-      // Fechar o alerta após 6 segundos
-      setTimeout(() => {
-        setUserCreatedAlert(false);
-      }, 6000);
     } catch (error) {
       console.error(error);
     }
