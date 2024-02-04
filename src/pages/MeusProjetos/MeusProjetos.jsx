@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import React, { useState, useEffect } from "react";
 import styles from "../../Pages/MeusProjetos/meusprojetos.module.css";
 import Menu from "../../components/Menu/Menu";
 import Card from "../../components/Card/Card";
