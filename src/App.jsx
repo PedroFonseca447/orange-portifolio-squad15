@@ -1,3 +1,4 @@
+
 import { Outlet } from "react-router-dom";
 function App() {
   return (
@@ -5,6 +6,7 @@ function App() {
       <Outlet />
     </div>
   );
+
 }
 
 export default App;

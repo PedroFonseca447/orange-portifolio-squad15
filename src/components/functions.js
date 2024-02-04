@@ -29,4 +29,5 @@ export const getId = () =>{
     const jsonPayload = JSON.parse(atob(base64));
     const id = jsonPayload?.user_id;
     return id
+
 }

@@ -1,9 +1,10 @@
 
 .container{
     padding: 30px;
-    font-family: var(--roboto);
+    font-family: Roboto, Regular;
+
 }
-.foto-usuario{
+.foto_usuario{
     width: var(--5, 40px);
     height: var(--5, 40px);
     border-radius: 40px;
@@ -20,11 +21,27 @@
 .tag{
     margin-right: 8px; 
     padding: 5px;
-    background-color: #CCCCCC; 
+    background-color: #EEEEEE; 
     border-radius: 11px; 
     font-size: 15px;
+    float: right;
 }
 
 .container .imgProjeto{
     width: 99%;
+}
+
+@media(min-width: 700px){
+
+    .container{
+        height: 585px;
+        width: 80vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .imgProjeto {
+        height: 585px;
+        width: 100vw;
+    }
 }

@@ -80,6 +80,13 @@
     letter-spacing: 0.15px;
 }
 
+.principaisTags{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-right: 50px;
+}
+
 .meusProjetos{
     margin: 32px;
     margin-bottom: 100px;
@@ -155,6 +162,7 @@
     flex-wrap: wrap;
     width: 100%;
     gap: 24px;
+    margin: 3px;
 }
 
 
