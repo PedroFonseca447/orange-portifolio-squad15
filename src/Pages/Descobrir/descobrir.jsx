@@ -1,7 +1,7 @@
 import style from './descobrir.module.css';
 
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 import { Autocomplete, TextField, Typography, Chip, Tooltip } from "@mui/material";
 
 // import { cardsData } from '../../components/cardsData';
@@ -12,7 +12,7 @@ import { api } from '../../services/api';
 
 export default function Descobrir() {
 
-    // const [user, setUser] = useState([]);
+    const [user, setUser] = useState([]);
     const [projeto, setProjeto] = useState([]);
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState("");
@@ -38,9 +38,9 @@ export default function Descobrir() {
           navigate(`/descobrir/${cardId}`);
         } else {
         setSelectedCardId(cardId);
-          handleOpenModal(cardId);
-        }
-      };
+         handleOpenModal(cardId);
+      }
+    }
 
       useEffect(() => {
         try {
@@ -48,9 +48,9 @@ export default function Descobrir() {
                 setProjeto(response.data);
             })
 
-        //   api.get(`/users/`).then((response) => {
-        //       setUser(response.data);
-        //   })
+          api.get(`/users`).then((response) => {
+              setUser(response.data);
+          })
 
         } catch (error) {
           console.error('Erro ao buscar informações do usuário ou projetos:', error);
@@ -114,10 +114,14 @@ export default function Descobrir() {
                             <div className={style.card} >
                                 <img src={showImg(card.projectImage)} alt=""/>
                                     <div className={style.infoContainer}>
+                                        {user.find((user) => user._id === card.user) && (
                                         <span>
-                                            <img src={showAvatar(card.avatar)} className={style.user} alt="" />
-                                            <p>{`${card.name} ${card.lastName} • ${formatDate(card.createdAt)}`}</p>
+                                            <img src={showAvatar(user.find((u) => u._id === card.user).avatar)} className={style.user} alt="" />
+                                            <p>{`${user.find((user) => user._id === card.user).name} 
+                                                ${user.find((user) => user._id === card.user).lastName} 
+                                                 • ${formatDate(card.createdAt)}`}</p>
                                         </span>
+                                        )}
     
                                         {/* mobile */}
                                         <Tooltip title={card?.tags?.join(' ')}>
@@ -135,7 +139,11 @@ export default function Descobrir() {
                 </div>
             </div>
 
-                <ModalProjeto open={openModal} handleClose={handleClose} card={projeto.find(card => card._id === selectedCardId)} />
+                <ModalProjeto 
+                    open={openModal} 
+                    handleClose={handleClose} 
+                    card={projeto.find(card => card._id === selectedCardId)}
+                    user={user.find((user) => user._id === (projeto.find(card => card._id === selectedCardId)?.user))} />
         </>
     )
 }

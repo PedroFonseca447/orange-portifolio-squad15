@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Modal, Box, IconButton, Chip, Tooltip  } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -22,6 +20,12 @@ const style = {
     margin: 0,
   };
 
+  if (window.innerWidth <= 400) {
+    style.width = "90%";
+  } else {
+    style.width = "70%";
+  }
+
   const styleBtn = {
     position: 'absolute', 
     top: 20, 
@@ -29,7 +33,7 @@ const style = {
     color: 'black' 
   }
 
-const ModalProjeto = ({ open, handleClose, card }) => {
+const ModalProjeto = ({ open, handleClose, card, user }) => {
 
     const formatDate = (fullDate) => {
         const date = new Date(fullDate);
@@ -47,8 +51,8 @@ const ModalProjeto = ({ open, handleClose, card }) => {
                 aria-describedby="modal-modal-description"
                 >
                     
-                    {card && (
-                        <Box sx={style}>
+                    {card && user && (
+                    <Box sx={style}>
 
                         <IconButton
                             edge="end"
@@ -62,8 +66,8 @@ const ModalProjeto = ({ open, handleClose, card }) => {
                             <div className={styles.modalContent}>
                                 <div className={styles.HorizontalContainer}>
                                     <div className={styles.informacoes}>
-                                        <img src={showAvatar(card.avatar)} alt="" />
-                                        <p>{card.name} {card.lastName}<br /> {formatDate(card.createdAt)}</p>
+                                        <img src={showAvatar(user.avatar)} alt="" />
+                                        <p>{user.name} {user.lastName}<br /> {formatDate(card.createdAt)}</p>
                                     </div>
 
                                         <h3>{card.title}</h3>
@@ -81,8 +85,8 @@ const ModalProjeto = ({ open, handleClose, card }) => {
 
                                     {/* mobile */}
                                     <div className={styles.informacoesResponsive}>
-                                        <img src={showAvatar(card.avatar)} alt="" />
-                                        <p>{`${card.name} ${card.lastName} • ${formatDate(card.createdAt)}`}</p>
+                                        <img src={showAvatar(user.avatar)} alt="" />
+                                        <p>{`${user.name} ${user.lastName} • ${formatDate(card.createdAt)}`}</p>
 
                                         <div className={styles.tagsResponsive}>
                                         {card.tags.map((tag, index) => (

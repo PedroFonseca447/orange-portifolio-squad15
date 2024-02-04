@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: Roboto, Regular;
 }
 
 .HorizontalContainer{
@@ -90,7 +91,7 @@
 
 }
 
-@keyframes openModal{
+/* @keyframes openModal{
     0%{
         opacity: 0;
         transform: scale(0.5);
@@ -99,4 +100,4 @@
         opacity: 1;
         transform: scale(1);
     }
-}
+} */
