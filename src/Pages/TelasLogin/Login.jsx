@@ -6,6 +6,7 @@ import { Typography, Button, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
 import imgLogin from "../../assets/img_login.png";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,38 +24,6 @@ const Login = () => {
         password
       );
       const user = userCredential.user;
-
-      const existingUserProfiles =
-        JSON.parse(localStorage.getItem("userProfiles")) || [];
-
-      const userProfile = existingUserProfiles.find(
-        (profile) => profile.uid === user.uid && profile.email === user.email
-      );
-
-      if (userProfile) {
-        const mergedUser = {
-          uid: user.uid,
-          email: user.email,
-          firstName: userProfile.firstName,
-          lastName: userProfile.lastName,
-        };
-
-        localStorage.setItem("user", JSON.stringify(mergedUser));
-      } else {
-        const newUserProfile = {
-          uid: user.uid,
-          email: user.email,
-        };
-
-        existingUserProfiles.push(newUserProfile);
-
-        localStorage.setItem(
-          "userProfiles",
-          JSON.stringify(existingUserProfiles)
-        );
-
-        localStorage.setItem("user", JSON.stringify(newUserProfile));
-      }
 
       localStorage.setItem("token", user.accessToken);
 

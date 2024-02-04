@@ -21,3 +21,12 @@ export const showImg = (img) =>{
         return img;
     }
 }
+
+export const getId = () =>{
+    const token = window.localStorage.getItem('token')
+    const base64Url = token.split('.')[1]; 
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); 
+    const jsonPayload = JSON.parse(atob(base64));
+    const id = jsonPayload?.user_id;
+    return id
+}

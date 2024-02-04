@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./menu.module.css";
-import { showAvatar } from "../functions";
+import { getId, showAvatar } from "../functions";
 
 import { Link } from "react-router-dom";
 import { Badge, Divider, MenuItem, MenuList, Paper } from "@mui/material";
@@ -16,8 +16,9 @@ const Menu = () => {
   const [progress, setProgress] = useState(0);
   const [steps, setSteps] = useState([]);
   const [user, setUser] = useState({})
+  const [openMenu, setOpenMenu] = useState(false)
 
-  const id = JSON.parse(window.localStorage.getItem("user"))?.uid
+  const id = getId()
 
   useEffect(() => {
     axios.get(`http://localhost:3000/users/${id}`)
@@ -49,10 +50,10 @@ const Menu = () => {
       <div className={styles.menu__logoLinks}>
         <div className={styles.menu__buttonIcon}>
           <label htmlFor="buttonIcon">
-            <MenuIcon className={styles.menu__icon} />
+            <MenuIcon className={styles.menu__icon} onClick={() => setOpenMenu(!openMenu)}/>
           </label>
-          <input type="checkbox" id={styles.buttonIcon} />
-          <Paper className={styles.responsiveMenu}>
+          <input type="checkbox" id={"buttonIcon"} style={{display: 'none'}}/>
+          {openMenu && <Paper className={styles.responsiveMenu}>
             <MenuList>
               <MenuItem>
                 <Link to={"/meus-projetos"} className={styles.menu__link}>
@@ -71,7 +72,7 @@ const Menu = () => {
                 Sair
               </MenuItem>
             </MenuList>
-          </Paper>
+          </Paper>}
         </div>
         <img
           src="/imgs/Logo orange.png"
