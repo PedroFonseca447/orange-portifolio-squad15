@@ -39,6 +39,7 @@ export default function DetalhesMobile() {
     return (
         <div>
             <Menu />
+
             {/* tela para visualização de informações do projeto para mobile */}
                 {cardSelecionado && user && (
                     <div className={styles.container}>
@@ -55,6 +56,7 @@ export default function DetalhesMobile() {
                                 ${user.find((user) => user._id === cardSelecionado.user).lastName} 
                                 • ${formatDate(cardSelecionado.createdAt)}`}
                             </p>
+
                             <div>
                             <Tooltip title={cardSelecionado?.tags?.join(' ')}>
                                 {cardSelecionado.tags.slice(0,2).map((tag, index) => (

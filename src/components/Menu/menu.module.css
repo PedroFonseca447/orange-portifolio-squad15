@@ -7,13 +7,13 @@
     background: var(--Color-Brand-Primria-Primary-100);
 }
 
-.menu__logo-links{
+.menu__logoLinks{
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 100px;
 }
-.menu__button-icon{
+.menu__buttonIcon{
     display: none;
 }
 .menu__icon{
@@ -25,7 +25,7 @@
     align-items: center;
     cursor: pointer;
 }
-#button-icon{
+#buttonIcon{
     display: none;
 }
 
@@ -53,7 +53,7 @@
     letter-spacing: 0.15px;
 }
 
-.menu__profile-notifications{
+.menu__profileNotifications{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,30 +71,14 @@
     flex-shrink: 0;
 }
 
-.menu__notifications{
-    color: #FCFDFF;
-    padding: var(--1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    cursor: pointer;
-}
-
-.responsive-menu{
+.responsiveMenu{
     display: none;
     position: absolute;
     top: 75px;
     z-index: 999;
 }
 
-.MuiBadge-badge{
-    background-color: #FF5522;
-    color: var(--white);
-}
-
-.menu-notification{
+.menuNotification{
     display: flex;
     position: absolute;
     z-index: 999;
@@ -102,7 +86,7 @@
     right: 20px;
     animation: openMenu 0.8s cubic-bezier(0.51, -0.28, 0.49, 1.31);
 }
-.menu-notification .triangulo{
+.menuNotification .triangulo{
     display: block;
     width: 15px;
     height: 15px;
@@ -115,11 +99,11 @@
     stroke: #FCFDFF;
     background-color: #FCFDFF;
 }
-.menu-notification__content{
+.menuNotification__content{
     width: 100%;
 }
 
-.menu-notification__content{
+.menuNotification__content{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -128,29 +112,29 @@
     cursor: pointer;
 }
 
-.close-notification{
+.closeNotification{
     display: flex;
     justify-content: flex-start;
     width: 100%;
 }
 
-.close-notification svg{
+.closeNotification svg{
     display: flex;
     color: #A2A2A2;
     cursor: pointer;
 }
 
-.menu-notification__content h3{
+.menuNotification__content h3{
     font-family: var(--roboto);
     color: var(--Neutral-Colors-Neutral-110);
     font-weight: 400;
 }
 
-.menu-notification__content ul{
+.menuNotification__content ul{
     padding-left: 20px;
 }
 
-.menu-notification__content li{
+.menuNotification__content li{
     font-family: var(--roboto);
     color: #A2A2A2;
 }
@@ -179,19 +163,19 @@
         0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
         0px 1px 10px 0px rgba(0, 0, 0, 0.12);
     }
-    .menu__logo-links{
+    .menu__logoLinks{
         gap: var(--1);
     }
     .menu__links{
         display: none;
     }
-    .menu__button-icon{
+    .menu__buttonIcon{
         display: flex !important;
     }
     .menu__icon{
         display: flex !important;
     }
-    #button-icon:checked ~ .responsive-menu{
+    #buttonIcon:checked ~ .responsiveMenu{
         display: flex;
     }
 }

@@ -11,16 +11,15 @@
     justify-content: flex-end;
 }
 
-.card .card__info-tags{
+.card .card__infoTags{
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 98px;
 }
 
 
-.card .card__info-tags .card__info {
+.card .card__infoTags .card__info {
     display: flex;
     padding: var(--none);
     
@@ -29,23 +28,22 @@
     font-family: var(--roboto);
 }
 
-.card__info-tags .card__info > p{
+.card__infoTags .card__info > p{
     margin: 0;
 }
 
-.card__info-tags .card__tags{
+.card__infoTags .card__tags{
     display: flex;
     align-items: center;
     gap: var(--1);
-    width: 20%;
     justify-content: flex-end;
-    overflow: auto;
 }
 
 .card img {
     width: 389px;
     height: 258px;
     border-radius: var(--borderRadius);
+    cursor: pointer;
 }
 
 .card .user{
@@ -63,7 +61,7 @@
     align-items: flex-end;
     justify-content: flex-end;
 }
-.card__edit-icon{
+.card__editIcon{
     margin-right: var(--3);
     margin-top: var(--2);
     background-color: var(--Color-Brand-Secundria-Secondary-70);
@@ -96,11 +94,11 @@
     stroke: #FCFDFF;
     background-color: #FCFDFF;
 }
-.card__menu-list{
+.card__menuList{
     width: 100%;
 }
 
-.card__menu-list li{
+.card__menuList li{
     color: var(--Neutral-Colors-Neutral-110);
     font-family: var(--roboto);
     font-size: var(--2);
@@ -110,7 +108,7 @@
     transition: 0.5s all;
 }
 
-.card__menu-list li:hover{
+.card__menuList li:hover{
     background-color: var(--Color-Brand-Secundria-Secondary-60);
 }
 
@@ -127,11 +125,7 @@
         height: 258px;
     }
 
-    .card .card__info-tags{
-        gap: 68px;
-    }
-
-    .card__info-tags .card__tags{
+    .card__infoTags .card__tags{
         width: 50px;
     }
 }
@@ -142,15 +136,11 @@
         height: 258px;        
     }
 
-    .card .card__info-tags{
+    .card .card__infoTags{
         gap: var(--2);
     }
 
-    .card__info-tags .card__tags{
-        width: 20%;
-    }
-
-    .card .card__info-tags .card__info {
+    .card .card__infoTags .card__info {
         width: 60%;
     }
 }

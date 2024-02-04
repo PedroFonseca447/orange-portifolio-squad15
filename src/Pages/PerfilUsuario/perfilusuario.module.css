@@ -15,16 +15,16 @@
     margin-bottom: var(--3);
 }
 
-.perfil__info .perfil__info-img{
+.perfil__info .perfil__infoImg{
     cursor: pointer;
 }
 
-.perfil__info .perfil__info-img img{
+.perfil__info .perfil__infoImg img{
     width: 105px;
     clip-path: circle();
 }
 
-.perfil__info-img #perfil__img{
+#perfil__img{
     display: none;
 }
 
@@ -46,24 +46,20 @@
 
 }
 
-.perfil__img .perfil__img-icon{
-    color: var(--white);
-}
-
-.perfil__img .perfil__img-text{
+.perfil__img .perfil__imgText{
     color: var(--white);
     font-family: var(--roboto);
     margin: 0%;
 }
 
-.perfil__info .perfil__info-text{
+.perfil__info .perfil__infoText{
     font-family: var(--roboto);
     display: flex;
     flex-direction: column;
     gap: var(--1);
 }
 
-.perfil__info .perfil__info-text h1{
+.perfil__info .perfil__infoText h1{
     font-family: var(--roboto);
     margin: 0;
     color: var(--Neutral-Colors-Neutral-120, #303133);
@@ -74,7 +70,7 @@
     text-align: left;
 }
 
-.perfil__info .perfil__info-text p{
+.perfil__info .perfil__infoText p{
     font-family: var(--roboto);
     margin: 0;
     color: var(--Neutral-Colors-Neutral-130);
@@ -94,7 +90,7 @@
     gap: var(--2);
 }
 
-.perfil__form .perfil__form-container{
+.perfil__form .perfil__formContainer{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -102,11 +98,7 @@
     gap: var(--2);
 }
 
-.perfil__form .perfil__form-container .perfil__form-input{
-    width: 100%;
-}
-
-.perfil__form .perfil__form-button{
+.perfil__form .perfil__formButton{
     display: flex;
     padding: 8px 22px;
     width: 100%;
@@ -134,6 +126,35 @@
     cursor: pointer;
 }
 
+.perfil__logout{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+
+    display: flex;
+    padding: 5px 20px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    border-radius: var(--borderRadius);
+    background: var(--action-disabledBackground);
+    opacity: 0.6;
+    text-transform: uppercase;
+    border: none;
+
+    color: var(--action-disabled);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: var(--roboto);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    letter-spacing: 0.46px;
+    text-transform: uppercase;
+}
+
 @keyframes changeImg{
     0%{
         opacity: 0;
@@ -152,7 +173,7 @@
 }
 
 @media screen and (max-width:550px) {
-    .perfil__form .perfil__form-container{
+    .perfil__form .perfil__formContainer{
         flex-direction: column;
     }
 }
