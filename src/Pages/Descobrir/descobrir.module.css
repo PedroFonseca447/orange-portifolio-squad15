@@ -60,7 +60,7 @@ h1{
 }
 
 
-.tags-mobile{
+.tagsMobile{
     display: none;
 }
 
@@ -75,7 +75,7 @@ h1{
         width: 100%;    
     }
 
-    .tags-mobile{
+    .tagsMobile{
         display: flex;
     }
 
