@@ -43,20 +43,6 @@ const PerfilUsuario = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/users/${id}`)
-      .then((response) => {
-        const updatedUser = {
-          ...response.data,
-          country:
-            response.data.country !== undefined ? response.data.country : null,
-        };
-
-        setUser(updatedUser);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    axios
       .get("https://servicodados.ibge.gov.br/api/v1/localidades/paises")
       .then((response) => {
         setCountries(response.data);

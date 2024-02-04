@@ -1,13 +1,11 @@
 .conteudo{
     padding: 8px;
     margin: 8px;
-    font-family: var(--roboto);
-
 }
 
 h1{
     text-align: center;
-    font-family: var(--roboto);
+    font-family: Roboto;
     font-size: 34px;
     font-style: normal;
     font-weight: 400;

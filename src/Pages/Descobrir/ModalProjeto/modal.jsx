@@ -1,38 +1,45 @@
-import React from 'react';
-
-import { Modal, Box, IconButton  } from '@mui/material';
+import { Modal, Box, IconButton, Chip, Tooltip, Typography  } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-import './modal.css';
-
-import { cardsData } from '../../../components/cardsData';
+import styles from'./modal.module.css';
+import { showAvatar, showImg } from '../../../components/functions';
 
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '70%',
-    height: window.innerWidth <= 400 ? '100vh' : '70vh',
-    bgcolor: 'background.paper',
-    overflowY: 'auto',
-    border: '2px solid #000',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "60vw",
+    height: window.innerWidth <= 400 ? "100vh" : "80vh",
+    bgcolor: "background.paper",
+    overflowY: "auto",
+    overflowX: "auto",
     boxShadow: 24,
     p: 4,
     padding: 10,
     margin: 0,
   };
 
+  if (window.innerWidth <= 400) {
+    style.width = "90%";
+  } else {
+    style.width = "60vw";
+  }
+
   const styleBtn = {
     position: 'absolute', 
-    top: 10, 
-    right: 15, 
+    top: 20, 
+    right: 25, 
     color: 'black' 
   }
 
-const ModalProjeto = ({ open, handleClose, cardId }) => {
+const ModalProjeto = ({ open, handleClose, card, user }) => {
 
-    const cardSelecionado = cardsData.find(card => card._id === cardId);
+    const formatDate = (fullDate) => {
+        const date = new Date(fullDate);
+        const options = { year: 'numeric', month: '2-digit' };
+        return date.toLocaleDateString('pt-BR', options);
+    }
 
     return(
         <>
@@ -44,8 +51,8 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                 aria-describedby="modal-modal-description"
                 >
                     
-                    {cardSelecionado && (
-                        <Box sx={style}>
+                    {card && user && (
+                    <Box sx={style}>
 
                         <IconButton
                             edge="end"
@@ -56,44 +63,46 @@ const ModalProjeto = ({ open, handleClose, cardId }) => {
                         >
                             <CloseIcon />
                         </IconButton>
-                            <div className='modal-content'>
-                                <div className='Horizontal-container'>
-                                    <div className='informacoes'>
-                                        <img src={cardSelecionado.avatar} alt={`Avatar do ${cardSelecionado?.name}`} />
-                                        <p>{cardSelecionado.name} {cardSelecionado.lastName}<br /> {cardSelecionado.createdAt}</p>
+                            <div className={styles.modalContent}>
+                                <div className={styles.HorizontalContainer}>
+                                    <div className={styles.informacoes}>
+                                        <img src={showAvatar(user.avatar)} alt="" />
+                                        <p>{user.name} {user.lastName}<br /> {formatDate(card.createdAt)}</p>
                                     </div>
 
-                                        <h3>{cardSelecionado.title}</h3>
+                                        <Typography variant='h4' sx={{alignSelf:'center'}}>{card.title}</Typography>
     
-                                    <div className='tags'>
-                                        {cardSelecionado.tags.map((tag, index) => (
-                                            <React.Fragment key={index}>
-                                                <span className='tag'>{tag}</span>
-                                            </React.Fragment>
+                                    <div className={styles.tag}>
+                                        <Tooltip title={card?.tags?.join(' ')}>
+                                        {card.tags.slice(0,2).map((tag, index) => (
+                                            <Chip label={tag} key={index} />
                                         ))}
+                                        </Tooltip>
                                     </div>
                                 </div>
-                                <div className='projeto'>
-                                    <img src={cardSelecionado.projectImage} alt={`Projeto ${cardSelecionado?.title}`} sizes='100'/>
+                                <div className={styles.projeto}>
+                                    <img 
+                                    src={showImg(card.projectImage)}
+                                    alt="" sizes='100'/>
 
                                     {/* mobile */}
-                                    <div className='informacoes-responsive'>
-                                        <img src={cardSelecionado.avatar} alt={`Avatar do ${cardSelecionado?.name}`} />
-                                        <p>{`${cardSelecionado.name} ${cardSelecionado.lastName} • ${cardSelecionado.createdAt}`}</p>
+                                    <div className={styles.informacoesResponsive}>
+                                        <img src={showAvatar(user.avatar)} alt="" />
+                                        <p>{`${user.name} ${user.lastName} • ${formatDate(card.createdAt)}`}</p>
 
-                                        <div className='tags-responsive'>
-                                        {cardSelecionado.tags.map((tag, index) => (
-                                            <React.Fragment key={index}>
-                                                <span className='tag'>{tag}</span>
-                                            </React.Fragment>
+                                        <div className={styles.tagsResponsive}>
+                                        <Tooltip title={card?.tags?.join(' ')}>
+                                        {card.tags.slice(0,2).map((tag, index) => (
+                                            <Chip label={tag} key={index} />
                                         ))}
+                                        </Tooltip>
                                     </div>
                                     </div>
                                     {/* ====== */}
 
-                                    <p>{cardSelecionado.description}</p>
+                                    <p>{card.description}</p>
                                     <p>Download</p>
-                                    <a href={cardSelecionado.urlGithub}>{cardSelecionado.urlGithub}</a>
+                                    <a href={card.urlGithub}>{card.urlGithub}</a>
                                 </div>
                             </div>    
                         </Box>
