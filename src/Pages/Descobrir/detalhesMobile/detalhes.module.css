@@ -29,3 +29,18 @@
 .container .imgProjeto{
     width: 99%;
 }
+
+@media(min-width: 700px){
+
+    .container{
+        height: 585px;
+        width: 80vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .imgProjeto {
+        height: 585px;
+        width: 100vw;
+    }
+}

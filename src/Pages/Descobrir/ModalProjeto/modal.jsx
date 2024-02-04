@@ -9,8 +9,8 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: "fit-content",
-    height: window.innerWidth <= 400 ? "100vh" : "70vh",
+    width: "60vw",
+    height: window.innerWidth <= 400 ? "100vh" : "80vh",
     bgcolor: "background.paper",
     overflowY: "auto",
     overflowX: "auto",
@@ -23,7 +23,7 @@ const style = {
   if (window.innerWidth <= 400) {
     style.width = "90%";
   } else {
-    style.width = "70%";
+    style.width = "60vw";
   }
 
   const styleBtn = {
@@ -74,14 +74,16 @@ const ModalProjeto = ({ open, handleClose, card, user }) => {
     
                                     <div className={styles.tag}>
                                         <Tooltip title={card?.tags?.join(' ')}>
-                                        {card.tags.slice(0,3).map((tag, index) => (
+                                        {card.tags.slice(0,2).map((tag, index) => (
                                             <Chip label={tag} key={index} />
                                         ))}
                                         </Tooltip>
                                     </div>
                                 </div>
                                 <div className={styles.projeto}>
-                                    <img src={showImg(card.projectImage)} alt="" sizes='100'/>
+                                    <img 
+                                    src={showImg(card.projectImage)}
+                                    alt="" sizes='100'/>
 
                                     {/* mobile */}
                                     <div className={styles.informacoesResponsive}>
@@ -89,9 +91,11 @@ const ModalProjeto = ({ open, handleClose, card, user }) => {
                                         <p>{`${user.name} ${user.lastName} • ${formatDate(card.createdAt)}`}</p>
 
                                         <div className={styles.tagsResponsive}>
-                                        {card.tags.map((tag, index) => (
+                                        <Tooltip title={card?.tags?.join(' ')}>
+                                        {card.tags.slice(0,2).map((tag, index) => (
                                             <Chip label={tag} key={index} />
                                         ))}
+                                        </Tooltip>
                                     </div>
                                     </div>
                                     {/* ====== */}
