@@ -12,6 +12,7 @@ export default function DetalhesMobile() {
 
     const { id } = useParams();
     const [cardSelecionado, setCardSelecionado] = useState(null);
+    const [user, setUser] = useState(null);
 
     // formatação para data
     const formatDate = (fullDate) => {
@@ -26,6 +27,9 @@ export default function DetalhesMobile() {
             api.get(`/projects/${id}`).then((response) => {
                 setCardSelecionado(response.data);
             })
+            api.get(`/users`).then((response) => {
+                setUser(response.data);
+            })
           } catch (error) {
             console.error('Erro ao buscar o projeto:', error);
           }
@@ -36,7 +40,7 @@ export default function DetalhesMobile() {
         <div>
             <Menu />
             {/* tela para visualização de informações do projeto para mobile */}
-                {cardSelecionado && (
+                {cardSelecionado && user && (
                     <div className={styles.container}>
                         <Typography variant='h4' align='center' padding={'20px'}>
                             {cardSelecionado.title}
@@ -45,8 +49,12 @@ export default function DetalhesMobile() {
                         <img src={showImg(cardSelecionado.projectImage)} alt="" className={styles.imgProjeto}/>
 
                         <div className={styles.infos}>
-                            <img src={showAvatar(cardSelecionado.avatar)} alt="avatar" className={styles.foto_usuario} sizes='100'/>
-                            <p>{`${cardSelecionado.name} ${cardSelecionado.lastName} • ${formatDate(cardSelecionado.createdAt)}`}</p>
+                            <img src={showAvatar(user.avatar)} alt="avatar" className={styles.foto_usuario} sizes='100'/>
+                            <p>
+                                {`${user.find((user) => user._id === cardSelecionado.user).name} 
+                                ${user.find((user) => user._id === cardSelecionado.user).lastName} 
+                                • ${formatDate(cardSelecionado.createdAt)}`}
+                            </p>
                             <div>
                             <Tooltip title={cardSelecionado?.tags?.join(' ')}>
                                 {cardSelecionado.tags.slice(0,2).map((tag, index) => (
