@@ -4,16 +4,16 @@
     display:flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+
     font-family: Roboto, Regular;
 }
 
 .HorizontalContainer{
     display: flex;
     padding: var(--none, 0px);
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    gap: 100px;
+    gap: 180px;
 }
 
 .informacoes{
@@ -40,8 +40,9 @@
     justify-content: center;
 }
 
-.projeto img {
-    height: 300px;
+.projeto > img {
+    width: 100%;
+    height: 585px;
     object-fit: cover;
     justify-content: center;
     align-content: center;
@@ -52,7 +53,7 @@
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
 
     .HorizontalContainer{
         gap: 100px;

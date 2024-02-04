@@ -13,9 +13,9 @@ import CollectionsIcon from "@mui/icons-material/Collections";
 import axios from "axios";
 
 const MeusProjetos = () => {
-  const user = JSON.parse(window.localStorage.getItem("user"));
+  const id = JSON.parse(window.localStorage.getItem("user")).uid;
   const [projetos, setProjetos] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState([]);
 
   const [modal, setModal] = useState(null);
   const [tags, setTags] = useState([]);
@@ -23,7 +23,7 @@ const MeusProjetos = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/projects/")
+      .get(`http://localhost:3000/projects/user/${id}`)
       .then((response) => {
         console.log(response.data);
         setProjetos(response.data);
@@ -31,15 +31,14 @@ const MeusProjetos = () => {
       .catch((error) => {
         console.log(error);
       });
-    axios
-      .get("http://localhost:3000/users")
+      axios.get(`http://localhost:3000/users/${id}`)
       .then((response) => {
         console.log(response.data);
-        setUsers(response.data);
+        setUser(response.data)
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
   }, []);
 
   const onCloseModal = () => {
@@ -69,7 +68,6 @@ const MeusProjetos = () => {
   };
 
   const showPreviewCard = (card) => {
-    const user = users.find((user) => user?._id === card?.user);
     const newCard = {
       ...user,
       ...card,
@@ -93,7 +91,6 @@ const MeusProjetos = () => {
   };
 
   const showCard = (card) => {
-    const user = users.find((user) => user?._id === card?.user);
     const newCard = {
       ...user,
       ...card,
@@ -141,8 +138,6 @@ const MeusProjetos = () => {
 
   const onSaveCard = (card) => {
     if (card._id) {
-      console.log("Update card", card);
-
       const formData = new FormData();
       formData.append("file", card?.projectImage);
       formData.append("urlGithub", card?.urlGithub);
@@ -193,7 +188,7 @@ const MeusProjetos = () => {
       formData.append("urlGithub", card?.urlGithub);
       formData.append("title", card?.title);
       formData.append("description", card?.description);
-      formData.append("user", user?.uid);
+      formData.append("user", user?._id);
       formData.append("tags", card?.tags);
 
       const newCard = {
@@ -201,7 +196,7 @@ const MeusProjetos = () => {
         title: card?.title,
         description: card?.description,
         tags: card?.tags,
-        user: user?.uid,
+        user: user?._id,
         projectImage: card?.projectImage,
         createdAt: new Date()
       };
@@ -238,8 +233,6 @@ const MeusProjetos = () => {
     }
   };
 
-  console.log(projetos?.filter((projeto) => projeto?.user === user?.uid));
-
   return (
     <>
       <Menu />
@@ -253,7 +246,7 @@ const MeusProjetos = () => {
         <div className={styles.cardPerfil__info}>
           <div className={styles.cardPerfil__infoUser}>
             <h3>
-              {user?.firstName} {user?.lastName}
+              {user?.name} {user?.lastName}
             </h3>
             <span>{user?.country}</span>
           </div>
@@ -289,7 +282,6 @@ const MeusProjetos = () => {
         />
         {projetos?.filter(
           (projeto) =>
-            projeto?.user === user?.uid &&
             (tags.length === 0 ||
               projeto.tags.some((tagProjeto) =>
                 tags.some(
@@ -324,7 +316,6 @@ const MeusProjetos = () => {
             {projetos
               ?.filter(
                 (projeto) =>
-                  projeto?.user === user?.uid &&
                   (tags.length === 0 ||
                     projeto.tags.some((tagProjeto) =>
                       tags.some(
@@ -339,7 +330,7 @@ const MeusProjetos = () => {
                   data={projeto}
                   onEditCard={onEditCard}
                   onDeleteCard={confirmDeleteCard}
-                  user={users.find((user) => user?._id === projeto?.user)}
+                  user={user}
                   showCard={showCard}
                 />
               ))}

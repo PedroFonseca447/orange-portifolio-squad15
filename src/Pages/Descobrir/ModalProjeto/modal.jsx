@@ -1,4 +1,4 @@
-import { Modal, Box, IconButton, Chip, Tooltip  } from '@mui/material';
+import { Modal, Box, IconButton, Chip, Tooltip, Typography  } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import styles from'./modal.module.css';
@@ -70,7 +70,7 @@ const ModalProjeto = ({ open, handleClose, card, user }) => {
                                         <p>{user.name} {user.lastName}<br /> {formatDate(card.createdAt)}</p>
                                     </div>
 
-                                        <h3>{card.title}</h3>
+                                        <Typography variant='h4' sx={{alignSelf:'center'}}>{card.title}</Typography>
     
                                     <div className={styles.tag}>
                                         <Tooltip title={card?.tags?.join(' ')}>
