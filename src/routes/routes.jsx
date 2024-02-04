@@ -5,8 +5,8 @@ import Protected from "../components/Protected";
 import Signup from "../Pages/TelasLogin/Signup";
 import Login from "../Pages/TelasLogin/Login";
 import Descobrir from "../Pages/Descobrir/descobrir";
-import MeusProjetos from "../Pages/MeusProjetos/MeusProjetos";
-import DetalhesMobile from "../pages/Descobrir/detalhesMobile/detalhesMobile";
+import MeusProjetos from "../pages/MeusProjetos/MeusProjetos";
+import DetalhesMobile from "../Pages/Descobrir/detalhesMobile/detalhesMobile";
 import PerfilUsuario from '../Pages/PerfilUsuario/PerfilUsuario'
 
 const routes = createRoutesFromElements(
