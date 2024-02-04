@@ -1,13 +1,14 @@
-.modal-content{
+.modalContent{
     margin: 0;
     padding: 0;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: Roboto, Regular;
 }
 
-.Horizontal-container{
+.HorizontalContainer{
     display: flex;
     padding: var(--none, 0px);
     justify-content: space-between;
@@ -28,7 +29,8 @@
 }
 
 .tags {
-    display:inline-flex;
+    display:flex;
+    gap: 5px;
 }
 
 .projeto{
@@ -45,37 +47,57 @@
     align-content: center;
 }
 
-.informacoes-responsive{
+.informacoesResponsive{
     display: none;
 }
 
 
-@media (max-width: 450px) {
+@media (max-width: 600px) {
 
-    .Horizontal-container{
+    .HorizontalContainer{
         gap: 100px;
 
     }
-    .informacoes, .tags {
+    .informacoes, .tags, .tag {
         display: none;
     }
 
-    .informacoes-responsive{
+    .informacoesResponsive{
         display: flex;
         gap: 8px;
     }
 
-    .informacoes-responsive img{
+    .informacoesResponsive img{
         width: var(--5, 40px);
         height: var(--5, 40px);
         border-radius: 40px;
         margin-top: 11px;
     }
 
-    .tags-responsive{
+    .tagsResponsive{
         display: flex;
         padding: 10px;
         border-radius: 8px; 
     }
 
+    .tagMobile{
+        display:flex;
+        margin-right: 8px; 
+        padding: 5px;
+        background-color: #EEEEEE; 
+        border-radius: 11px; 
+        font-size: 15px;
+    }
+
 }
+
+/* @keyframes openModal{
+    0%{
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+} */
