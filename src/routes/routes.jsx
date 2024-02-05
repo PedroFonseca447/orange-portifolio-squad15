@@ -10,12 +10,13 @@ import DetalhesMobile from "../Pages/Descobrir/detalhesMobile/detalhesMobile";
 import PerfilUsuario from '../Pages/PerfilUsuario/PerfilUsuario'
 import PerfilPublico from '../Pages/perfilPublico/PerfilPublico'
 
+
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route path="signup" element={<Signup />} />
     <Route path="login" element={<Login />} />
     <Route path="/" element={<Protected />}>
-      <Route path="/" index element={<Descobrir />} />
+      <Route path="/" index element={<MeusProjetos />} />
       <Route path="meus-projetos" element={<MeusProjetos />} />
       <Route path="descobrir" element={<Descobrir />} />
       <Route path="perfil" element={<PerfilUsuario />} />
