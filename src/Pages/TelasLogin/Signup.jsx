@@ -51,20 +51,21 @@ const Signup = () => {
       };
 
       // Carrega o user no bd
-      axios.post('https://orangeportifolio-back-squad15.vercel.app/users/', userProfile)
-      .then((response) => {
-        console.log(response.data);
-        setUserCreatedAlert(true);
-        resetForm();
-  
-        // Fechar o alerta após 6 segundos
-        setTimeout(() => {
-          setUserCreatedAlert(false);
-        }, 6000);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+      axios
+        .post("http://localhost:3000/users/", userProfile)
+        .then((response) => {
+          console.log(response.data);
+          setUserCreatedAlert(true);
+          resetForm();
+
+          // Fechar o alerta após 6 segundos
+          setTimeout(() => {
+            setUserCreatedAlert(false);
+          }, 6000);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
       /* const existingUserProfiles =
         JSON.parse(localStorage.getItem("userProfiles")) || [];
@@ -77,7 +78,6 @@ const Signup = () => {
         "userProfiles",
         JSON.stringify(existingUserProfiles)
       ); */
-
     } catch (error) {
       console.error(error);
     }
@@ -97,7 +97,20 @@ const Signup = () => {
         padding: "0",
       }}
     >
-      <div style={{ flex: "0 0 auto", width: "40%", height: "100%" }}>
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .login-image {
+              display: none;
+            }
+          }
+        `}
+      </style>
+
+      <div
+        className="login-image"
+        style={{ flex: "0 0 auto", width: "40%", height: "100%" }}
+      >
         <img
           src={imgCadastro}
           alt="Imagem de Cadastro"

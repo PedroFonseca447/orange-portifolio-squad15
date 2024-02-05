@@ -145,7 +145,20 @@ const Login = () => {
         padding: "0",
       }}
     >
-      <div style={{ flex: "0 0 auto", width: "40%", height: "100%" }}>
+      <style>
+        {`
+          @media (max-width: 708px) {
+            .login-image {
+              display: none;
+            }
+          }
+        `}
+      </style>
+
+      <div
+        className="login-image"
+        style={{ flex: "0 0 auto", width: "40%", height: "100%" }}
+      >
         <img
           src={imgLogin}
           alt="Imagem de Cadastro"
@@ -165,20 +178,29 @@ const Login = () => {
           margin: "0",
         }}
       >
-        <Typography
-          gutterBottom
+        <div
           style={{
-            color: "#222244",
-            fontSize: "48px",
-            fontFamily: "Roboto, sans-serif",
-            fontWeight: "400",
+            textAlign: "center",
+            marginBottom: "16px", // Adjust margin as needed
           }}
         >
-          Entre no Orange Portfólio
-        </Typography>
-        <button onClick={handleGoogleSignIn} style={{ marginBottom: "16px" }}>
-          Entrar com Google
-        </button>
+          <Typography
+            gutterBottom
+            style={{
+              color: "#222244",
+              fontSize: "48px",
+              fontFamily: "Roboto, sans-serif",
+              fontWeight: "400",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            Entre no Orange Portfólio
+          </Typography>
+          <button onClick={handleGoogleSignIn} style={{ marginBottom: "16px" }}>
+            Entrar com Google
+          </button>
+        </div>
         <form
           onSubmit={handleSubmit}
           className="signup-form"
