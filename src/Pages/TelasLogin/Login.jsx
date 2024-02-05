@@ -11,7 +11,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
   const navigate = useNavigate();
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setIsPasswordValid(newPassword.length >= 6);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,7 +76,15 @@ const Login = () => {
 
       navigate("/");
     } catch (error) {
-      console.error(error);
+      // Handle the specific error case where user is not found
+      if (error.code === "auth/invalid-credential") {
+        alert(
+          "Este usuário não está cadastrado ou senha errada. Tente outra senha ou faça seu cadastro."
+        );
+      } else {
+        // Log other errors to console
+        console.error(error);
+      }
     }
   };
 
@@ -250,7 +265,13 @@ const Login = () => {
               margin="normal"
               required
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
+              error={!isPasswordValid}
+              helperText={
+                !isPasswordValid
+                  ? "A senha deve ter pelo menos 6 caracteres"
+                  : ""
+              }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -266,6 +287,7 @@ const Login = () => {
               type="submit"
               variant="contained"
               color="primary"
+              disabled={!isPasswordValid}
               style={{
                 marginBottom: "8px",
                 backgroundColor: "#ff5522",
