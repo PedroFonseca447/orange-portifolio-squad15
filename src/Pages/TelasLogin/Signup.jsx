@@ -51,7 +51,7 @@ const Signup = () => {
       };
 
       // Carrega o user no bd
-      axios.post('http://localhost:3000/users/', userProfile)
+      axios.post('https://orangeportifolio-back-squad15.vercel.app/users/', userProfile)
       .then((response) => {
         console.log(response.data);
         setUserCreatedAlert(true);

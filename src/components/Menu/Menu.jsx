@@ -21,7 +21,7 @@ const Menu = () => {
   const id = getId()
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/users/${id}`)
+    axios.get(`https://orangeportifolio-back-squad15.vercel.app/users/${id}`)
     .then((response) => {
       console.log(response.data);
       setUser(response.data)
