@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { auth } from "../../services/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, provider } from "../../services/firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography, Button, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
 import imgLogin from "../../assets/img_login.png";
-import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +15,22 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if the user has logged in with Google
+    const existingUserProfiles =
+      JSON.parse(localStorage.getItem("userProfiles")) || [];
+    const userProfile = existingUserProfiles.find(
+      (profile) => profile.email === email
+    );
+
+    if (userProfile && userProfile.avatar) {
+      // If the user has logged in with Google, display a message
+      alert(
+        "Parece que você já se cadastrou via Google. Clique no botão 'Entrar com Google'"
+      );
+      return;
+    }
+
     try {
       // Firebase login
       const userCredential = await signInWithEmailAndPassword(
@@ -25,8 +40,91 @@ const Login = () => {
       );
       const user = userCredential.user;
 
+      if (userProfile) {
+        const mergedUser = {
+          uid: user.uid,
+          email: user.email,
+          firstName: userProfile.firstName,
+          lastName: userProfile.lastName,
+        };
+
+        localStorage.setItem("user", JSON.stringify(mergedUser));
+      } else {
+        const newUserProfile = {
+          uid: user.uid,
+          email: user.email,
+        };
+
+        existingUserProfiles.push(newUserProfile);
+
+        localStorage.setItem(
+          "userProfiles",
+          JSON.stringify(existingUserProfiles)
+        );
+
+        localStorage.setItem("user", JSON.stringify(newUserProfile));
+      }
+
       localStorage.setItem("token", user.accessToken);
 
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const credential = result.credential;
+
+      // Additional user information from Google
+      const firstName = user.displayName.split(" ")[0];
+      const lastName = user.displayName.split(" ")[1];
+
+      // Check if user already exists in local storage
+      const existingUserProfiles =
+        JSON.parse(localStorage.getItem("userProfiles")) || [];
+
+      const userProfile = existingUserProfiles.find(
+        (profile) => profile.email === user.email
+      );
+
+      if (userProfile) {
+        // If user exists, merge the information
+        const mergedUser = {
+          uid: user.uid,
+          email: user.email,
+          firstName,
+          lastName,
+          avatar: user.photoURL,
+        };
+
+        localStorage.setItem("user", JSON.stringify(mergedUser));
+      } else {
+        // If user doesn't exist, save their information in local storage
+        const newUserProfile = {
+          uid: user.uid,
+          email: user.email,
+          firstName,
+          lastName,
+          country: "", // Add default values or fetch from user data
+          avatar: user.photoURL, // You can also get the user's profile picture
+        };
+
+        existingUserProfiles.push(newUserProfile);
+
+        localStorage.setItem(
+          "userProfiles",
+          JSON.stringify(existingUserProfiles)
+        );
+        localStorage.setItem("user", JSON.stringify(newUserProfile));
+      }
+
+      const token = await user.getIdToken();
+      localStorage.setItem("token", token);
+      // Redirect to the home page ("/") after successful login
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -78,6 +176,9 @@ const Login = () => {
         >
           Entre no Orange Portfólio
         </Typography>
+        <button onClick={handleGoogleSignIn} style={{ marginBottom: "16px" }}>
+          Entrar com Google
+        </button>
         <form
           onSubmit={handleSubmit}
           className="signup-form"
