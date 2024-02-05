@@ -1,3 +1,7 @@
+*{
+    font-family: Roboto, Regular;
+}
+
 .cardPerfil{
     display: flex;
     align-items: center;
@@ -6,7 +10,7 @@
     margin-bottom: 24px;
     gap: 42px;
     flex-wrap: wrap;
-    padding: var(--none) var(--2);
+
 }
 
 .cardPerfil__img{
@@ -84,78 +88,15 @@
     display: flex;
     gap: 10px;
     justify-content: center;
-    margin-right: 50px;
+    margin-right: 200px;
 }
 
-.meusProjetos{
-    margin: 32px;
-    margin-bottom: 100px;
-}
-
-.meusProjetos h6{
-    color: var(--Neutral-Colors-Neutral-120);
-    font-family: Roboto;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: 0.15px;
-    opacity: 0.6;
-    margin: 0;
-    margin-bottom: var(--2);
-}
-
-.meusProjetos__inputTags{
-    width: 513px;
-    margin-bottom: 40px;
-}
-
-.meusProjetos__addProjetos{
+.infoContainer{
     display: flex;
-    width: 389px;
-    height: 258px;
-    justify-content: center;
-    align-items: center;
-    gap: 0px;
-    flex-shrink: 0;
-    border-radius: var(--borderRadius);
-    background-color: var(--Neutral-Colors-Neutral-70);
-    margin-top: 40px;
-    cursor: pointer;
+    gap: 25px;
 }
 
-.addProjetos__container p{
-    color: var(--Neutral-Colors-Neutral-120);
-    font-family:var(--roboto);
-    font-style: normal;
-    font-weight: 400;
-    opacity: 0.6;
-    margin: var(--none);
-    align-self: flex-start;
-}
-.addProjetos__container p:first-child{
-    line-height: 16px;
-    font-size: 16px;
-    letter-spacing: 0.5px;
-}
-.addProjetos__container p:last-child{
-    line-height: 14px;
-    font-size: 14px;
-    letter-spacing: 0.25px;
-}
-
-.addProjetos__container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--2);
-    width: 270px;
-    height: 122px;
-    flex-shrink: 0;
-}
-
-.meusProjetos .cards{
+ .cards{
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -163,6 +104,26 @@
     width: 100%;
     gap: 24px;
     margin: 3px;
+}
+
+.cards span{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.cards .imgProject{
+    width: 389px;
+    height: 258px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 5px;
+}
+
+.card .avatar{
+    height: 38px;
+    width: 38px;
+    border-radius: 50px;
 }
 
 

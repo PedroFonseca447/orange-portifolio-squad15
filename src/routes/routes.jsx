@@ -7,15 +7,15 @@ import Login from "../pages/TelasLogin/Login";
 import Descobrir from "../pages/Descobrir/descobrir";
 import MeusProjetos from "../Pages/MeusProjetos/MeusProjetos";
 import DetalhesMobile from "../pages/Descobrir/detalhesMobile/detalhesMobile";
-import PerfilUsuario from '../Pages/PerfilUsuario/PerfilUsuario'
-import PerfilPublico from '../Pages/perfilPublico/PerfilPublico'
+import PerfilUsuario from '../Pages/PerfilUsuario/PerfilUsuario';
+import PerfilPublico from '../Pages/perfilPublico/PerfilPublico';
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route path="signup" element={<Signup />} />
     <Route path="login" element={<Login />} />
     <Route path="/" element={<Protected />}>
-      <Route path="/" index element={<Descobrir />} />
+      <Route path="/" index element={<MeusProjetos />} />
       <Route path="meus-projetos" element={<MeusProjetos />} />
       <Route path="descobrir" element={<Descobrir />} />
       <Route path="perfil" element={<PerfilUsuario />} />

@@ -82,17 +82,17 @@ const ModalProjeto = ({ open, handleClose, card, user }) => {
                                 </div>
                                 <div className={styles.projeto}>
                                     <img 
-                                    src={showImg(card.projectImage)}
+                                    src={showImg(card?.projectImage)}
                                     alt="" sizes='100'/>
 
                                     {/* mobile */}
                                     <div className={styles.informacoesResponsive}>
-                                        <img src={showAvatar(user.avatar)} alt="" />
-                                        <p>{`${user.name} ${user.lastName} • ${formatDate(card.createdAt)}`}</p>
+                                        <img src={showAvatar(user?.avatar)} alt="" />
+                                        <p>{`${user?.name} ${user?.lastName} • ${formatDate(card?.createdAt)}`}</p>
 
                                         <div className={styles.tagsResponsive}>
                                         <Tooltip title={card?.tags?.join(' ')}>
-                                        {card.tags.slice(0,2).map((tag, index) => (
+                                        {card?.tags?.slice(0,2).map((tag, index) => (
                                             <Chip label={tag} key={index} />
                                         ))}
                                         </Tooltip>
@@ -100,9 +100,9 @@ const ModalProjeto = ({ open, handleClose, card, user }) => {
                                     </div>
                                     {/* ====== */}
 
-                                    <p>{card.description}</p>
+                                    <p>{card?.description}</p>
                                     <p>Download</p>
-                                    <a href={card.urlGithub}>{card.urlGithub}</a>
+                                    <a href={card?.urlGithub}>{card?.urlGithub}</a>
                                 </div>
                             </div>    
                         </Box>

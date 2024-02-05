@@ -45,7 +45,7 @@ h1{
 .card img {
     width: 389px;
     height: 258px;
-    border-radius: var(--borderRadius, 4px);
+    border-radius: v(ar--borderRadius, 4px);
     cursor: pointer;
 }
 
