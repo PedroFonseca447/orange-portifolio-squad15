@@ -1,4 +1,3 @@
-// Signup.jsx
 import React, { useState } from "react";
 import { auth } from "../../services/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -18,6 +17,10 @@ const Signup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userCreatedAlert, setUserCreatedAlert] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isFirstNameValid, setIsFirstNameValid] = useState(true);
+  const [isLastNameValid, setIsLastNameValid] = useState(true);
 
   const resetForm = () => {
     setEmail("");
@@ -26,61 +29,56 @@ const Signup = () => {
     setFirstName("");
     setLastName("");
   };
-
-  const navigate = useNavigate();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Sobe user para o Firebase
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      // Verifica se todas as validações foram bem-sucedidas
+      if (
+        isEmailValid &&
+        isPasswordValid &&
+        isFirstNameFormatValid &&
+        isLastNameFormatValid
+      ) {
+        // Sobe user para o Firebase
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
-      // Retorno de alguns dados do Firebase
-      const user = userCredential.user;
+        // Retorno de alguns dados do Firebase
+        const user = userCredential.user;
 
-      // Cria array com info do user
-      const userProfile = {
-        _id: user.uid,
-        email: user.email,
-        name: firstName,
-        lastName,
-      };
+        // Cria array com info do user
+        const userProfile = {
+          _id: user.uid,
+          email: user.email,
+          name: firstName,
+          lastName,
+        };
 
-      // Carrega o user no bd
-      axios
-        .post(
-          "https://orangeportifolio-back-squad15.vercel.app/users/",
-          userProfile
-        )
-        .then((response) => {
-          console.log(response.data);
-          setUserCreatedAlert(true);
-          resetForm();
+        // Carrega o user no bd
+        axios
+          .post(
+            "https://orangeportifolio-back-squad15.vercel.app/users/",
+            userProfile
+          )
+          .then((response) => {
+            console.log(response.data);
+            setUserCreatedAlert(true);
+            resetForm();
 
-          // Fechar o alerta após 6 segundos
-          setTimeout(() => {
-            setUserCreatedAlert(false);
-          }, 6000);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-      /* const existingUserProfiles =
-        JSON.parse(localStorage.getItem("userProfiles")) || [];
-
-      // Se o array já estiver criado, só envia
-      existingUserProfiles.push(userProfile);
-
-      //  Salva no localStorage
-      localStorage.setItem(
-        "userProfiles",
-        JSON.stringify(existingUserProfiles)
-      ); */
+            // Fechar o alerta após 6 segundos
+            setTimeout(() => {
+              setUserCreatedAlert(false);
+            }, 6000);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -88,6 +86,29 @@ const Signup = () => {
 
   const handleTooglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setIsPasswordValid(newPassword.length >= 6);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setIsEmailValid(emailRegex.test(e.target.value));
+  };
+
+  const handleNameChange = (e) => {
+    const nameEdit = e.target.value;
+    setFirstName(nameEdit);
+    setIsFirstNameValid(nameEdit.length >= 2 || nameEdit.lenght <= 20);
+  };
+
+  const handleLastNameChange = (e) => {
+    const lastnameEdit = e.target.value;
+    setLastName(lastnameEdit);
+    setIsLastNameValid(lastnameEdit.length >= 2 || lastnameEdit.lenght <= 35);
   };
 
   return (
@@ -185,7 +206,13 @@ const Signup = () => {
               margin="normal"
               required
               value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={handleNameChange}
+              error={!isFirstNameValid}
+              helperText={
+                !isFirstNameValid
+                  ? "O nome deve ter entre 2 e 20 caracteres"
+                  : ""
+              }
               style={{ width: "50%", marginRight: "16px" }}
             />
             <TextField
@@ -195,7 +222,13 @@ const Signup = () => {
               margin="normal"
               required
               value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              onChange={handleLastNameChange}
+              error={!isLastNameValid}
+              helperText={
+                !isLastNameValid
+                  ? "O sobrenome deve ter entre 2 e 35 caracteres"
+                  : ""
+              }
               style={{ width: "50%" }}
             />
           </div>
@@ -215,7 +248,9 @@ const Signup = () => {
               margin="normal"
               required
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
+              error={!isEmailValid}
+              helperText={!isEmailValid ? "Insira um e-mail válido" : ""}
               style={{ marginBottom: "16px", marginTop: "0px" }}
             />
             <TextField
@@ -225,7 +260,13 @@ const Signup = () => {
               margin="normal"
               required
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
+              error={!isPasswordValid}
+              helperText={
+                !isPasswordValid
+                  ? "A senha deve ter pelo menos 6 caracteres"
+                  : ""
+              }
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -241,6 +282,12 @@ const Signup = () => {
               type="submit"
               variant="contained"
               color="primary"
+              disabled={
+                !isPasswordValid ||
+                !isEmailValid ||
+                !isFirstNameValid ||
+                !isLastNameValid
+              }
               style={{
                 marginBottom: "8px",
                 backgroundColor: "#ff5522",
