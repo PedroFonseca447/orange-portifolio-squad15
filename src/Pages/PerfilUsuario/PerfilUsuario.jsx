@@ -32,7 +32,7 @@ const PerfilUsuario = () => {
 
   useEffect(() => {
     axios
-    .get(`https://orangeportifolio-back-squad15.vercel.app/users/${id}`)
+    .get(`https://orange-back-squad15.onrender.com/users/${id}`)
     .then((response) => {
       const updatedUser = {
         ...response.data,
@@ -65,7 +65,7 @@ const PerfilUsuario = () => {
     formData.append("country", user?.country);
 
     axios
-      .patch(`https://orangeportifolio-back-squad15.vercel.app/${id}`, formData, {
+      .patch(`https://orange-back-squad15.onrender.com/users/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

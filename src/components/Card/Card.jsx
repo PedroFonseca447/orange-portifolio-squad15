@@ -11,6 +11,7 @@ const Card = ({data, onEditCard, onDeleteCard, user, showCard}) => {
     const newDate = new Date(data?.createdAt)
 
     const date = `${(newDate.getMonth()+1).toString().padStart(2, '0')}/${newDate.getFullYear().toString().substr(2)}`
+    console.log(data?.projectImage);
 
   return (
     <div className={styles.card}>

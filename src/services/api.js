@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://orangeportifolio-back-squad15.vercel.app/",
+  baseURL: "https://orange-back-squad15.onrender.com/",
   headers: {
     "Content-type": "application/json",
   },

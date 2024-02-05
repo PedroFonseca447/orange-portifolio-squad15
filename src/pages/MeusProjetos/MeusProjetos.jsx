@@ -23,7 +23,7 @@ const MeusProjetos = () => {
 
   useEffect(() => {
     axios
-      .get(`https://orangeportifolio-back-squad15.vercel.app/projects/user/${id}`)
+      .get(`https://orange-back-squad15.onrender.com/projects/user/${id}`)
       .then((response) => {
         console.log(response.data);
         setProjetos(response.data);
@@ -31,7 +31,7 @@ const MeusProjetos = () => {
       .catch((error) => {
         console.log(error);
       });
-      axios.get(`https://orangeportifolio-back-squad15.vercel.app/users/${id}`)
+      axios.get(`https://orange-back-squad15.onrender.com/users/${id}`)
       .then((response) => {
         console.log(response.data);
         setUser(response.data)
@@ -39,7 +39,7 @@ const MeusProjetos = () => {
       .catch((error) => {
         console.log(error);
       })
-      axios.get(`https://orangeportifolio-back-squad15.vercel.app/users/`)
+      axios.get(`https://orange-back-squad15.onrender.com/users/`)
       .then((response) => {
         console.log(response.data);
       })
@@ -122,7 +122,7 @@ const MeusProjetos = () => {
 
   const onDeleteCard = (card) => {
     axios
-      .delete(`https://orangeportifolio-back-squad15.vercel.app/projects/${card._id}`)
+      .delete(`https://orange-back-squad15.onrender.com/projects/${card._id}`)
       .then((response) => {
         console.log(response.data);
       })
@@ -163,7 +163,7 @@ const MeusProjetos = () => {
       };
 
       axios
-        .post(`https://orangeportifolio-back-squad15.vercel.app/projects/`, formData, {
+        .post(`https://orange-back-squad15.onrender.com/projects/`, formData, {
           headers:{
             'Content-Type': 'multipart/form-data'
           }
@@ -202,7 +202,7 @@ const editCard = (card) => {
     formData.append("tags", card?.tags);
 
     axios
-      .patch(`https://orangeportifolio-back-squad15.vercel.app/projects/${card._id}`, formData, {
+      .patch(`https://orange-back-squad15.onrender.com/projects/${card._id}`, formData, {
         headers:{
           'Content-Type': 'multipart/form-data'
         }
