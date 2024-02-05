@@ -2,13 +2,14 @@ import React from "react";
 import { Route, createRoutesFromElements } from "react-router-dom";
 import App from "../App";
 import Protected from "../components/Protected";
-import Signup from "../pages/TelasLogin/Signup";
-import Login from "../pages/TelasLogin/Login";
-import Descobrir from "../pages/Descobrir/descobrir";
-import MeusProjetos from "../Pages/MeusProjetos/MeusProjetos";
-import DetalhesMobile from "../pages/Descobrir/detalhesMobile/detalhesMobile";
-import PerfilUsuario from '../Pages/PerfilUsuario/PerfilUsuario';
-import PerfilPublico from '../Pages/perfilPublico/PerfilPublico';
+import Signup from "../Pages/TelasLogin/Signup";
+import Login from "../Pages/TelasLogin/Login";
+import Descobrir from "../Pages/Descobrir/descobrir";
+import MeusProjetos from "../pages/MeusProjetos/MeusProjetos";
+import DetalhesMobile from "../Pages/Descobrir/detalhesMobile/detalhesMobile";
+import PerfilUsuario from '../Pages/PerfilUsuario/PerfilUsuario'
+import PerfilPublico from '../Pages/perfilPublico/PerfilPublico'
+
 
 const routes = createRoutesFromElements(
   <Route path="/" element={<App />}>

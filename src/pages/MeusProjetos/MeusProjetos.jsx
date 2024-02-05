@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./meusprojetos.module.css";
+import styles from "../../Pages/MeusProjetos/meusprojetos.module.css";
 import Menu from "../../components/Menu/Menu";
 import Card from "../../components/Card/Card";
 import ModalProjetoManager from "../../components/ModalProjetoManager/ModalProjetoManager";
