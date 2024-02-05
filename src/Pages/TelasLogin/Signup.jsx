@@ -38,8 +38,8 @@ const Signup = () => {
       if (
         isEmailValid &&
         isPasswordValid &&
-        isFirstNameFormatValid &&
-        isLastNameFormatValid
+        isFirstNameValid &&
+        isLastNameValid
       ) {
         // Sobe user para o Firebase
         const userCredential = await createUserWithEmailAndPassword(

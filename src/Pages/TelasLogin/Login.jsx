@@ -6,6 +6,7 @@ import { Typography, Button, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
 import imgLogin from "../../assets/img_login.png";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,19 +25,24 @@ const Login = () => {
     e.preventDefault();
 
     // Check if the user has logged in with Google
-    const existingUserProfiles =
-      JSON.parse(localStorage.getItem("userProfiles")) || [];
-    const userProfile = existingUserProfiles.find(
-      (profile) => profile.email === email
-    );
-
-    if (userProfile && userProfile.avatar) {
-      // If the user has logged in with Google, display a message
-      alert(
-        "Parece que você já se cadastrou via Google. Clique no botão 'Entrar com Google'"
+    axios.get('https://orange-back-squad15.onrender.com/users/')
+    .then((response) => {
+      const existingUserProfiles = response.data
+      const userProfile = existingUserProfiles.find(
+        (profile) => profile.email === email
       );
-      return;
-    }
+  
+      if (userProfile && userProfile.avatar.startsWith('https://')) {
+        // If the user has logged in with Google, display a message
+        alert(
+          "Parece que você já se cadastrou via Google. Clique no botão 'Entrar com Google'"
+        );
+        return;
+      }
+    })
+    .catch((error) =>{
+      console.log(error);
+    })
 
     try {
       // Firebase login
@@ -46,31 +52,6 @@ const Login = () => {
         password
       );
       const user = userCredential.user;
-
-      if (userProfile) {
-        const mergedUser = {
-          uid: user.uid,
-          email: user.email,
-          firstName: userProfile.firstName,
-          lastName: userProfile.lastName,
-        };
-
-        localStorage.setItem("user", JSON.stringify(mergedUser));
-      } else {
-        const newUserProfile = {
-          uid: user.uid,
-          email: user.email,
-        };
-
-        existingUserProfiles.push(newUserProfile);
-
-        localStorage.setItem(
-          "userProfiles",
-          JSON.stringify(existingUserProfiles)
-        );
-
-        localStorage.setItem("user", JSON.stringify(newUserProfile));
-      }
 
       localStorage.setItem("token", user.accessToken);
 
@@ -98,44 +79,61 @@ const Login = () => {
       const firstName = user.displayName.split(" ")[0];
       const lastName = user.displayName.split(" ")[1];
 
-      // Check if user already exists in local storage
-      const existingUserProfiles =
-        JSON.parse(localStorage.getItem("userProfiles")) || [];
-
+      // Check if user already exists in bd
+    axios.get('https://orange-back-squad15.onrender.com/users/')
+    .then((response) => {
+      const existingUserProfiles = response.data
       const userProfile = existingUserProfiles.find(
         (profile) => profile.email === user.email
       );
-
+      console.log('puxando');
+  
       if (userProfile) {
         // If user exists, merge the information
         const mergedUser = {
-          uid: user.uid,
+          _id: user.uid,
           email: user.email,
-          firstName,
+          name: firstName,
           lastName,
           avatar: user.photoURL,
         };
-
-        localStorage.setItem("user", JSON.stringify(mergedUser));
+  
+        console.log("atualizarei");
+        axios.patch(`https://orange-back-squad15.onrender.com/users/${userProfile._id}`, mergedUser)
+        .then((response) => {
+          console.log(response.data);
+          console.log("atualizei");
+        })
+        .catch((error) => {
+          console.log(error);
+        })
       } else {
         // If user doesn't exist, save their information in local storage
         const newUserProfile = {
-          uid: user.uid,
+          _id: user.uid,
           email: user.email,
-          firstName,
+          name: firstName,
           lastName,
           country: "", // Add default values or fetch from user data
           avatar: user.photoURL, // You can also get the user's profile picture
         };
-
-        existingUserProfiles.push(newUserProfile);
-
-        localStorage.setItem(
-          "userProfiles",
-          JSON.stringify(existingUserProfiles)
-        );
-        localStorage.setItem("user", JSON.stringify(newUserProfile));
+        console.log("novo");
+  
+        axios.post(`https://orange-back-squad15.onrender.com/users/`, newUserProfile)
+        .then((response) => {
+          console.log("criarei");
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
       }
+
+    })
+    .catch((error) =>{
+      console.log(error);
+    })
+
 
       const token = await user.getIdToken();
       localStorage.setItem("token", token);
@@ -212,7 +210,8 @@ const Login = () => {
           >
             Entre no Orange Portfólio
           </Typography>
-          <button onClick={handleGoogleSignIn} style={{ marginBottom: "16px" }}>
+          <button onClick={handleGoogleSignIn} style={{ marginBottom: "16px", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '40px', width: '175px', boxShadow: '0px 3px 1px -2px rgba(0, 0, 0, 0.20), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)', color:'#757575', backgroundColor: '#fff', margin: '0 auto', border: 'none', borderRadius: '4px', gap: '8px', fontWeight: '600', fontFamily: 'var(--roboto)', cursor: 'pointer' }}>
+            <img src="https://logopng.com.br/logos/google-37.png" alt="imagem google" style={{width: '20px'}}/>
             Entrar com Google
           </button>
         </div>
