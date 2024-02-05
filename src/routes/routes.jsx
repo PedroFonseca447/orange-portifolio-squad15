@@ -8,7 +8,7 @@ import Descobrir from "../Pages/Descobrir/descobrir";
 import MeusProjetos from "../pages/MeusProjetos/MeusProjetos";
 import DetalhesMobile from "../Pages/Descobrir/detalhesMobile/detalhesMobile";
 import PerfilUsuario from '../Pages/PerfilUsuario/PerfilUsuario'
-import PerfilPublico from '../Pages/perfilPublico/PerfilPublico'
+import PerfilPublico from '../pages/perfilPublico/PerfilPublico'
 
 
 const routes = createRoutesFromElements(
